@@ -164,7 +164,7 @@ export class WorkflowBuilderComponent implements OnInit {
   public createWorkflow(): void {
     const payload: any = {
       title: this.newWorkflow.title,
-      knowledgeType: this.newWorkflow.knowledgeType,
+      knowledgeType: this.newWorkflow.knowledgeType || 'EXPERIENCE',
       isActive: true
     };
     if (this.newWorkflow.secretariatId) {
