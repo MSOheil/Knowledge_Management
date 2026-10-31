@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changes/001-initial-core-schema.yaml
+  - include:
+      file: db/changelog/changes/20261031100000_create_knowledge_tree_and_item_tables.yaml

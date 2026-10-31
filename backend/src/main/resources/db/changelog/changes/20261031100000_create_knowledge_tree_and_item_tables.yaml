@@ -1,0 +1,180 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261031100000-create-knowledge-nodes-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: knowledge_nodes
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: parent_id
+                  type: UUID
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: VARCHAR(50)
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: node_order
+                  type: INT
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: knowledge_nodes
+            baseColumnNames: parent_id
+            referencedTableName: knowledge_nodes
+            referencedColumnNames: id
+            constraintName: fk_knowledge_nodes_parent
+            onDelete: CASCADE
+        - createIndex:
+            indexName: idx_knowledge_nodes_parent_id
+            tableName: knowledge_nodes
+            columns:
+              - column:
+                  name: parent_id
+        - createIndex:
+            indexName: idx_knowledge_nodes_code
+            tableName: knowledge_nodes
+            columns:
+              - column:
+                  name: code
+        - createIndex:
+            indexName: idx_knowledge_nodes_is_active
+            tableName: knowledge_nodes
+            columns:
+              - column:
+                  name: is_active
+
+  - changeSet:
+      id: 20261031100000-create-knowledge-items-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: knowledge_items
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: node_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: knowledge_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: content
+                  type: TEXT
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: DRAFT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: knowledge_items
+            baseColumnNames: node_id
+            referencedTableName: knowledge_nodes
+            referencedColumnNames: id
+            constraintName: fk_knowledge_items_node
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: knowledge_items
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_knowledge_items_user
+            onDelete: SET NULL
+        - createIndex:
+            indexName: idx_knowledge_items_node_id
+            tableName: knowledge_items
+            columns:
+              - column:
+                  name: node_id
+        - createIndex:
+            indexName: idx_knowledge_items_user_id
+            tableName: knowledge_items
+            columns:
+              - column:
+                  name: user_id
+        - createIndex:
+            indexName: idx_knowledge_items_status
+            tableName: knowledge_items
+            columns:
+              - column:
+                  name: status
+        - createIndex:
+            indexName: idx_knowledge_items_type
+            tableName: knowledge_items
+            columns:
+              - column:
+                  name: knowledge_type

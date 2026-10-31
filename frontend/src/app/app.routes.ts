@@ -15,6 +15,16 @@ export const routes: Routes = [
         path: 'auth/login',
         loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent),
         title: 'ورود به سامانه | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'admin/knowledge-tree',
+        loadComponent: () => import('./features/admin/knowledge-tree/knowledge-tree.component').then(m => m.KnowledgeTreeComponent),
+        title: 'مدیریت درخت دانش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'knowledge-tree',
+        loadComponent: () => import('./features/admin/knowledge-tree/knowledge-tree.component').then(m => m.KnowledgeTreeComponent),
+        title: 'درخت دانش | سامانه مدیریت دانش شهرداری اصفهان'
       }
     ]
   },
