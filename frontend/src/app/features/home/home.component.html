@@ -1,113 +1,331 @@
-<div class="space-y-12">
+<div class="space-y-12 sm:space-y-16">
   
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-900 via-teal-900 to-slate-900 text-white p-8 sm:p-12 lg:p-16 shadow-xl border border-cyan-800/40">
-    <!-- Decorative Glows -->
-    <div class="absolute -top-24 -end-24 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-24 -start-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- ========================================== -->
+  <!-- 1. GRAND PERSIAN TURQUOISE HERO SECTION    -->
+  <!-- ========================================== -->
+  <section class="relative overflow-hidden rounded-3xl bg-turquoise-mesh text-white p-6 sm:p-10 lg:p-14 shadow-2xl border border-teal-500/30">
+    <!-- Subtle Islamic Girih Background Grid -->
+    <div class="absolute inset-0 bg-girih-pattern opacity-15 pointer-events-none"></div>
 
-    <div class="relative z-10 max-w-3xl space-y-6">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 text-xs font-semibold">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-        <span>شهرداری اصفهان — سرمایه فکری و مدیریت دانش</span>
+    <!-- Glowing Decorative Orbs -->
+    <div class="absolute -top-32 -end-32 w-[450px] h-[450px] bg-teal-400/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -start-32 w-[450px] h-[450px] bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-4xl space-y-6">
+      
+      <!-- Governmental Top Authority Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-teal-200">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-xs shadow-emerald-400/80"></span>
+        <span>سامانه رسمی مدیریت دانش و سرمایه فکری شهرداری اصفهان</span>
       </div>
 
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-        {{ i18n.translate('HOME.HERO_TITLE') }}
+      <!-- Main Headline -->
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight sm:leading-snug">
+        نوآوری، تجارب سازمانی و سرمایه فکری در خدمت اصفهان زیست‌پذیر
       </h1>
 
-      <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-        {{ i18n.translate('HOME.HERO_DESC') }}
+      <!-- Slogan / Sub-description -->
+      <p class="text-sm sm:text-base lg:text-lg text-teal-100/90 leading-relaxed max-w-3xl font-normal">
+        بستر یکپارچه ثبت نوآوری‌ها، مستندسازی هوشمند تجارب، ارزیابی چندمرحله‌ای تخصصی و کاربست درس‌آموخته‌های مدیران و کارشناسان در مدیریت شهری اصفهان
       </p>
 
-      <!-- CTA Buttons -->
-      <div class="flex flex-wrap items-center gap-4 pt-4">
-        <a routerLink="/auth/login"
-           class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white shadow-lg shadow-cyan-500/25 transition-all">
-          <svg class="w-5 h-5 me-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <!-- Universal Knowledge Search Bar -->
+      <div class="pt-2 max-w-3xl">
+        <form (ngSubmit)="executeSearch()" class="relative flex items-center shadow-xl rounded-2xl overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-teal-300/40 dark:border-teal-700/50 p-1.5 focus-within:ring-2 focus-within:ring-amber-400 transition-all">
+          <div class="ps-3 text-teal-700 dark:text-teal-400 shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            name="searchQuery"
+            placeholder="جستجو در هزاران تجربه، درس‌آموخته، طرح عمرانی و مستند دانشی شهرداری اصفهان..."
+            class="w-full px-3 py-2.5 bg-transparent text-slate-800 dark:text-slate-100 placeholder-slate-400 text-xs sm:text-sm focus:outline-hidden"
+          />
+          <button
+            type="submit"
+            class="shrink-0 px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-teal-700 via-teal-600 to-cyan-600 hover:from-teal-600 hover:to-cyan-500 text-white shadow-md transition-all">
+            جستجو
+          </button>
+        </form>
+
+        <!-- Quick Search Suggestion Tags -->
+        <div class="flex flex-wrap items-center gap-2 pt-3 text-xs text-teal-200">
+          <span class="font-medium text-teal-300 hidden sm:inline">کلیدواژه‌های پرکاربرد:</span>
+          @for (tag of quickSearchTags; track tag) {
+            <button
+              (click)="searchTag(tag)"
+              type="button"
+              class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors">
+              {{ tag }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Hero Call-To-Action Buttons -->
+      <div class="flex flex-wrap items-center gap-3 pt-3">
+        <a routerLink="/submit-knowledge"
+           class="inline-flex items-center justify-center px-5 sm:px-6 py-3 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 transition-all">
+          <svg class="w-4 h-4 me-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
           </svg>
-          {{ i18n.translate('HOME.QUICK_ACTION_SUBMIT') }}
+          ثبت تجربه / دانش جدید
         </a>
 
-        <a routerLink="/knowledge-tree"
-           class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-bold text-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-xs transition-all">
-          <svg class="w-5 h-5 me-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <a routerLink="/panels"
+           class="inline-flex items-center justify-center px-5 sm:px-6 py-3 rounded-xl font-bold text-xs sm:text-sm bg-teal-800/80 hover:bg-teal-700 text-white border border-teal-400/40 backdrop-blur-xs transition-all shadow-md">
+          <svg class="w-4 h-4 me-2 text-teal-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
           </svg>
-          {{ i18n.translate('HOME.QUICK_ACTION_BROWSE') }}
+          <span>پویش‌های ویژه تجربه</span>
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 ms-2 animate-ping"></span>
+        </a>
+
+        <a routerLink="/evaluation"
+           class="inline-flex items-center justify-center px-5 sm:px-6 py-3 rounded-xl font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-xs transition-all">
+          <svg class="w-4 h-4 me-2 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+          میز داوری و ارزیابی
         </a>
       </div>
+
     </div>
   </section>
 
-  <!-- Statistics Grid -->
+  <!-- ========================================== -->
+  <!-- 2. MUNICIPAL IMPACT & LIVE KPIS             -->
+  <!-- ========================================== -->
   <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-xs text-start">
-      <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-4">
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
+    
+    <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-teal-100 dark:border-teal-950 shadow-xs hover:shadow-md transition-shadow">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-semibold text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/80 px-2.5 py-1 rounded-md">
+          تجارب و دانش مصوب
+        </span>
+        <div class="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-900/60 text-teal-700 dark:text-teal-300 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
       </div>
-      <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">۱,۲۸۰+</div>
-      <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">{{ i18n.translate('HOME.STATS_KNOWLEDGE_COUNT') }}</div>
+      <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">۲,۵۴۰+</div>
+      <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">مستندات و تجارب ثبت‌شده</div>
     </div>
 
-    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-xs text-start">
-      <div class="w-12 h-12 rounded-xl bg-teal-100 dark:bg-teal-950/80 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4">
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
+    <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-cyan-100 dark:border-cyan-950 shadow-xs hover:shadow-md transition-shadow">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-semibold text-cyan-700 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/80 px-2.5 py-1 rounded-md">
+          شبکه نخبگان و داوران
+        </span>
+        <div class="w-10 h-10 rounded-xl bg-cyan-100 dark:bg-cyan-900/60 text-cyan-700 dark:text-cyan-300 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </div>
       </div>
-      <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">۳۵۰+</div>
-      <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">{{ i18n.translate('HOME.STATS_EXPERTS') }}</div>
+      <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">۳۸۰+</div>
+      <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">خبره و ارزیاب علمی تاییدشده</div>
     </div>
 
-    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-xs text-start">
-      <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+    <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-emerald-100 dark:border-emerald-950 shadow-xs hover:shadow-md transition-shadow">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/80 px-2.5 py-1 rounded-md">
+          کاربست در مناطق شهر
+        </span>
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
       </div>
-      <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">۴۲۰</div>
-      <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">{{ i18n.translate('HOME.STATS_APPLIED') }}</div>
+      <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">۶۴۰+</div>
+      <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">پروژه پیاده‌سازی و بازکاربرد</div>
     </div>
 
-    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-xs text-start">
-      <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-        </svg>
+    <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-amber-100 dark:border-amber-950 shadow-xs hover:shadow-md transition-shadow">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-semibold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/80 px-2.5 py-1 rounded-md">
+          صرفه‌جویی حاصل از تجارب
+        </span>
+        <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
       </div>
-      <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">۱۵ حوزه</div>
-      <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">{{ i18n.translate('HOME.STATS_COMMUNITIES') }}</div>
+      <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">۲۸ میلیارد</div>
+      <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">ریال بهره‌وری و کاهش هزینه</div>
+    </div>
+
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 3. INTERACTIVE MUNICIPAL KM PORTALS GRID   -->
+  <!-- ========================================== -->
+  <section class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 dark:text-teal-400 mb-1">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+          <span>میز خدمات و پیشخوان‌های تخصصی</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+          ارکان و درگاه‌های مدیریت دانش شهرداری اصفهان
+        </h2>
+      </div>
+      <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+        دسترسی سریع پرسنل شهرداری به تمامی فرآیندهای دانشی
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      @for (portal of servicePortals; track portal.id) {
+        <a [routerLink]="portal.route"
+           class="group relative flex flex-col justify-between p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-teal-500 dark:hover:border-teal-400 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
+          
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div [class]="'w-12 h-12 rounded-xl flex items-center justify-center ' + portal.iconBg + ' ' + portal.iconColor">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="portal.iconPath" />
+                </svg>
+              </div>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                {{ portal.badge }}
+              </span>
+            </div>
+
+            <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">
+              {{ portal.title }}
+            </h3>
+
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2 line-clamp-2 font-normal">
+              {{ portal.desc }}
+            </p>
+          </div>
+
+          <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold text-teal-700 dark:text-teal-400">
+            <span>ورود به بخش</span>
+            <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+          </div>
+        </a>
+      }
     </div>
   </section>
 
-  <!-- Featured Knowledge Assets -->
+  <!-- ========================================== -->
+  <!-- 4. ACTIVE STRATEGIC CAMPAIGNS SPOTLIGHT    -->
+  <!-- ========================================== -->
   <section class="space-y-6">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
       <div>
-        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
-          {{ i18n.translate('HOME.FEATURED_KNOWLEDGE') }}
+        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400 mb-1">
+          <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+          <span>پویش‌های جاری حل مسائل شهری</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+          پویش‌های گردآوری تجارب سازمانی (Campaign Panels)
         </h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">تجارب و مستندات برگزیده ارزیابی شده توسط کمیته علمی شهرداری</p>
       </div>
-      <a routerLink="/knowledge-tree" class="text-sm font-semibold text-cyan-600 dark:text-cyan-400 hover:underline">
-        مشاهده همه دانش‌ها &larr;
+      <a routerLink="/panels" class="text-xs sm:text-sm font-bold text-teal-700 dark:text-teal-400 hover:underline flex items-center gap-1">
+        <span>مشاهده همه پویش‌ها</span>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      @for (campaign of activeCampaigns; track campaign.id) {
+        <article class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-teal-100 dark:border-teal-950 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between">
+          <div class="space-y-4">
+            
+            <div class="flex items-center justify-between">
+              <span [class]="'px-2.5 py-1 rounded-lg text-xs font-bold border ' + campaign.priorityClass">
+                {{ campaign.priorityLabel }}
+              </span>
+              <div class="flex items-center gap-1 text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/60 px-2.5 py-1 rounded-lg">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{ campaign.daysRemaining }} روز باقی‌مانده</span>
+              </div>
+            </div>
+
+            <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">
+              {{ campaign.title }}
+            </h3>
+
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-normal">
+              {{ campaign.description }}
+            </p>
+
+            <div class="text-xs text-teal-800 dark:text-teal-300 font-medium flex items-center gap-1.5 pt-1">
+              <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              <span>{{ campaign.secretariat }}</span>
+            </div>
+
+          </div>
+
+          <div class="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold">
+              {{ campaign.contributionsCount }} تجربه ثبت‌شده
+            </span>
+            <a routerLink="/panels"
+               class="px-4 py-2 rounded-xl text-xs font-bold bg-teal-700 hover:bg-teal-600 text-white shadow-xs transition-colors flex items-center gap-1">
+              <span>مشارکت در پویش</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 5. FEATURED CERTIFIED KNOWLEDGE ITEMS      -->
+  <!-- ========================================== -->
+  <section class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 dark:text-teal-400 mb-1">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+          <span>تجارب برگزیده ارزیابی‌شده</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+          دانش‌های شاخص مصوب دبیرخانه‌های تخصصی
+        </h2>
+      </div>
+      <a routerLink="/knowledge-tree" class="text-xs sm:text-sm font-bold text-teal-700 dark:text-teal-400 hover:underline">
+        کاوش در درخت دانش &larr;
       </a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       @for (item of featuredItems; track item.id) {
-        <article class="p-6 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 hover:border-cyan-500 dark:hover:border-cyan-400 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-4">
+        <article class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-teal-500 dark:hover:border-teal-400 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-cyan-50 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300">
+              <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-teal-50 dark:bg-teal-950 text-teal-800 dark:text-teal-300">
                 {{ item.category }}
               </span>
-              <span class="px-2 py-0.5 rounded-sm text-xs font-medium bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
-                {{ item.tag }}
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold badge-gold">
+                {{ item.honorBadge }}
               </span>
             </div>
 
@@ -115,15 +333,23 @@
               {{ item.title }}
             </h3>
 
-            <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
+            <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2 pt-1">
               <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
               <span>{{ item.author }}</span>
             </div>
+
+            <div class="text-xs text-teal-700 dark:text-teal-400 font-medium flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span>{{ item.secretariat }}</span>
+            </div>
+
           </div>
 
-          <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs text-slate-400">
+          <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
             <span>{{ item.date }}</span>
             <div class="flex items-center gap-3">
               <span class="flex items-center gap-1">
@@ -133,7 +359,7 @@
                 </svg>
                 {{ item.views }}
               </span>
-              <span class="flex items-center gap-1 text-cyan-600 dark:text-cyan-400">
+              <span class="flex items-center gap-1 text-teal-700 dark:text-teal-400">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a2 2 0 00-.8 1.4z" />
                 </svg>
@@ -143,6 +369,71 @@
           </div>
         </article>
       }
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 6. THE 4-STEP KM WORKFLOW INFOGRAPHIC       -->
+  <!-- ========================================== -->
+  <section class="rounded-3xl bg-gradient-to-br from-teal-950 via-slate-900 to-slate-950 text-white p-6 sm:p-10 border border-teal-800/40 shadow-xl">
+    <div class="text-center max-w-2xl mx-auto space-y-2 mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold">
+        چرخه حیات دانش در شهرداری اصفهان
+      </div>
+      <h2 class="text-xl sm:text-3xl font-black">
+        جریان تبدیل تجربه فردی به سرمایه پایدار شهری
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-300">
+        فرآیند گام‌به‌گام از دریافت ایده تا کاربست عملیاتی در پروژه‌های مدیریت شهری
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+      
+      <!-- Step 1 -->
+      <div class="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs relative space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-teal-500 text-slate-950 font-black flex items-center justify-center text-base shadow-md shadow-teal-500/30">
+          ۱
+        </div>
+        <h4 class="text-base font-bold text-white">ثبت و مستندسازی</h4>
+        <p class="text-xs text-slate-300 leading-relaxed font-normal">
+          تکمیل فرم استاندارد تجربه، درس‌آموخته یا نوآوری به همراه مستندات فنی، تصاویر و نتایج میدانی.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs relative space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-cyan-400 text-slate-950 font-black flex items-center justify-center text-base shadow-md shadow-cyan-400/30">
+          ۲
+        </div>
+        <h4 class="text-base font-bold text-white">تلخیص و سنتز هوش مصنوعی</h4>
+        <p class="text-xs text-slate-300 leading-relaxed font-normal">
+          استخراج اقدامات کلیدی، چالش‌ها، دستاوردها و طبقه‌بندی ساختاریافته توسط موتور AI سامانه.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs relative space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-400 text-slate-950 font-black flex items-center justify-center text-base shadow-md shadow-amber-400/30">
+          ۳
+        </div>
+        <h4 class="text-base font-bold text-white">داوری تخصصی دبیرخانه</h4>
+        <p class="text-xs text-slate-300 leading-relaxed font-normal">
+          ارزیابی چندمرحله‌ای توسط هیئت داوران و خبرگان بر اساس ماتریس شاخص‌های علمی و انطباق شهری.
+        </p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs relative space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-400 text-slate-950 font-black flex items-center justify-center text-base shadow-md shadow-emerald-400/30">
+          ۴
+        </div>
+        <h4 class="text-base font-bold text-white">انتشار و کاربست در شهر</h4>
+        <p class="text-xs text-slate-300 leading-relaxed font-normal">
+          ورود به درخت دانش، بازکاربرد در مناطق ۱۵گانه شهرداری و ثبت امتیاز در کارنامه دانشی پدیدآورنده.
+        </p>
+      </div>
+
     </div>
   </section>
 

@@ -1,115 +1,157 @@
-<header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-200 shadow-xs">
+<!-- Official Governmental Top Bar -->
+<div class="bg-slate-900 dark:bg-slate-950 text-slate-300 text-xs border-b border-slate-800 hidden sm:block py-1.5 transition-colors">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+    <!-- Right side (RTL): State Authority & Date -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 shadow-xs shadow-emerald-500/50"></span>
+        <span class="font-semibold text-slate-200">جمهوری اسلامی ایران</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-teal-400 font-medium">شهرداری اصفهان</span>
+      </div>
+      <div class="text-slate-400 hidden md:flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span>{{ todayJalaliDate() }}</span>
+      </div>
+    </div>
+
+    <!-- Left side (RTL): Municipal Portal Quick Links & Utilities -->
+    <div class="flex items-center gap-4">
+      <a href="https://isfahan.ir" target="_blank" rel="noopener noreferrer" 
+         class="text-slate-400 hover:text-teal-300 transition-colors flex items-center gap-1">
+        <span>پرتال شهرداری اصفهان</span>
+        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+      </a>
+      <span class="text-slate-700">|</span>
+      <span class="text-slate-400 flex items-center gap-1">
+        <span class="text-amber-400 font-bold">۱۳۷</span>
+        <span>مرکز ارتباطات مردمی</span>
+      </span>
+      <span class="text-slate-700">|</span>
+      <!-- Language Switcher -->
+      <button (click)="i18n.toggleLanguage()"
+              type="button"
+              aria-label="تغییر زبان"
+              class="px-2 py-0.5 rounded text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">
+        {{ i18n.currentLang() === 'fa' ? 'English' : 'فارسی' }}
+      </button>
+      <!-- Theme Switcher -->
+      <button (click)="theme.toggleTheme()"
+              type="button"
+              aria-label="تغییر حالت شب و روز"
+              class="p-1 rounded text-slate-400 hover:text-amber-400 transition-colors">
+        @if (theme.isDarkMode()) {
+          <svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+          </svg>
+        } @else {
+          <svg class="w-3.5 h-3.5 text-slate-300" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+          </svg>
+        }
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Main Sticky Header -->
+<header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-teal-100/70 dark:border-teal-950/80 transition-colors shadow-xs">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
+    <div class="flex items-center justify-between h-20 gap-3">
       
-      <!-- Brand & Municipality Emblem -->
-      <div class="flex items-center gap-4">
-        <a routerLink="/" class="flex items-center gap-3 group focus:outline-hidden focus:ring-2 focus:ring-cyan-500 rounded-lg p-1">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-600 to-teal-700 flex items-center justify-center text-white shadow-md shadow-cyan-600/20 group-hover:scale-105 transition-transform duration-200">
-            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+      <!-- Brand & Isfahan Emblem -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a routerLink="/" class="flex items-center gap-3 group focus:outline-hidden focus:ring-2 focus:ring-teal-500 rounded-xl p-1 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-700 via-teal-800 to-cyan-900 flex items-center justify-center text-white shadow-md shadow-teal-900/25 group-hover:scale-105 border border-teal-600/30 transition-transform">
+            <!-- Isfahan Islamic Motif / Knowledge Dome Emblem -->
+            <svg class="w-7 h-7 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L3 9v11a2 2 0 002 2h14a2 2 0 002-2V9l-9-7z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 22V12" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 7a2 2 0 100-4 2 2 0 000 4z" />
+              <circle cx="12" cy="12" r="3" stroke-width="1.5" />
             </svg>
           </div>
           <div class="text-start">
-            <span class="block text-lg font-bold text-slate-900 dark:text-white leading-tight">
+            <span class="block text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-tight">
               {{ i18n.translate('APP_TITLE') }}
             </span>
-            <span class="block text-xs font-medium text-cyan-600 dark:text-cyan-400">
-              {{ i18n.translate('MUNICIPALITY_NAME') }}
+            <span class="block text-xs font-semibold text-teal-700 dark:text-teal-400 mt-0.5">
+              شهرداری اصفهان — معاونت برنامه‌ریزی و پژوهش
             </span>
           </div>
         </a>
       </div>
 
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-        <a routerLink="/" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold" [routerLinkActiveOptions]="{exact: true}"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+      <!-- Desktop Navigation Links (Large Screens) -->
+      <nav class="hidden xl:flex items-center gap-1">
+        <a routerLink="/" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold" [routerLinkActiveOptions]="{exact: true}"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
           {{ i18n.translate('NAV.HOME') }}
         </a>
-        <a routerLink="/knowledge-tree" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <a routerLink="/knowledge-tree" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
           {{ i18n.translate('NAV.KNOWLEDGE_TREE') }}
         </a>
-        <a routerLink="/submit-knowledge" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <a routerLink="/submit-knowledge" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
           {{ i18n.translate('NAV.SUBMIT_KNOWLEDGE') }}
         </a>
-        <a routerLink="/search" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <a routerLink="/panels" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="relative px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
+          <span>پویش‌های تجربه</span>
+          <span class="inline-block w-2 h-2 rounded-full bg-teal-500 ms-1 animate-pulse"></span>
+        </a>
+        <a routerLink="/search" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
           جستجوی پیشرفته
         </a>
-        <a routerLink="/communities" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <a routerLink="/communities" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
           تالار گفتگو
         </a>
-        <a routerLink="/experts" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <a routerLink="/experts" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
           بانک خبرگان
         </a>
-        <a routerLink="/karbest" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <a routerLink="/karbest" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
           کاربست دانش
         </a>
-        <a routerLink="/panels" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-          پویش‌های تجربه
+        <a routerLink="/evaluation" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
+          میز ارزیابی
         </a>
-        <a routerLink="/evaluation" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-          {{ i18n.translate('NAV.EVALUATION') }}
+        <a routerLink="/analytics" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
+          هوش سازمانی
         </a>
-        <a routerLink="/analytics" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-          داشبورد هوش سازمانی
-        </a>
-        <a routerLink="/transcript" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
-           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+        <a routerLink="/transcript" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/50 dark:hover:bg-teal-950/40 transition-colors">
           کارنامه دانشی
         </a>
       </nav>
 
-      <!-- Action Utilities & User Menu -->
+      <!-- Action Area: Staff Login & Mobile Trigger -->
       <div class="flex items-center gap-2 sm:gap-3">
-        
-        <!-- Language Switcher -->
-        <button (click)="i18n.toggleLanguage()"
-                type="button"
-                aria-label="تغییر زبان"
-                class="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          {{ i18n.currentLang() === 'fa' ? 'EN' : 'فا' }}
-        </button>
-
-        <!-- Theme Toggle -->
-        <button (click)="theme.toggleTheme()"
-                type="button"
-                aria-label="تغییر تم"
-                class="w-10 h-10 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          @if (theme.isDarkMode()) {
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
-            </svg>
-          } @else {
-            <svg class="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-            </svg>
-          }
-        </button>
-
-        <!-- Login / Action Button -->
+        <!-- Staff Portal Login Button -->
         <a routerLink="/auth/login"
-           class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white shadow-sm hover:shadow-md transition-all">
+           class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-teal-700 via-teal-600 to-cyan-600 hover:from-teal-600 hover:to-cyan-500 text-white shadow-md shadow-teal-800/20 hover:shadow-lg transition-all">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
           </svg>
-          <span>{{ i18n.translate('NAV.LOGIN') }}</span>
+          <span class="hidden xs:inline">ورود به میز کار پرسنل</span>
+          <span class="xs:hidden">ورود</span>
         </a>
 
-        <!-- Mobile Menu Trigger -->
+        <!-- Mobile Menu Toggle Button (Touch size: 44px) -->
         <button (click)="toggleMobileMenu()"
                 type="button"
-                aria-label="منوی موبایل"
-                class="md:hidden w-10 h-10 rounded-lg flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                aria-label="منوی دسترسی سامانه"
+                class="xl:hidden w-11 h-11 rounded-xl flex items-center justify-center text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-teal-950/50 transition-colors">
           <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             @if (mobileMenuOpen()) {
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -123,35 +165,140 @@
     </div>
   </div>
 
-  <!-- Mobile Dropdown Navigation -->
+  <!-- Mobile Comprehensive Drawer Navigation -->
   @if (mobileMenuOpen()) {
-    <div class="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-6 space-y-2">
-      <a routerLink="/" (click)="mobileMenuOpen.set(false)"
-         class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-800 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-cyan-950/50">
-        {{ i18n.translate('NAV.HOME') }}
-      </a>
-      <a routerLink="/knowledge-tree" (click)="mobileMenuOpen.set(false)"
-         class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-800 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-cyan-950/50">
-        {{ i18n.translate('NAV.KNOWLEDGE_TREE') }}
-      </a>
-      <a routerLink="/submit-knowledge" (click)="mobileMenuOpen.set(false)"
-         class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-800 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-cyan-950/50">
-        {{ i18n.translate('NAV.SUBMIT_KNOWLEDGE') }}
-      </a>
-      <a routerLink="/communities" (click)="mobileMenuOpen.set(false)"
-         class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-800 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-cyan-950/50">
-        {{ i18n.translate('NAV.COMMUNITIES') }}
-      </a>
-      <a routerLink="/evaluation" (click)="mobileMenuOpen.set(false)"
-         class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-800 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-cyan-950/50">
-        {{ i18n.translate('NAV.EVALUATION') }}
-      </a>
-      <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
-        <a routerLink="/auth/login" (click)="mobileMenuOpen.set(false)"
-           class="flex items-center justify-center w-full px-4 py-2.5 rounded-xl font-bold bg-cyan-600 hover:bg-cyan-700 text-white">
-          {{ i18n.translate('NAV.LOGIN') }}
+    <div class="xl:hidden border-t border-teal-100 dark:border-teal-950/80 bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl px-4 py-5 space-y-4 max-h-[80vh] overflow-y-auto">
+      
+      <!-- Quick Mobile Header Info -->
+      <div class="sm:hidden flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 text-xs text-slate-500">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>شهرداری اصفهان</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button (click)="i18n.toggleLanguage()" class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 font-bold">
+            {{ i18n.currentLang() === 'fa' ? 'EN' : 'فا' }}
+          </button>
+          <button (click)="theme.toggleTheme()" class="p-1 rounded bg-slate-100 dark:bg-slate-800">
+            {{ theme.isDarkMode() ? '☀️' : '🌙' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Group 1: Core Navigation -->
+      <div class="space-y-1">
+        <div class="text-[11px] font-bold text-teal-700 dark:text-teal-400 uppercase tracking-wider px-3">
+          بخش‌های اصلی و محتوایی
+        </div>
+        <a routerLink="/" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <span>صفحه نخست</span>
+        </a>
+        <a routerLink="/knowledge-tree" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+          <span>درخت دانش سازمانی</span>
+        </a>
+        <a routerLink="/search" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <span>جستجوی پیشرفته در دانش‌ها</span>
         </a>
       </div>
+
+      <!-- Group 2: Action & Participation -->
+      <div class="space-y-1 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <div class="text-[11px] font-bold text-teal-700 dark:text-teal-400 uppercase tracking-wider px-3">
+          مشارکت و ثبت دانش
+        </div>
+        <a routerLink="/panels" (click)="closeMobileMenu()"
+           class="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+            </svg>
+            <span>پویش‌های گردآوری تجربه</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-teal-100 text-teal-800 dark:bg-teal-950 dark:text-teal-300">
+            پویش‌های باز
+          </span>
+        </a>
+        <a routerLink="/submit-knowledge" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          <span>ثبت دانش و ایده جدید</span>
+        </a>
+        <a routerLink="/communities" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+          </svg>
+          <span>تالارهای گفتگو و خبرگی</span>
+        </a>
+        <a routerLink="/experts" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span>بانک خبرگان و نخبگان</span>
+        </a>
+      </div>
+
+      <!-- Group 3: Implementation, Evaluation & Reporting -->
+      <div class="space-y-1 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <div class="text-[11px] font-bold text-teal-700 dark:text-teal-400 uppercase tracking-wider px-3">
+          ارزیابی، کاربست و تحلیل
+        </div>
+        <a routerLink="/karbest" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>کاربست تجارب در شهر</span>
+        </a>
+        <a routerLink="/evaluation" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+          <span>میز ارزیابی و داوری</span>
+        </a>
+        <a routerLink="/analytics" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span>داشبورد هوش سازمانی</span>
+        </a>
+        <a routerLink="/transcript" (click)="closeMobileMenu()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 hover:bg-teal-50 dark:hover:bg-teal-950/50">
+          <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          <span>کارنامه و امتیازات دانشی</span>
+        </a>
+      </div>
+
+      <!-- Action: Direct Login -->
+      <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+        <a routerLink="/auth/login" (click)="closeMobileMenu()"
+           class="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-teal-700 to-cyan-600 text-white shadow-md">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+          </svg>
+          <span>ورود به کارتابل پرسنلی شهرداری</span>
+        </a>
+      </div>
+
     </div>
   }
 </header>
