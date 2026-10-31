@@ -25,6 +25,7 @@ public class EvaluationWorkflowService {
     private final KnowledgeItemRepository knowledgeItemRepository;
     private final AppealRepository appealRepository;
     private final SmsNotificationService smsNotificationService;
+    private final DynamicWorkflowEngineService dynamicWorkflowEngineService;
 
     public boolean isSingleStage(KnowledgeNodeType type) {
         return type == KnowledgeNodeType.BOOK ||
@@ -53,6 +54,11 @@ public class EvaluationWorkflowService {
 
         if (evaluator != null) {
             evaluation.setEvaluator(evaluator);
+        }
+
+        // Seamless handover to Dynamic Workflow Engine if item is managed by dynamic workflow
+        if (item.getWorkflow() != null && item.getCurrentStage() != null) {
+            return dynamicWorkflowEngineService.processStageDecision(item.getId(), evaluation, evaluator);
         }
 
         boolean singleStage = isSingleStage(item.getKnowledgeType());
