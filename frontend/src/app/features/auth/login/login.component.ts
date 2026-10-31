@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { I18nService } from '../../../core/services/i18n.service';
 import { SeoService } from '../../../core/services/seo.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -16,6 +17,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class LoginComponent implements OnInit {
   protected i18n = inject(I18nService);
+  protected auth = inject(AuthService);
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
   private router = inject(Router);
@@ -38,6 +40,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  public fillAdminCredentials(): void {
+    this.loginForm.patchValue({
+      username: 'admin',
+      password: '123456'
+    });
+  }
+
   public onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
@@ -55,9 +64,8 @@ export class LoginComponent implements OnInit {
     this.http.post<any>(`${environment.apiUrl}/auth/login`, payload).subscribe({
       next: (res) => {
         this.isLoading.set(false);
-        if (typeof window !== 'undefined' && res?.token) {
-          localStorage.setItem('km_token', res.token);
-          localStorage.setItem('km_user', JSON.stringify(res));
+        if (res?.token) {
+          this.auth.setSession(res);
         }
         this.router.navigate(['/']);
       },

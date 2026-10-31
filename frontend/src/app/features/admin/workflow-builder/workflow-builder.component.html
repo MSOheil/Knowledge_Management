@@ -26,9 +26,9 @@
     </button>
   </div>
 
-  <!-- Workflows Table -->
-  <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs">
-    <h2 class="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3">فرآیندهای گردش‌کار فعال</h2>
+  <!-- Workflows Table with Horizontal Scroll Safety -->
+  <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-xs overflow-x-auto">
+    <h2 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 mb-3">فرآیندهای گردش‌کار فعال</h2>
     <app-table
       #tableRef
       [config]="tableConfig"
@@ -187,17 +187,17 @@
           }
         </div>
 
-        <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+        <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
           <button
             (click)="isStageModalOpen.set(false)"
             type="button"
-            class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
             انصراف
           </button>
           <button
             (click)="saveStage()"
             type="button"
-            class="px-4 py-2 rounded-xl text-xs font-semibold bg-teal-600 text-white hover:bg-teal-700 transition-colors">
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-teal-700 text-white hover:bg-teal-600 transition-colors">
             ذخیره مرحله
           </button>
         </div>
@@ -248,17 +248,17 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+        <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
           <button
             (click)="isCreateWorkflowModalOpen.set(false)"
             type="button"
-            class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
             انصراف
           </button>
           <button
             (click)="createWorkflow()"
             type="button"
-            class="px-4 py-2 rounded-xl text-xs font-semibold bg-teal-600 text-white hover:bg-teal-700 transition-colors">
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-teal-700 text-white hover:bg-teal-600 transition-colors">
             ایجاد فرآیند
           </button>
         </div>

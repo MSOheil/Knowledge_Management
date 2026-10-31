@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { I18nService } from '../../core/services/i18n.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { DirectionService } from '../../core/services/direction.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,7 @@ export class HeaderComponent implements OnInit {
   protected i18n = inject(I18nService);
   protected theme = inject(ThemeService);
   protected direction = inject(DirectionService);
+  public auth = inject(AuthService);
 
   public mobileMenuOpen = signal<boolean>(false);
   public todayJalaliDate = signal<string>('شنبه، ۱۰ آبان ۱۴۰۳');
