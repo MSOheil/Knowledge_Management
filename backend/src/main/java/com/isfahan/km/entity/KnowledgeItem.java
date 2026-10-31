@@ -1,12 +1,17 @@
 package com.isfahan.km.entity;
 
 import com.example.base.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "knowledge_items")
@@ -29,6 +34,12 @@ public class KnowledgeItem extends BaseEntity {
     @Column(name = "title", nullable = false, length = 255)
     private String title;
 
+    @Column(name = "summary", columnDefinition = "TEXT")
+    private String summary;
+
+    @Column(name = "target_audience", length = 255)
+    private String targetAudience;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "knowledge_type", nullable = false, length = 50)
     private KnowledgeNodeType knowledgeType = KnowledgeNodeType.EXPERIENCE;
@@ -36,7 +47,18 @@ public class KnowledgeItem extends BaseEntity {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
+    @Column(name = "custom_fields_json", columnDefinition = "TEXT")
+    private String customFieldsJson;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 50)
     private KnowledgeItemStatus status = KnowledgeItemStatus.DRAFT;
+
+    @OneToMany(mappedBy = "knowledgeItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"knowledgeItem"})
+    private List<KnowledgeAttachment> attachments = new ArrayList<>();
+
+    @Transient
+    @JsonIgnore
+    private List<MultipartFile> uploadedFiles = new ArrayList<>();
 }

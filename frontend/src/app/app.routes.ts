@@ -25,6 +25,21 @@ export const routes: Routes = [
         path: 'knowledge-tree',
         loadComponent: () => import('./features/admin/knowledge-tree/knowledge-tree.component').then(m => m.KnowledgeTreeComponent),
         title: 'درخت دانش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'knowledge/submit',
+        loadComponent: () => import('./features/knowledge/knowledge-form/knowledge-form.component').then(m => m.KnowledgeFormComponent),
+        title: 'ثبت دانش جدید | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'submit-knowledge',
+        loadComponent: () => import('./features/knowledge/knowledge-form/knowledge-form.component').then(m => m.KnowledgeFormComponent),
+        title: 'ثبت دانش جدید | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'admin/form-builder',
+        loadComponent: () => import('./features/admin/form-builder/form-builder.component').then(m => m.FormBuilderComponent),
+        title: 'طراحی فرم‌های پویا | سامانه مدیریت دانش شهرداری اصفهان'
       }
     ]
   },

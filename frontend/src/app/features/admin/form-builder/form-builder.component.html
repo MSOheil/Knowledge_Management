@@ -1,0 +1,315 @@
+<div class="space-y-6 text-start">
+  
+  <!-- Breadcrumb & Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-2">
+        <a routerLink="/" class="hover:text-cyan-600 dark:hover:text-cyan-400">صفحه نخست</a>
+        <span>/</span>
+        <span class="text-slate-800 dark:text-slate-200 font-bold">طراحی فرم‌های پویا</span>
+      </nav>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        فرم‌ساز پویا و اختصاصی دانش (Dynamic Form Builder)
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        تعریف، شخصی‌سازی و مدیریت فیلدهای اختصاصی به ازای هر یک از قالب‌های دانشی شهرداری اصفهان
+      </p>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-3">
+      <button (click)="openAddFieldModal()"
+              type="button"
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-cyan-600 hover:bg-cyan-700 text-white shadow-xs transition-colors">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+        <span>افزودن فیلد جدید</span>
+      </button>
+
+      <button (click)="saveSchema()"
+              [disabled]="isSaving()"
+              type="button"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-xs disabled:opacity-50 transition-all">
+        @if (isSaving()) {
+          <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        }
+        <span>ذخیره فرم در پایگاه‌داده</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Knowledge Type Switcher -->
+  <div class="p-2 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-xs">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+      <button type="button"
+              (click)="onTypeChange('EXPERIENCE')"
+              [class.bg-cyan-600]="selectedType() === 'EXPERIENCE'"
+              [class.text-white]="selectedType() === 'EXPERIENCE'"
+              [class.text-slate-700]="selectedType() !== 'EXPERIENCE'"
+              [class.dark:text-slate-300]="selectedType() !== 'EXPERIENCE'"
+              class="px-3 py-2 rounded-xl text-xs font-bold transition-colors hover:bg-cyan-50 dark:hover:bg-slate-700">
+        تجربه سازمانی
+      </button>
+      <button type="button"
+              (click)="onTypeChange('RESEARCH_PROJECT')"
+              [class.bg-cyan-600]="selectedType() === 'RESEARCH_PROJECT'"
+              [class.text-white]="selectedType() === 'RESEARCH_PROJECT'"
+              [class.text-slate-700]="selectedType() !== 'RESEARCH_PROJECT'"
+              [class.dark:text-slate-300]="selectedType() !== 'RESEARCH_PROJECT'"
+              class="px-3 py-2 rounded-xl text-xs font-bold transition-colors hover:bg-cyan-50 dark:hover:bg-slate-700">
+        پروژه پژوهشی
+      </button>
+      <button type="button"
+              (click)="onTypeChange('ARTICLE')"
+              [class.bg-cyan-600]="selectedType() === 'ARTICLE'"
+              [class.text-white]="selectedType() === 'ARTICLE'"
+              [class.text-slate-700]="selectedType() !== 'ARTICLE'"
+              [class.dark:text-slate-300]="selectedType() !== 'ARTICLE'"
+              class="px-3 py-2 rounded-xl text-xs font-bold transition-colors hover:bg-cyan-50 dark:hover:bg-slate-700">
+        مقاله علمی
+      </button>
+      <button type="button"
+              (click)="onTypeChange('BOOK')"
+              [class.bg-cyan-600]="selectedType() === 'BOOK'"
+              [class.text-white]="selectedType() === 'BOOK'"
+              [class.text-slate-700]="selectedType() !== 'BOOK'"
+              [class.dark:text-slate-300]="selectedType() !== 'BOOK'"
+              class="px-3 py-2 rounded-xl text-xs font-bold transition-colors hover:bg-cyan-50 dark:hover:bg-slate-700">
+        کتاب و تالیف
+      </button>
+      <button type="button"
+              (click)="onTypeChange('THESIS')"
+              [class.bg-cyan-600]="selectedType() === 'THESIS'"
+              [class.text-white]="selectedType() === 'THESIS'"
+              [class.text-slate-700]="selectedType() !== 'THESIS'"
+              [class.dark:text-slate-300]="selectedType() !== 'THESIS'"
+              class="px-3 py-2 rounded-xl text-xs font-bold transition-colors hover:bg-cyan-50 dark:hover:bg-slate-700">
+        پایان‌نامه
+      </button>
+      <button type="button"
+              (click)="onTypeChange('CONTRACTOR_EXPERIENCE')"
+              [class.bg-cyan-600]="selectedType() === 'CONTRACTOR_EXPERIENCE'"
+              [class.text-white]="selectedType() === 'CONTRACTOR_EXPERIENCE'"
+              [class.text-slate-700]="selectedType() !== 'CONTRACTOR_EXPERIENCE'"
+              [class.dark:text-slate-300]="selectedType() !== 'CONTRACTOR_EXPERIENCE'"
+              class="px-3 py-2 rounded-xl text-xs font-bold transition-colors hover:bg-cyan-50 dark:hover:bg-slate-700">
+        تجربه پیمانکاران
+      </button>
+    </div>
+  </div>
+
+  <!-- Success & Error Alert Messages -->
+  @if (successMessage()) {
+    <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm flex items-center gap-3">
+      <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+      </svg>
+      <span>{{ successMessage() }}</span>
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-300 dark:border-rose-900 text-rose-800 dark:text-rose-200 text-sm flex items-center gap-3">
+      <svg class="w-5 h-5 text-rose-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+      </svg>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+
+  <!-- Form Configuration Card -->
+  <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-sm space-y-6">
+    <div class="space-y-2">
+      <label for="formTitle" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+        عنوان فرم دانشی
+      </label>
+      <input id="formTitle"
+             type="text"
+             [ngModel]="formTitle()"
+             (ngModelChange)="formTitle.set($event)"
+             class="w-full max-w-md px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm font-semibold text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-cyan-500" />
+    </div>
+
+    <!-- Configured Fields List -->
+    <div class="space-y-3">
+      <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700/60 pb-3">
+        <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">
+          فیلدهای سفارشی پیکربندی‌شده ({{ fields().length }} فیلد)
+        </h3>
+        <span class="text-xs text-slate-400">ترتیب نمایش فیلدها را با فلش‌ها تنظیم کنید</span>
+      </div>
+
+      @if (fields().length === 0) {
+        <div class="text-center py-12 text-slate-400 space-y-2">
+          <svg class="w-10 h-10 mx-auto text-slate-300 dark:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <p class="text-sm font-semibold">هیچ فیلد سفارشی برای این قالب دانشی تعریف نشده است.</p>
+          <p class="text-xs">روی «افزودن فیلد جدید» کلیک فرمایید.</p>
+        </div>
+      } @else {
+        <div class="space-y-2">
+          @for (field of fields(); track field.name; let i = $index) {
+            <div class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-750">
+              <div class="flex items-center gap-4">
+                <span class="w-7 h-7 rounded-lg bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 text-xs font-bold flex items-center justify-center">
+                  {{ i + 1 }}
+                </span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-bold text-slate-900 dark:text-white">{{ field.label }}</span>
+                    @if (field.required) {
+                      <span class="text-[10px] px-1.5 py-0.5 rounded-sm bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300">الزامی</span>
+                    }
+                  </div>
+                  <div class="flex items-center gap-3 text-xs text-slate-400 font-mono mt-0.5">
+                    <span>نام سیستم: {{ field.name }}</span>
+                    <span>•</span>
+                    <span>نوع ورودی: {{ field.type }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reorder and Delete Actions -->
+              <div class="flex items-center gap-1.5">
+                <button type="button"
+                        (click)="moveFieldUp(i)"
+                        [disabled]="i === 0"
+                        title="انتقال به بالا"
+                        class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-30">
+                  ▲
+                </button>
+                <button type="button"
+                        (click)="moveFieldDown(i)"
+                        [disabled]="i === fields().length - 1"
+                        title="انتقال به پایین"
+                        class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-30">
+                  ▼
+                </button>
+                <button type="button"
+                        (click)="removeField(i)"
+                        title="حذف فیلد"
+                        class="w-8 h-8 rounded-lg flex items-center justify-center text-rose-500 hover:bg-rose-100 dark:hover:bg-rose-950">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Add Field Modal Dialog -->
+  @if (showAddFieldModal()) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+      <div class="w-full max-w-lg bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden text-start animate-in fade-in zoom-in-95 duration-200">
+        
+        <div class="p-6 border-b border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
+          <h4 class="text-lg font-bold text-slate-900 dark:text-white">
+            تعریف فیلد جدید در فرم دانشی
+          </h4>
+          <button (click)="closeAddFieldModal()"
+                  type="button"
+                  aria-label="بستن"
+                  class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700">
+            ✕
+          </button>
+        </div>
+
+        <form [formGroup]="newFieldForm" (ngSubmit)="addField()" class="p-6 space-y-4">
+          
+          <!-- Label Field -->
+          <div class="space-y-1">
+            <label for="fLabel" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+              عنوان نمایشی فیلد (برچسب) <span class="text-rose-500">*</span>
+            </label>
+            <input id="fLabel"
+                   type="text"
+                   formControlName="label"
+                   placeholder="مثال: متدولوژی اجرا یا چالش روبرو شده"
+                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-cyan-500" />
+            @if (newFieldForm.get('label')?.touched && newFieldForm.get('label')?.invalid) {
+              <span class="text-xs text-rose-500">عنوان برچسب الزامی است.</span>
+            }
+          </div>
+
+          <!-- Name & Type Grid -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label for="fName" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+                نام انگلیسی سیستم (فیلد JSON) <span class="text-rose-500">*</span>
+              </label>
+              <input id="fName"
+                     type="text"
+                     formControlName="name"
+                     placeholder="مثال: projectMethodology"
+                     class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm font-mono text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-cyan-500" />
+              @if (newFieldForm.get('name')?.touched && newFieldForm.get('name')?.invalid) {
+                <span class="text-xs text-rose-500">نام انگلیسی معتبر بدون فاصله وارد فرمایید.</span>
+              }
+            </div>
+
+            <div class="space-y-1">
+              <label for="fType" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+                نوع کنترل ورودی
+              </label>
+              <select id="fType"
+                      formControlName="type"
+                      class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-cyan-500">
+                <option value="text">متن تک‌خطی (Text)</option>
+                <option value="textarea">متن چندخطی (Textarea)</option>
+                <option value="datepicker">تقویم شمسی (Datepicker)</option>
+                <option value="file">پیوست فایل تکمیلی (File)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Placeholder -->
+          <div class="space-y-1">
+            <label for="fPlaceholder" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+              متن راهنما (Placeholder)
+            </label>
+            <input id="fPlaceholder"
+                   type="text"
+                   formControlName="placeholder"
+                   placeholder="راهنمای کاربر داخل فیلد..."
+                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-cyan-500" />
+          </div>
+
+          <!-- Required Flag -->
+          <div class="flex items-center gap-2 pt-2">
+            <input id="fRequired"
+                   type="checkbox"
+                   formControlName="required"
+                   class="w-4 h-4 rounded-md text-cyan-600 border-slate-300 focus:ring-cyan-500" />
+            <label for="fRequired" class="text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+              تکمیل این فیلد اجباری است
+            </label>
+          </div>
+
+          <!-- Modal Actions -->
+          <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-700/60">
+            <button type="button"
+                    (click)="closeAddFieldModal()"
+                    class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
+              انصراف
+            </button>
+            <button type="submit"
+                    class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 text-white shadow-xs">
+              افزودن به ساختار فرم
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  }
+
+</div>

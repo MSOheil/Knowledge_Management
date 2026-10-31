@@ -1,0 +1,210 @@
+<form [formGroup]="formGroup" (ngSubmit)="handleSubmit()" class="space-y-6 text-start">
+  
+  @if (config.title) {
+    <h3 class="text-xl font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3">
+      {{ config.title }}
+    </h3>
+  }
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    @for (field of config.fields; track field.name) {
+      
+      <!-- Text Input -->
+      @if (field.type === 'text') {
+        <div class="space-y-1.5" [class.md:col-span-2]="field.name === 'title' || field.name === 'projectTitle'">
+          <label [for]="field.name" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+            {{ field.label }}
+            @if (field.required) { <span class="text-rose-500">*</span> }
+          </label>
+          <input [id]="field.name"
+                 type="text"
+                 [formControlName]="field.name"
+                 [placeholder]="field.placeholder || ''"
+                 class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-cyan-500 transition-all"
+                 [class.border-rose-500]="formGroup.get(field.name)?.touched && formGroup.get(field.name)?.invalid" />
+          @if (formGroup.get(field.name)?.touched && formGroup.get(field.name)?.invalid) {
+            <span class="text-xs text-rose-500 font-medium">تکمیل این فیلد الزامی است.</span>
+          }
+        </div>
+      }
+
+      <!-- Textarea Input -->
+      @if (field.type === 'textarea') {
+        <div class="space-y-1.5 md:col-span-2">
+          <label [for]="field.name" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+            {{ field.label }}
+            @if (field.required) { <span class="text-rose-500">*</span> }
+          </label>
+          <textarea [id]="field.name"
+                    rows="4"
+                    [formControlName]="field.name"
+                    [placeholder]="field.placeholder || ''"
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-cyan-500 transition-all"
+                    [class.border-rose-500]="formGroup.get(field.name)?.touched && formGroup.get(field.name)?.invalid"></textarea>
+          @if (formGroup.get(field.name)?.touched && formGroup.get(field.name)?.invalid) {
+            <span class="text-xs text-rose-500 font-medium">تکمیل این فیلد الزامی است.</span>
+          }
+        </div>
+      }
+
+      <!-- Select Dropdown -->
+      @if (field.type === 'select') {
+        <div class="space-y-1.5">
+          <label [for]="field.name" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+            {{ field.label }}
+            @if (field.required) { <span class="text-rose-500">*</span> }
+          </label>
+          <select [id]="field.name"
+                  [formControlName]="field.name"
+                  class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-cyan-500 transition-all">
+            <option value="">انتخاب کنید...</option>
+            @for (opt of field.options; track opt.value) {
+              <option [value]="opt.value">{{ opt.label }}</option>
+            }
+          </select>
+          @if (formGroup.get(field.name)?.touched && formGroup.get(field.name)?.invalid) {
+            <span class="text-xs text-rose-500 font-medium">انتخاب گزینه الزامی است.</span>
+          }
+        </div>
+      }
+
+      <!-- Persian Datepicker -->
+      @if (field.type === 'datepicker') {
+        <div class="space-y-1.5">
+          <label [for]="field.name" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+            {{ field.label }}
+            @if (field.required) { <span class="text-rose-500">*</span> }
+          </label>
+          <div class="relative">
+            <input [id]="field.name"
+                   type="text"
+                   [formControlName]="field.name"
+                   placeholder="۱۴۰۳/۰۸/۱۵"
+                   dir="ltr"
+                   class="w-full px-4 py-2.5 pe-10 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white text-end focus:outline-hidden focus:ring-2 focus:ring-cyan-500 transition-all" />
+            <span class="absolute inset-y-0 end-0 flex items-center pe-3 pointer-events-none text-slate-400">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      }
+
+      <!-- Tree Selector -->
+      @if (field.type === 'treeselect') {
+        <div class="space-y-1.5 md:col-span-2 relative">
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+            {{ field.label }}
+            @if (field.required) { <span class="text-rose-500">*</span> }
+          </label>
+          
+          <button type="button"
+                  (click)="isTreeOpen.set(!isTreeOpen())"
+                  class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-800 dark:text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-cyan-500">
+            <span class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+              </svg>
+              <span>{{ selectedNodeTitle() }}</span>
+            </span>
+            <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Tree Dropdown Menu -->
+          @if (isTreeOpen()) {
+            <div class="absolute z-30 start-0 end-0 mt-1 max-h-60 overflow-y-auto bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-3 space-y-1">
+              @for (root of treeNodes(); track root.id) {
+                <div class="p-2 rounded-lg hover:bg-cyan-50 dark:hover:bg-cyan-950/60 cursor-pointer text-sm font-bold text-slate-800 dark:text-white flex items-center justify-between"
+                     (click)="selectTreeNode(root, field.name)">
+                  <span>{{ root.title }}</span>
+                  @if (root.code) { <span class="text-xs font-mono text-slate-400">{{ root.code }}</span> }
+                </div>
+                @if (root.children) {
+                  @for (sub of root.children; track sub.id) {
+                    <div class="ps-6 pe-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-750 cursor-pointer text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center justify-between"
+                         (click)="selectTreeNode(sub, field.name)">
+                      <span>↳ {{ sub.title }}</span>
+                      @if (sub.code) { <span class="text-[11px] font-mono text-slate-400">{{ sub.code }}</span> }
+                    </div>
+                  }
+                }
+              }
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Multi-Format File Uploader -->
+      @if (field.type === 'file') {
+        <div class="space-y-2 md:col-span-2">
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">
+            {{ field.label }}
+          </label>
+          
+          <div class="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-cyan-500 rounded-2xl p-6 text-center bg-slate-50/50 dark:bg-slate-900/30 transition-colors">
+            <input type="file"
+                   [id]="field.name"
+                   [multiple]="field.multiple !== false"
+                   [accept]="field.accept || '*'"
+                   (change)="onFileSelected($event)"
+                   class="hidden" #fileInput />
+            
+            <div class="space-y-2">
+              <div class="w-12 h-12 mx-auto rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+              </div>
+              <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                فایل‌های پیوست را به اینجا بکشید یا
+                <button type="button" (click)="fileInput.click()" class="text-cyan-600 dark:text-cyan-400 font-bold hover:underline">
+                  انتخاب فایل
+                </button>
+              </p>
+              <p class="text-xs text-slate-400">
+                پشتیبانی از فرمت‌های اسناد (PDF, Word, Excel, PowerPoint)، فایل‌های صوتی، تصویری و ویدیویی بدون محدودیت فرمت
+              </p>
+            </div>
+          </div>
+
+          <!-- Uploaded Files Preview List -->
+          @if (uploadedFiles().length > 0) {
+            <div class="space-y-1.5 pt-2">
+              @for (f of uploadedFiles(); track f.name; let i = $index) {
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+                  <div class="flex items-center gap-2 truncate">
+                    <svg class="w-4 h-4 text-cyan-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="font-medium text-slate-800 dark:text-slate-200 truncate">{{ f.name }}</span>
+                    <span class="text-[10px] text-slate-400">({{ (f.size / 1024 / 1024).toFixed(2) }} MB)</span>
+                  </div>
+                  <button type="button"
+                          (click)="removeFile(i)"
+                          class="text-rose-500 hover:text-rose-700 p-1 rounded-md hover:bg-rose-50 dark:hover:bg-rose-950">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+
+    }
+  </div>
+
+  <!-- Form Submit Button -->
+  <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+    <button type="submit"
+            class="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white shadow-md shadow-cyan-600/25 transition-all">
+      {{ config.submitButtonText || 'ثبت و ارسال دانش' }}
+    </button>
+  </div>
+
+</form>

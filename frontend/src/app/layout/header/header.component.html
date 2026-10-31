@@ -31,6 +31,10 @@
            class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
           {{ i18n.translate('NAV.KNOWLEDGE_TREE') }}
         </a>
+        <a routerLink="/submit-knowledge" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
+           class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+          {{ i18n.translate('NAV.SUBMIT_KNOWLEDGE') }}
+        </a>
         <a routerLink="/communities" routerLinkActive="bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 font-bold"
            class="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
           {{ i18n.translate('NAV.COMMUNITIES') }}
@@ -105,6 +109,10 @@
       <a routerLink="/knowledge-tree" (click)="mobileMenuOpen.set(false)"
          class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-800 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-cyan-950/50">
         {{ i18n.translate('NAV.KNOWLEDGE_TREE') }}
+      </a>
+      <a routerLink="/submit-knowledge" (click)="mobileMenuOpen.set(false)"
+         class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-800 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-cyan-950/50">
+        {{ i18n.translate('NAV.SUBMIT_KNOWLEDGE') }}
       </a>
       <a routerLink="/communities" (click)="mobileMenuOpen.set(false)"
          class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-800 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-cyan-950/50">

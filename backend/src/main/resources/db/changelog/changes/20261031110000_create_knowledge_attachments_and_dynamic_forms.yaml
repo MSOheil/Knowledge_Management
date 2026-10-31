@@ -1,0 +1,196 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261031110000-create-knowledge-attachments-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: knowledge_attachments
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: knowledge_item_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_path
+                  type: VARCHAR(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_type
+                  type: VARCHAR(50)
+              - column:
+                  name: file_size
+                  type: BIGINT
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: knowledge_attachments
+            baseColumnNames: knowledge_item_id
+            referencedTableName: knowledge_items
+            referencedColumnNames: id
+            constraintName: fk_knowledge_attachments_item
+            onDelete: CASCADE
+        - createIndex:
+            indexName: idx_knowledge_attachments_item_id
+            tableName: knowledge_attachments
+            columns:
+              - column:
+                  name: knowledge_item_id
+
+  - changeSet:
+      id: 20261031110000-create-dynamic-form-definitions-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: dynamic_form_definitions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: knowledge_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: form_schema_json
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - createIndex:
+            indexName: idx_dynamic_form_definitions_type
+            tableName: dynamic_form_definitions
+            columns:
+              - column:
+                  name: knowledge_type
+
+  - changeSet:
+      id: 20261031110000-alter-knowledge-items-add-extended-fields
+      author: antigravity
+      changes:
+        - addColumn:
+            tableName: knowledge_items
+            columns:
+              - column:
+                  name: summary
+                  type: TEXT
+              - column:
+                  name: target_audience
+                  type: VARCHAR(255)
+              - column:
+                  name: custom_fields_json
+                  type: TEXT
+
+  - changeSet:
+      id: 20261031110000-insert-default-form-schemas
+      author: antigravity
+      changes:
+        - insert:
+            tableName: dynamic_form_definitions
+            columns:
+              - column:
+                  name: id
+                  valueComputed: gen_random_uuid()
+              - column:
+                  name: knowledge_type
+                  value: EXPERIENCE
+              - column:
+                  name: title
+                  value: فرم ثبت تجربه و درس‌آموخته سازمانی
+              - column:
+                  name: form_schema_json
+                  value: '[{"name":"projectTitle","label":"عنوان پروژه یا حوزه مربوطه","type":"text","required":true},{"name":"challenge","label":"چالش یا مسئله روبرو شده","type":"textarea","required":true},{"name":"solution","label":"اقدام و راه‌حل اتخاذ شده","type":"textarea","required":true},{"name":"outcome","label":"دستاوردها و نتایج ملموس","type":"textarea","required":true},{"name":"repeatabilityAdvice","label":"توصیه به سایر دوایر شهرداری جهت تکرار","type":"textarea","required":false}]'
+              - column:
+                  name: is_active
+                  valueBoolean: true
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: dynamic_form_definitions
+            columns:
+              - column:
+                  name: id
+                  valueComputed: gen_random_uuid()
+              - column:
+                  name: knowledge_type
+                  value: RESEARCH_PROJECT
+              - column:
+                  name: title
+                  value: فرم ثبت پروژه پژوهشی و مطالعاتی
+              - column:
+                  name: form_schema_json
+                  value: '[{"name":"researchExecutor","label":"مجری پژوهش / دانشگاه","type":"text","required":true},{"name":"contractNumber","label":"شماره قرارداد پژوهشی","type":"text","required":false},{"name":"methodology","label":"روش‌شناسی تحقیق","type":"textarea","required":true},{"name":"practicalApplications","label":"کاربردهای عملیاتی در شهرداری","type":"textarea","required":true}]'
+              - column:
+                  name: is_active
+                  valueBoolean: true
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
