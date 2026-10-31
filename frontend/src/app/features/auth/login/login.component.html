@@ -1,0 +1,109 @@
+<div class="min-h-[calc(100vh-16rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 bg-white dark:bg-slate-800 p-8 sm:p-10 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700/80 transition-colors">
+    
+    <!-- Header & Emblem -->
+    <div class="text-center space-y-3">
+      <div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-600 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-cyan-600/30">
+        <svg class="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      </div>
+      <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">
+        {{ i18n.translate('AUTH.LOGIN_TITLE') }}
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+        {{ i18n.translate('AUTH.LOGIN_SUBTITLE') }}
+      </p>
+    </div>
+
+    <!-- Error Alert Box -->
+    @if (errorMessage()) {
+      <div class="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-sm flex items-center gap-3">
+        <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        <span>{{ errorMessage() }}</span>
+      </div>
+    }
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-8 space-y-6">
+      
+      <!-- Username / Personnel ID -->
+      <div class="space-y-1.5 text-start">
+        <label for="username" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">
+          {{ i18n.translate('AUTH.USERNAME') }}
+        </label>
+        <div class="relative">
+          <input id="username"
+                 type="text"
+                 formControlName="username"
+                 autocomplete="username"
+                 placeholder="مثال: 981240"
+                 class="block w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-sm transition-all"
+                 [class.border-rose-500]="loginForm.get('username')?.touched && loginForm.get('username')?.invalid" />
+        </div>
+        @if (loginForm.get('username')?.touched && loginForm.get('username')?.invalid) {
+          <span class="text-xs text-rose-500 font-medium">
+            {{ i18n.translate('AUTH.VALIDATION_REQUIRED') }}
+          </span>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="space-y-1.5 text-start">
+        <label for="password" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">
+          {{ i18n.translate('AUTH.PASSWORD') }}
+        </label>
+        <div class="relative">
+          <input id="password"
+                 type="password"
+                 formControlName="password"
+                 autocomplete="current-password"
+                 placeholder="••••••••"
+                 class="block w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-sm transition-all"
+                 [class.border-rose-500]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" />
+        </div>
+        @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+          <span class="text-xs text-rose-500 font-medium">
+            {{ i18n.translate('AUTH.VALIDATION_REQUIRED') }}
+          </span>
+        }
+      </div>
+
+      <!-- Remember Me & Forgot Password -->
+      <div class="flex items-center justify-between text-sm">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox"
+                 formControlName="rememberMe"
+                 class="w-4 h-4 rounded-md text-cyan-600 border-slate-300 dark:border-slate-600 focus:ring-cyan-500" />
+          <span class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm">
+            {{ i18n.translate('AUTH.REMEMBER_ME') }}
+          </span>
+        </label>
+
+        <a routerLink="/auth/forgot" class="text-xs sm:text-sm font-medium text-cyan-600 dark:text-cyan-400 hover:underline">
+          {{ i18n.translate('AUTH.FORGOT_PASSWORD') }}
+        </a>
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button type="submit"
+                [disabled]="isLoading()"
+                class="w-full flex items-center justify-center px-4 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white shadow-md shadow-cyan-600/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+          @if (isLoading()) {
+            <svg class="animate-spin -ms-1 me-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>در حال بررسی...</span>
+          } @else {
+            <span>{{ i18n.translate('AUTH.LOGIN_BUTTON') }}</span>
+          }
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

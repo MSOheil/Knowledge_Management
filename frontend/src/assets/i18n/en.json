@@ -1,0 +1,48 @@
+{
+  "APP_TITLE": "Knowledge Management System",
+  "MUNICIPALITY_NAME": "Isfahan Municipality",
+  "SLOGAN": "Intelligent platform for capturing, evaluating, and sharing organizational knowledge and lessons learned",
+  "NAV": {
+    "HOME": "Home",
+    "KNOWLEDGE_TREE": "Knowledge Tree",
+    "SUBMIT_KNOWLEDGE": "Submit Knowledge",
+    "EVALUATION": "Evaluation Desk",
+    "COMMUNITIES": "Communities of Practice",
+    "REPORTS": "Reports & Analytics",
+    "LOGIN": "Sign In",
+    "LOGOUT": "Sign Out",
+    "DASHBOARD": "Management Dashboard"
+  },
+  "AUTH": {
+    "LOGIN_TITLE": "Sign In to Knowledge Management",
+    "LOGIN_SUBTITLE": "Access via Isfahan Municipality Personnel Credentials",
+    "USERNAME": "Username / Personnel ID",
+    "PASSWORD": "Password",
+    "REMEMBER_ME": "Remember me",
+    "LOGIN_BUTTON": "Sign In",
+    "FORGOT_PASSWORD": "Forgot Password?",
+    "VALIDATION_REQUIRED": "This field is required",
+    "LOGIN_SUCCESS": "Welcome back"
+  },
+  "HOME": {
+    "HERO_TITLE": "Innovation & Intellectual Capital for a Sustainable City",
+    "HERO_DESC": "Optimizing knowledge governance, uncovering successful benchmarks, documenting lessons learned, and sharing domain expertise among municipal experts.",
+    "QUICK_ACTION_SUBMIT": "Submit New Knowledge",
+    "QUICK_ACTION_BROWSE": "Search Knowledge Repository",
+    "STATS_KNOWLEDGE_COUNT": "Registered Assets",
+    "STATS_EXPERTS": "Domain Experts",
+    "STATS_APPLIED": "Applied Solutions",
+    "STATS_COMMUNITIES": "Specialized Domains",
+    "FEATURED_KNOWLEDGE": "Top Knowledge Assets of the Month",
+    "LATEST_SUBMISSIONS": "Recent Submissions"
+  },
+  "COMMON": {
+    "LANGUAGE": "Language",
+    "PERSIAN": "Persian",
+    "ENGLISH": "English",
+    "THEME": "Theme",
+    "DARK_MODE": "Dark Mode",
+    "LIGHT_MODE": "Light Mode",
+    "COPYRIGHT": "All rights reserved for Isfahan Municipality."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "سامانه جامع مدیریت دانش شهرداری اصفهان",
+  "short_name": "مدیریت دانش",
+  "description": "بستر ثبت، ارزیابی، انتشار و تسهیم تجارب و نوآوری‌های سازمانی شهرداری اصفهان",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0891b2",
+  "dir": "rtl",
+  "lang": "fa",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

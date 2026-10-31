@@ -1,0 +1,45 @@
+# ---- Backend (Java / Spring Boot / Gradle) ----
+/backend/.gradle/
+/backend/build/
+/backend/bin/
+/backend/out/
+.gradle/
+**/.gradle/
+build/
+**/build/
+bin/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+!**/gradle/wrapper/gradle-wrapper.jar
+.gradletasknamecache
+gradle-app.setting
+*.hprof
+
+# ---- Sensitive DB Credentials & Secrets (NEVER COMMIT) ----
+/backend/src/main/resources/application-local.properties
+*.env
+*.env.local
+
+# ---- Frontend (Angular / Node / Yarn) ----
+node_modules/
+**/node_modules/
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular/
+dist/
+.angular/
+
+# ---- Lockfile Rule (Track only ONE package manager lockfile) ----
+# Using npm:
+yarn.lock
+
+# ---- IDE & OS Metadata ----
+.idea/
+.vscode/
+.apt_generated/
+.classpath
+.project
+.settings/
+.sts4-cache/
+.DS_Store
+Thumbs.db
