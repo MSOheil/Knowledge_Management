@@ -1,0 +1,118 @@
+<div
+  (click)="onBackdropClick($event)"
+  class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
+>
+  <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-8">
+    <!-- Header -->
+    <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-800/50">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center font-bold">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-slate-100">فرم رهگیری هدف جریان دانش</h3>
+          <p class="text-xs text-slate-500 line-clamp-1">
+            {{ actionType === 'DOWNLOAD' ? 'درخواست دانلود مستندات' : 'درخواست مشاهده متن کامل دانش' }}: {{ item?.title }}
+          </p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        (click)="close.emit()"
+        aria-label="بستن پنجره"
+        class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-6 space-y-4">
+      <div class="p-3.5 bg-teal-50/70 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800/80 rounded-2xl text-xs text-teal-800 dark:text-teal-300 leading-relaxed flex items-start gap-2.5">
+        <span class="text-base leading-none">ℹ️</span>
+        <p>
+          مطابق مصوبه شورای راهبری مدیریت دانش شهرداری اصفهان، جهت سنجش اثربخشی و رهگیری چرخه کاربرد دانش، لطفاً هدف اصلی خود از این دسترسی را مشخص فرمایید.
+        </p>
+      </div>
+
+      @if (errorMessage()) {
+        <div class="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-rose-700 dark:text-rose-300 text-xs font-medium flex items-center gap-2">
+          <span>⚠️</span>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <!-- Purpose Radio List -->
+      <div class="space-y-2.5">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">انتخاب هدف دسترسی:</label>
+        @for (opt of purposeOptions; track opt.value) {
+          <div
+            (click)="selectedPurpose.set(opt.value)"
+            [class]="selectedPurpose() === opt.value
+              ? 'p-3 rounded-2xl border-2 border-teal-500 bg-teal-50/40 dark:bg-teal-950/30 flex items-start gap-3 cursor-pointer transition-all shadow-2xs'
+              : 'p-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/40 flex items-start gap-3 cursor-pointer transition-all'"
+          >
+            <span class="text-xl leading-none mt-0.5">{{ opt.icon }}</span>
+            <div class="flex-1 space-y-0.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-900 dark:text-slate-100">{{ opt.title }}</span>
+                <input
+                  type="radio"
+                  [name]="'purposeRadio'"
+                  [value]="opt.value"
+                  [checked]="selectedPurpose() === opt.value"
+                  class="accent-teal-600 cursor-pointer"
+                />
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-normal">{{ opt.subtitle }}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Free Text Input for OTHER -->
+      @if (selectedPurpose() === 'OTHER') {
+        <div class="space-y-1.5 pt-1">
+          <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">توضیح هدف دسترسی:</label>
+          <textarea
+            [(ngModel)]="customDescription"
+            rows="3"
+            placeholder="لطفاً توضیح دهید این دانش در چه زمینه‌ای مورد استفاده قرار خواهد گرفت..."
+            class="w-full p-3 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+          ></textarea>
+        </div>
+      }
+    </div>
+
+    <!-- Footer -->
+    <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50 flex items-center justify-end gap-3">
+      <button
+        type="button"
+        (click)="close.emit()"
+        class="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+      >
+        انصراف
+      </button>
+
+      <button
+        type="button"
+        (click)="onConfirm()"
+        [disabled]="isSubmitting()"
+        class="px-5 py-2 text-xs font-bold text-white bg-teal-600 hover:bg-teal-700 rounded-xl shadow-md hover:shadow-lg transition-all disabled:opacity-50 flex items-center gap-2"
+      >
+        @if (isSubmitting()) {
+          <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+          <span>در حال ثبت و بازگشایی...</span>
+        } @else {
+          <span>تایید و دسترسی به سند</span>
+        }
+      </button>
+    </div>
+  </div>
+</div>

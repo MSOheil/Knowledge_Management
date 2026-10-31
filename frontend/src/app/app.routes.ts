@@ -55,6 +55,46 @@ export const routes: Routes = [
         path: 'evaluation',
         loadComponent: () => import('./features/admin/evaluator-cartable/evaluator-cartable.component').then(m => m.EvaluatorCartableComponent),
         title: 'کارتابل ارزیابی دانش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'search',
+        loadComponent: () => import('./features/knowledge/knowledge-search/knowledge-search.component').then(m => m.KnowledgeSearchComponent),
+        title: 'جستجوی پیشرفته دانش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'knowledge/search',
+        loadComponent: () => import('./features/knowledge/knowledge-search/knowledge-search.component').then(m => m.KnowledgeSearchComponent),
+        title: 'جستجوی پیشرفته دانش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'karbest',
+        loadComponent: () => import('./features/knowledge/karbest-form/karbest-form.component').then(m => m.KarbestFormComponent),
+        title: 'ثبت کاربست دانش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'knowledge/karbest',
+        loadComponent: () => import('./features/knowledge/karbest-form/karbest-form.component').then(m => m.KarbestFormComponent),
+        title: 'ثبت کاربست دانش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'forum',
+        loadComponent: () => import('./features/forum/forum.component').then(m => m.ForumComponent),
+        title: 'تالار پرسش و پاسخ سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'communities',
+        loadComponent: () => import('./features/forum/forum.component').then(m => m.ForumComponent),
+        title: 'تالار پرسش و پاسخ سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'experts',
+        loadComponent: () => import('./features/experts/expert-directory/expert-directory.component').then(m => m.ExpertDirectoryComponent),
+        title: 'بانک خبرگان سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'expert-directory',
+        loadComponent: () => import('./features/experts/expert-directory/expert-directory.component').then(m => m.ExpertDirectoryComponent),
+        title: 'بانک خبرگان سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
       }
     ]
   },

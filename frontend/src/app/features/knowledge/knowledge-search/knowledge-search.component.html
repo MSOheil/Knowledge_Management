@@ -1,0 +1,214 @@
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2.5">
+        <span class="p-2.5 rounded-2xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">موتور جستجوی پیشرفته و مخزن دانش شهری</h1>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        جستجو در تجارب مدون، مقالات، طرح‌های پژوهشی و کتب تخصصی شهرداری اصفهان به همراه رهگیری چرخه کاربرد
+      </p>
+    </div>
+  </div>
+
+  <!-- Search Filter Box -->
+  <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+    <div class="flex flex-col md:flex-row items-center gap-3">
+      <!-- Search Input -->
+      <div class="w-full flex-1 relative">
+        <input
+          type="text"
+          [(ngModel)]="keyword"
+          (keyup.enter)="onSearch()"
+          placeholder="جستجو در عنوان، خلاصه تجارب، نویسنده یا کلیدواژه‌ها..."
+          class="w-full ps-11 pe-4 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all"
+        />
+        <div class="absolute inset-y-0 start-0 ps-3.5 flex items-center pointer-events-none text-slate-400">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Type Filter Dropdown -->
+      <div class="w-full md:w-56">
+        <select
+          [(ngModel)]="selectedType"
+          (change)="onSearch()"
+          class="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-slate-800 dark:text-slate-200"
+        >
+          @for (t of knowledgeTypes; track t.value) {
+            <option [value]="t.value">{{ t.label }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Search Submit Button -->
+      <button
+        type="button"
+        (click)="onSearch()"
+        class="w-full md:w-auto min-h-[48px] px-6 py-2.5 text-xs font-bold text-white bg-cyan-600 hover:bg-cyan-700 rounded-2xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+      >
+        <span>جستجو</span>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-1">
+      <span>تعداد نتایج یافت شده: <strong class="text-slate-900 dark:text-slate-100 font-mono">{{ totalResults() }}</strong> سند معتبر</span>
+      <span class="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>کلیه اسناد تایید شده و آماده بهره‌برداری هستند</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Results List -->
+  @if (isLoading()) {
+    <div class="py-16 text-center text-cyan-600 dark:text-cyan-400 font-medium text-sm flex items-center justify-center gap-2.5">
+      <svg class="animate-spin h-6 w-6" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+      </svg>
+      <span>در حال کاوش در مخزن دانش شهرداری...</span>
+    </div>
+  } @else if (results().length === 0) {
+    <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-3">
+      <span class="text-4xl">🔍</span>
+      <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">سندی با مشخصات وارد شده یافت نشد</h3>
+      <p class="text-xs text-slate-400 max-w-sm mx-auto">
+        می‌توانید عبارت جستجو را تغییر دهید یا فیلتر قالب دانش را روی «همه قالب‌ها» قرار دهید.
+      </p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      @for (item of results(); track item.id) {
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-cyan-50 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
+                {{ getBadgeLabel(item.knowledgeType) }}
+              </span>
+              @if (item.node?.title) {
+                <span class="text-[11px] text-slate-400 font-medium truncate max-w-[130px]">
+                  {{ item.node?.title }}
+                </span>
+              }
+            </div>
+
+            <h3 class="text-sm font-bold text-slate-900 dark:text-slate-100 line-clamp-2 leading-relaxed">
+              {{ item.title }}
+            </h3>
+
+            <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
+              {{ item.summary || item.content || 'خلاصه تجربه‌نگاری در دسترس نیست.' }}
+            </p>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-3">
+            <div class="flex items-center justify-between text-[11px] text-slate-400">
+              <span>پدیدآورنده: {{ item.user?.fullName || 'کارشناس شهرداری' }}</span>
+              <span class="font-mono">{{ item.createdAt | slice:0:10 }}</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                (click)="requestAccess(item, 'READ')"
+                class="min-h-[44px] px-3 py-2 text-xs font-semibold rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-1.5"
+                [attr.aria-label]="'مشاهده کامل سند: ' + item.title"
+              >
+                <span>مشاهده کامل</span>
+                @if (unlockedItemIds().has(item.id)) {
+                  <span class="text-emerald-500 font-bold">✓</span>
+                }
+              </button>
+
+              <button
+                type="button"
+                (click)="requestAccess(item, 'DOWNLOAD')"
+                class="min-h-[44px] px-3 py-2 text-xs font-bold rounded-xl bg-teal-600 hover:bg-teal-700 text-white shadow-2xs transition-colors flex items-center justify-center gap-1.5"
+                [attr.aria-label]="'دانلود مستندات: ' + item.title"
+              >
+                <span>دانلود مستند</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Detail Drawer Modal -->
+  @if (activeItemDetail()) {
+    <div
+      (click)="closeItemDetail()"
+      class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
+    >
+      <div
+        (click)="$event.stopPropagation()"
+        class="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-6 space-y-5 my-8"
+      >
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div class="space-y-1">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+              دسترسی بازگشایی شد
+            </span>
+            <h2 class="text-base font-bold text-slate-900 dark:text-slate-100">{{ activeItemDetail()?.title }}</h2>
+          </div>
+          <button
+            type="button"
+            (click)="closeItemDetail()"
+            class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="space-y-4 max-h-[60vh] overflow-y-auto text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+          <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl space-y-1">
+            <strong class="font-bold text-slate-900 dark:text-slate-100">چکیده اجرایی:</strong>
+            <p>{{ activeItemDetail()?.summary || 'ثبت نشده' }}</p>
+          </div>
+
+          <div class="space-y-2">
+            <strong class="font-bold text-slate-900 dark:text-slate-100">متن کامل مستند دانش:</strong>
+            <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 whitespace-pre-line">
+              {{ activeItemDetail()?.content || 'محتوای متنی اصلی به این سند پیوست شده است.' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-100 dark:border-slate-800 pt-4 flex items-center justify-end">
+          <button
+            type="button"
+            (click)="closeItemDetail()"
+            class="px-5 py-2 text-xs font-bold rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-colors"
+          >
+            بستن
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Mandatory Access Purpose Interceptor Dialog -->
+  @if (isPurposeDialogOpen()) {
+    <app-access-purpose-dialog
+      [item]="pendingItem()"
+      [actionType]="pendingAction()"
+      (close)="isPurposeDialogOpen.set(false)"
+      (confirmed)="onPurposeConfirmed($event)"
+    ></app-access-purpose-dialog>
+  }
+</div>

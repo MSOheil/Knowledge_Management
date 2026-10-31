@@ -1,0 +1,352 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261031130000-create-knowledge-access-logs-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: knowledge_access_logs
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: knowledge_item_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_kal_knowledge_item
+                    references: knowledge_items(id)
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_kal_user
+                    references: users(id)
+              - column:
+                  name: access_purpose
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: custom_purpose_description
+                  type: TEXT
+              - column:
+                  name: accessed_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+
+  - changeSet:
+      id: 20261031130000-create-knowledge-applications-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: knowledge_applications
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: parent_knowledge_item_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_ka_parent_knowledge_item
+                    references: knowledge_items(id)
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_ka_user
+                    references: users(id)
+              - column:
+                  name: description
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: results_achieved
+                  type: TEXT
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: PENDING
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+
+  - changeSet:
+      id: 20261031130000-create-expert-profiles-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: expert_profiles
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+                    foreignKeyName: fk_ep_user
+                    references: users(id)
+              - column:
+                  name: expertise_summary
+                  type: TEXT
+              - column:
+                  name: resume_file_path
+                  type: VARCHAR(1000)
+              - column:
+                  name: is_verified
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: department
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+
+  - changeSet:
+      id: 20261031130000-create-forum-questions-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: forum_questions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: author_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_fq_author
+                    references: users(id)
+              - column:
+                  name: assigned_expert_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_fq_assigned_expert
+                    references: users(id)
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: question_body
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_public
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: OPEN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+
+  - changeSet:
+      id: 20261031130000-create-forum-answers-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: forum_answers
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: question_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_fa_question
+                    references: forum_questions(id)
+              - column:
+                  name: author_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_fa_author
+                    references: users(id)
+              - column:
+                  name: answer_body
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_accepted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+
+  - changeSet:
+      id: 20261031130000-create-manager-knowledge-requests-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: manager_knowledge_requests
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: manager_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_mkr_manager
+                    references: users(id)
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: topic_description
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deadline
+                  type: TIMESTAMP
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: ACTIVE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)

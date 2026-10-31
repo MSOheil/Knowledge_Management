@@ -1,0 +1,115 @@
+<div class="max-w-4xl mx-auto space-y-6">
+  <!-- Page Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2.5">
+        <span class="p-2.5 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+        </span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">ثبت کاربست تجربه و دانش در محیط عملیاتی</h1>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        ثبت نحوه به‌کارگیری تجارب مدون دیگران در پروژه‌ها، فرآیندها و مدیریت شهری جهت اعطای امتیازات انگیزشی
+      </p>
+    </div>
+  </div>
+
+  <!-- Educational Info Box -->
+  <div class="p-4 bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 rounded-3xl text-xs text-amber-800 dark:text-amber-300 leading-relaxed flex items-start gap-3">
+    <span class="text-xl leading-none">💡</span>
+    <div class="space-y-1">
+      <strong class="font-bold text-amber-900 dark:text-amber-200">کاربست دانش چیست؟</strong>
+      <p>
+        کاربست دانش یعنی استفاده عملی از یک تجربه یا دانش ثبت شده توسط همکاران در حل مسائل واقعی شهرداری. ثبت کاربست علاوه بر جلوگیری از آزمون و خطا، به پدیدآورنده دانش و کاربست‌دهنده امتیازات ارزشیابی و انگیزشی تعلق می‌گیرد.
+      </p>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  @if (errorMessage()) {
+    <div class="p-4 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-2xl text-rose-700 dark:text-rose-300 text-xs font-medium flex items-center gap-2">
+      <span>⚠️</span>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+
+  @if (successMessage()) {
+    <div class="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-medium flex items-center gap-2">
+      <span>✓</span>
+      <span>{{ successMessage() }}</span>
+    </div>
+  }
+
+  <!-- Form Body -->
+  <div class="p-6 sm:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+    <!-- Parent Knowledge Item Selector -->
+    <div class="space-y-2">
+      <label class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+        <span>دانش پایه مبنای کاربست:</span>
+        <span class="text-rose-500">*</span>
+      </label>
+      @if (isLoading()) {
+        <div class="py-3 text-xs text-slate-400">در حال فراخوانی دانش‌های تایید شده...</div>
+      } @else {
+        <select
+          [(ngModel)]="selectedParentId"
+          class="w-full p-3.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-slate-900 dark:text-slate-100"
+        >
+          @for (item of approvedItems(); track item.id) {
+            <option [value]="item.id">[{{ item.knowledgeType }}] {{ item.title }}</option>
+          }
+        </select>
+      }
+    </div>
+
+    <!-- Description of Operational Application -->
+    <div class="space-y-2">
+      <label class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+        <span>شرح چگونگی کاربست و پیاده‌سازی عملیاتی:</span>
+        <span class="text-rose-500">*</span>
+      </label>
+      <textarea
+        [(ngModel)]="description"
+        rows="5"
+        placeholder="توضیح دهید این دانش در کدام معاونت، منطقه یا پروژه به کار گرفته شد و چه اقداماتی در محیط کار انجام پذیرفت..."
+        class="w-full p-4 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 leading-relaxed"
+      ></textarea>
+    </div>
+
+    <!-- Results Achieved -->
+    <div class="space-y-2">
+      <label class="text-xs font-bold text-slate-700 dark:text-slate-300">
+        نتایج و دستاوردهای ملموس کاربست (صرفه‌جویی زمانی، مالی، ارتقای کیفیت):
+      </label>
+      <textarea
+        [(ngModel)]="resultsAchieved"
+        rows="4"
+        placeholder="شاخص‌های قبل و بعد، میزان کاهش هزینه‌ها، تسریع در زمان تحویل یا بازخورد شهروندان..."
+        class="w-full p-4 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 leading-relaxed"
+      ></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end">
+      <button
+        type="button"
+        (click)="onSubmit()"
+        [disabled]="isSubmitting() || !selectedParentId() || !description().trim()"
+        class="min-h-[48px] px-8 py-3 text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-2xl shadow-md hover:shadow-lg transition-all disabled:opacity-50 flex items-center gap-2"
+        aria-label="ثبت رسمی کاربست دانش"
+      >
+        @if (isSubmitting()) {
+          <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+          <span>در حال ثبت کاربست...</span>
+        } @else {
+          <span>ثبت رسمی گزارش کاربست دانش</span>
+        }
+      </button>
+    </div>
+  </div>
+</div>

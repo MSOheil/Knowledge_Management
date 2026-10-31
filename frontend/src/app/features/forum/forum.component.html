@@ -1,0 +1,291 @@
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2.5">
+        <span class="p-2.5 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+          </svg>
+        </span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">تالار پرسش و پاسخ سازمانی (Q&A Forum)</h1>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        طرح چالش‌های تخصصی شهرداری، مشورت با خبرگان سازمانی و اشتراک‌گذاری پاسخ‌های معتبر
+      </p>
+    </div>
+
+    <button
+      type="button"
+      (click)="isQuestionModalOpen.set(true)"
+      class="min-h-[48px] px-6 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-2xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+      aria-label="طرح پرسش جدید"
+    >
+      <span>+</span>
+      <span>طرح پرسش جدید</span>
+    </button>
+  </div>
+
+  <!-- Questions List -->
+  @if (isLoading()) {
+    <div class="py-16 text-center text-indigo-600 dark:text-indigo-400 font-medium text-sm flex items-center justify-center gap-2.5">
+      <svg class="animate-spin h-6 w-6" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+      </svg>
+      <span>در حال بارگذاری گفتگوهای تالار...</span>
+    </div>
+  } @else if (questions().length === 0) {
+    <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-3">
+      <span class="text-4xl">💬</span>
+      <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">هنوز پرسشی در تالار ثبت نشده است</h3>
+      <p class="text-xs text-slate-400 max-w-sm mx-auto">
+        اولین نفری باشید که یک چالش فنی یا تجربی شهری را به بحث می‌گذارد!
+      </p>
+    </div>
+  } @else {
+    <div class="space-y-4">
+      @for (q of questions(); track q.id) {
+        <div
+          (click)="openQuestionDetails(q)"
+          class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-800 shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4"
+        >
+          <div class="space-y-2 flex-1">
+            <div class="flex items-center gap-2">
+              @if (q.status === 'RESOLVED') {
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 flex items-center gap-1">
+                  <span>✓</span>
+                  <span>پاسخ پذیرفته شده</span>
+                </span>
+              } @else {
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                  باز برای گفتگو
+                </span>
+              }
+
+              @if (q.assignedExpert) {
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                  ارجاع به خبره: {{ q.assignedExpert.fullName }}
+                </span>
+              }
+            </div>
+
+            <h3 class="text-sm font-bold text-slate-900 dark:text-slate-100 line-clamp-1">
+              {{ q.title }}
+            </h3>
+
+            <div class="flex items-center gap-4 text-[11px] text-slate-400">
+              <span>پرسشگر: {{ q.author?.fullName || 'کارشناس' }}</span>
+              <span class="font-mono">{{ q.createdAt | slice:0:10 }}</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="px-3.5 py-2 rounded-2xl bg-slate-50 dark:bg-slate-800 text-center">
+              <span class="block text-sm font-bold text-indigo-600 dark:text-indigo-400 font-mono">
+                {{ q.answers?.length || 0 }}
+              </span>
+              <span class="text-[10px] text-slate-400">پاسخ</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Question Detail Drawer Modal -->
+  @if (activeQuestion()) {
+    <div
+      (click)="closeQuestionDetails()"
+      class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
+    >
+      <div
+        (click)="$event.stopPropagation()"
+        class="relative w-full max-w-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-6 space-y-6 my-8 max-h-[85vh] overflow-y-auto"
+      >
+        <!-- Header -->
+        <div class="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold {{ activeQuestion()?.status === 'RESOLVED' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300' }}">
+                {{ activeQuestion()?.status === 'RESOLVED' ? 'پاسخ پذیرفته شده' : 'گفتگوی فعال' }}
+              </span>
+              @if (activeQuestion()?.assignedExpert) {
+                <span class="text-xs text-purple-600 dark:text-purple-400 font-medium">
+                  خبره مرجع: {{ activeQuestion()?.assignedExpert?.fullName }}
+                </span>
+              }
+            </div>
+            <h2 class="text-base font-bold text-slate-900 dark:text-slate-100">{{ activeQuestion()?.title }}</h2>
+            <div class="text-[11px] text-slate-400">
+              ارسال شده توسط {{ activeQuestion()?.author?.fullName || 'کاربر' }} در تاریخ {{ activeQuestion()?.createdAt | slice:0:10 }}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            (click)="closeQuestionDetails()"
+            class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- Question Body -->
+        <div class="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl text-xs text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line border border-slate-200 dark:border-slate-700/60">
+          {{ activeQuestion()?.questionBody }}
+        </div>
+
+        <!-- Answers List -->
+        <div class="space-y-4">
+          <h3 class="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <span>💬</span>
+            <span>پاسخ‌های ارسال شده ({{ activeQuestion()?.answers?.length || 0 }} مورد):</span>
+          </h3>
+
+          @if (!activeQuestion()?.answers || activeQuestion()?.answers?.length === 0) {
+            <div class="p-4 text-center text-slate-400 text-xs bg-slate-50/50 dark:bg-slate-800/30 rounded-2xl">
+              هنوز پاسخی ثبت نشده است. شما اولین پاسخ را ارسال فرمایید.
+            </div>
+          } @else {
+            <div class="space-y-3">
+              @for (ans of activeQuestion()?.answers; track ans.id) {
+                <div class="p-4 rounded-2xl border {{ ans.isAccepted ? 'bg-emerald-50/60 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700' }} space-y-2">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-slate-900 dark:text-slate-100">
+                        {{ ans.author?.fullName || 'کارشناس' }}
+                      </span>
+                      @if (ans.isAccepted) {
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white flex items-center gap-1">
+                          <span>✓</span>
+                          <span>پاسخ برگزیده و مورد تایید</span>
+                        </span>
+                      }
+                    </div>
+                    <span class="text-[11px] text-slate-400 font-mono">{{ ans.createdAt | slice:0:10 }}</span>
+                  </div>
+
+                  <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+                    {{ ans.answerBody }}
+                  </p>
+
+                  @if (!ans.isAccepted) {
+                    <div class="pt-2 flex items-center justify-end">
+                      <button
+                        type="button"
+                        (click)="acceptAnswer(ans)"
+                        class="px-3 py-1 text-[11px] font-bold rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-300 transition-colors"
+                      >
+                        ✓ تایید به عنوان پاسخ برگزیده
+                      </button>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Submit New Answer -->
+        <div class="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-3">
+          <label class="text-xs font-bold text-slate-900 dark:text-slate-100">ارسال پاسخ یا راه‌حل تجربی شما:</label>
+          <textarea
+            [(ngModel)]="newAnswerBody"
+            rows="3"
+            placeholder="پاسخ، مستندات تجربی یا راهنمایی‌های عملی خود را بنویسید..."
+            class="w-full p-3 text-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 dark:text-slate-100"
+          ></textarea>
+          <div class="flex items-center justify-end">
+            <button
+              type="button"
+              (click)="submitAnswer()"
+              [disabled]="isSubmittingAnswer() || !newAnswerBody().trim()"
+              class="px-5 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-xs disabled:opacity-50 transition-colors"
+            >
+              ثبت پاسخ
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- New Question Modal -->
+  @if (isQuestionModalOpen()) {
+    <div
+      (click)="isQuestionModalOpen.set(false)"
+      class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
+    >
+      <div
+        (click)="$event.stopPropagation()"
+        class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-6 space-y-5 my-8"
+      >
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+          <h2 class="text-sm font-bold text-slate-900 dark:text-slate-100">طرح پرسش جدید در تالار گفتگو</h2>
+          <button
+            type="button"
+            (click)="isQuestionModalOpen.set(false)"
+            class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">عنوان پرسش:</label>
+            <input
+              type="text"
+              [(ngModel)]="newQuestionTitle"
+              placeholder="مثلاً: چگونگی مهار فرونشست زمین در احداث خطوط قطار شهری..."
+              class="w-full p-3 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100"
+            />
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">ارجاع مستقیم به خبره سازمانی (اختیاری):</label>
+            <select
+              [(ngModel)]="newQuestionExpertId"
+              class="w-full p-3 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100"
+            >
+              <option [ngValue]="null">عمومی (قابل مشاهده و پاسخگویی توسط همه همکاران)</option>
+              @for (exp of verifiedExperts(); track exp.id) {
+                <option [value]="exp.user?.id || exp.id">
+                  {{ exp.user?.fullName }} ({{ exp.department || 'حوزه تخصصی' }})
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">شرح کامل مسئله یا چالش دانشی:</label>
+            <textarea
+              [(ngModel)]="newQuestionBody"
+              rows="5"
+              placeholder="جزئیات فنی چالش، تجارب قبلی یا اسنادی که نیاز به بررسی دارند را تشریح فرمایید..."
+              class="w-full p-3 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-2">
+          <button
+            type="button"
+            (click)="isQuestionModalOpen.set(false)"
+            class="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+          >
+            انصراف
+          </button>
+          <button
+            type="button"
+            (click)="submitNewQuestion()"
+            class="px-5 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-xs transition-colors"
+          >
+            انتشار پرسش در تالار
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

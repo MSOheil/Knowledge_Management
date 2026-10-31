@@ -1,0 +1,115 @@
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2.5">
+        <span class="p-2.5 rounded-2xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">فهرست و بانک خبرگان سازمانی شهرداری اصفهان</h1>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        شناسایی نخبگان و صاحب‌نظران حوزه‌های گوناگون مدیریت شهری جهت مشورت، ارزیابی طرح‌ها و پاسخگویی به چالش‌ها
+      </p>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="p-4 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center gap-3">
+    <div class="w-full sm:flex-1 relative">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="applyFilter()"
+        placeholder="جستجوی خبره با نام، تخصص یا کلیدواژه..."
+        class="w-full ps-10 pe-4 py-2.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 text-slate-900 dark:text-slate-100"
+      />
+      <div class="absolute inset-y-0 start-0 ps-3 flex items-center pointer-events-none text-slate-400">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="w-full sm:w-64">
+      <select
+        [(ngModel)]="selectedDepartment"
+        (change)="applyFilter()"
+        class="w-full p-2.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 text-slate-800 dark:text-slate-200"
+      >
+        @for (dep of departments; track dep) {
+          <option [value]="dep">{{ dep }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <!-- Experts Grid -->
+  @if (isLoading()) {
+    <div class="py-16 text-center text-teal-600 dark:text-teal-400 font-medium text-sm flex items-center justify-center gap-2">
+      <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+      </svg>
+      <span>در حال بارگذاری مشخصات خبرگان...</span>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      @for (exp of filteredExperts(); track exp.id) {
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between space-y-4">
+          <div class="space-y-4">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white font-bold text-base shadow-sm">
+                  {{ (exp.user?.fullName || 'خ')[0] }}
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+                    <span>{{ exp.user?.fullName }}</span>
+                    @if (exp.isVerified) {
+                      <span class="text-teal-500" title="خبره تایید شده شهرداری">✓</span>
+                    }
+                  </h3>
+                  <span class="text-[11px] text-slate-400 block line-clamp-1">
+                    {{ exp.department }}
+                  </span>
+                </div>
+              </div>
+
+              @if (exp.isVerified) {
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-teal-50 text-teal-700 dark:bg-teal-950 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
+                  خبره رسمی
+                </span>
+              }
+            </div>
+
+            <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <span class="text-[11px] font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                زمینه‌های تخصص و حوزه‌های دانش:
+              </span>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                {{ exp.expertiseSummary }}
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end">
+            <button
+              type="button"
+              (click)="askExpert(exp)"
+              class="w-full min-h-[44px] px-4 py-2 text-xs font-bold text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 hover:bg-teal-100 dark:hover:bg-teal-900/60 rounded-xl transition-colors flex items-center justify-center gap-2"
+              [attr.aria-label]="'طرح پرسش در تالار از ' + exp.user?.fullName"
+            >
+              <span>مشورت و طرح پرسش از این خبره</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
