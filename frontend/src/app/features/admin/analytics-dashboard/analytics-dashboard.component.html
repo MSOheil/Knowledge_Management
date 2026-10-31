@@ -1,0 +1,118 @@
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2.5">
+        <span class="p-2.5 rounded-2xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+        </span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">داشبورد هوش سازمانی و تحلیل آماری مدیریت دانش</h1>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        شهرداری اصفهان - رصد شاخص‌های کلیدی عملکرد، جریان سرانه دانش، رتبه‌بندی مناطق و عملکرد کمیته‌های داوری
+      </p>
+    </div>
+  </div>
+
+  <!-- KPI Overview Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Card 1 -->
+    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between">
+      <div class="space-y-1">
+        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">کل اسناد دانشی ثبت شده</span>
+        <div class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+          {{ totalSubmissions() }}
+        </div>
+        <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">↑ ۱۸٪ رشد نسبت به فصل گذشته</span>
+      </div>
+      <div class="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 flex items-center justify-center text-xl">
+        📚
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between">
+      <div class="space-y-1">
+        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">نرخ تایید و انتشار دانش</span>
+        <div class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+          {{ approvedRatio() }}%
+        </div>
+        <span class="text-[11px] text-teal-600 dark:text-teal-400 font-medium">سنجش کیفی و فنی دبیرخانه</span>
+      </div>
+      <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl">
+        ✓
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between">
+      <div class="space-y-1">
+        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">خبرگان فعال شناسایی‌شده</span>
+        <div class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+          {{ activeExpertsCount() }}
+        </div>
+        <span class="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium">دارای نشان آبی و سطح توسعه‌دهنده</span>
+      </div>
+      <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl">
+        🎖️
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between">
+      <div class="space-y-1">
+        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">مجموع امتیازات گیمیفیکیشن</span>
+        <div class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+          {{ totalPointsAwarded() }}
+        </div>
+        <span class="text-[11px] text-amber-600 dark:text-amber-400 font-medium">مبنای پاداش و تقدیرنامه</span>
+      </div>
+      <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl">
+        ⚡
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 1: Bar & Donut -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Department Chart (2 Columns) -->
+    <div class="lg:col-span-2 p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="space-y-0.5">
+          <h2 class="text-sm font-bold text-slate-900 dark:text-slate-100">سرانه تولید دانش به تفکیک معاونت‌ها و مناطق شهری</h2>
+          <p class="text-xs text-slate-400">توزیع فراوانی اسناد ثبت‌شده در سیستم مدیریت دانش</p>
+        </div>
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-teal-50 text-teal-700 dark:bg-teal-950 dark:text-teal-300">
+          Apache ECharts
+        </span>
+      </div>
+
+      <div #deptChartRef class="w-full h-80"></div>
+    </div>
+
+    <!-- Knowledge Type Chart (1 Column) -->
+    <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+      <div class="space-y-0.5">
+        <h2 class="text-sm font-bold text-slate-900 dark:text-slate-100">ترکیب قالب‌های دانش</h2>
+        <p class="text-xs text-slate-400">سهم تجارب زیسته، پروژه‌ها و مقالات</p>
+      </div>
+
+      <div #typeChartRef class="w-full h-80"></div>
+    </div>
+  </div>
+
+  <!-- Charts Row 2: Radar Performance -->
+  <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+    <div class="flex items-center justify-between">
+      <div class="space-y-0.5">
+        <h2 class="text-sm font-bold text-slate-900 dark:text-slate-100">نمودار رادار ارزیابی عملکرد و چابکی کمیته‌های داوری</h2>
+        <p class="text-xs text-slate-400">مقایسه شاخص‌های سرعت بررسی، نرخ تایید، رضایت و کیفیت فنی</p>
+      </div>
+      <span class="text-xs text-slate-400 font-mono">بروزرسانی بلادرنگ</span>
+    </div>
+
+    <div #committeeChartRef class="w-full h-80"></div>
+  </div>
+</div>

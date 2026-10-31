@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/changes/20261031120000_create_evaluation_workflow_and_appeals_tables.yaml
   - include:
       file: db/changelog/changes/20261031130000_create_knowledge_flow_forum_and_experts_tables.yaml
+  - include:
+      file: db/changelog/changes/20261031140000_create_gamification_and_rewards_tables.yaml

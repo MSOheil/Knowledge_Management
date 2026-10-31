@@ -95,6 +95,36 @@ export const routes: Routes = [
         path: 'expert-directory',
         loadComponent: () => import('./features/experts/expert-directory/expert-directory.component').then(m => m.ExpertDirectoryComponent),
         title: 'بانک خبرگان سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'admin/analytics',
+        loadComponent: () => import('./features/admin/analytics-dashboard/analytics-dashboard.component').then(m => m.AnalyticsDashboardComponent),
+        title: 'داشبورد هوش سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'analytics',
+        loadComponent: () => import('./features/admin/analytics-dashboard/analytics-dashboard.component').then(m => m.AnalyticsDashboardComponent),
+        title: 'داشبورد هوش سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'transcript',
+        loadComponent: () => import('./features/gamification/knowledge-transcript/knowledge-transcript.component').then(m => m.KnowledgeTranscriptComponent),
+        title: 'کارنامه دانشی همکار | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'gamification/transcript',
+        loadComponent: () => import('./features/gamification/knowledge-transcript/knowledge-transcript.component').then(m => m.KnowledgeTranscriptComponent),
+        title: 'کارنامه دانشی همکار | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'admin/bonuses',
+        loadComponent: () => import('./features/admin/bonus-export/bonus-export.component').then(m => m.BonusExportComponent),
+        title: 'گزارش پاداش‌های انگیزشی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'admin/committee-ranking',
+        loadComponent: () => import('./features/admin/committee-ranking/committee-ranking.component').then(m => m.CommitteeRankingComponent),
+        title: 'رتبه‌بندی کمیته‌های داوری | سامانه مدیریت دانش شهرداری اصفهان'
       }
     ]
   },
