@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   public auth = inject(AuthService);
 
   public mobileMenuOpen = signal<boolean>(false);
+  public moreMenuOpen = signal<boolean>(false);
   public todayJalaliDate = signal<string>('شنبه، ۱۰ آبان ۱۴۰۳');
 
   ngOnInit(): void {
@@ -42,6 +43,14 @@ export class HeaderComponent implements OnInit {
 
   public closeMobileMenu(): void {
     this.mobileMenuOpen.set(false);
+  }
+
+  public toggleMoreMenu(): void {
+    this.moreMenuOpen.update(v => !v);
+  }
+
+  public closeMoreMenu(): void {
+    this.moreMenuOpen.set(false);
   }
 }
 

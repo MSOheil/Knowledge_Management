@@ -87,52 +87,79 @@
       </div>
 
       <!-- Desktop Navigation Links (Large Screens) -->
-      <nav class="hidden xl:flex items-center gap-0.5">
+      <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
         <a routerLink="/" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold" [routerLinkActiveOptions]="{exact: true}"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+           class="px-2.5 xl:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
           {{ i18n.translate('NAV.HOME') }}
         </a>
         <a routerLink="/knowledge-tree" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+           class="px-2.5 xl:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
           {{ i18n.translate('NAV.KNOWLEDGE_TREE') }}
         </a>
-        <a routerLink="/submit-knowledge" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          {{ i18n.translate('NAV.SUBMIT_KNOWLEDGE') }}
-        </a>
         <a routerLink="/panels" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="relative px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+           class="relative px-2.5 xl:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
           <span>پویش‌های تجربه</span>
           <span class="inline-block w-1.5 h-1.5 rounded-full bg-teal-500 ms-1 animate-pulse"></span>
         </a>
-        <a routerLink="/search" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          جستجوی پیشرفته
-        </a>
-        <a routerLink="/communities" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          تالار گفتگو
-        </a>
-        <a routerLink="/experts" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          بانک خبرگان
-        </a>
-        <a routerLink="/karbest" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          کاربست دانش
+        <a routerLink="/submit-knowledge" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
+           class="px-2.5 xl:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+          ثبت تجربه
         </a>
         <a routerLink="/evaluation" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          میز ارزیابی
+           class="px-2.5 xl:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+          میز داوری
         </a>
-        <a routerLink="/analytics" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          هوش سازمانی
-        </a>
-        <a routerLink="/transcript" routerLinkActive="bg-teal-50 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300 font-bold"
-           class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          کارنامه دانشی
-        </a>
+
+        <!-- More Dropdown Menu for secondary portals -->
+        <div class="relative">
+          <button (click)="toggleMoreMenu()"
+                  type="button"
+                  class="flex items-center gap-1 px-2.5 xl:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            <span>سایر درگاه‌ها</span>
+            <svg class="w-3.5 h-3.5 transition-transform" [class.rotate-180]="moreMenuOpen()" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          @if (moreMenuOpen()) {
+            <!-- Backdrop for clicking outside -->
+            <div class="fixed inset-0 z-40" (click)="closeMoreMenu()"></div>
+
+            <div class="absolute end-0 top-full mt-1.5 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 z-50">
+              <a routerLink="/search" (click)="closeMoreMenu()"
+                 class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-950/50 hover:text-teal-800 dark:hover:text-teal-200 transition-colors">
+                <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                <span>جستجوی پیشرفته</span>
+              </a>
+              <a routerLink="/communities" (click)="closeMoreMenu()"
+                 class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-950/50 hover:text-teal-800 dark:hover:text-teal-200 transition-colors">
+                <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" /></svg>
+                <span>تالارهای گفتگو و خبرگی</span>
+              </a>
+              <a routerLink="/experts" (click)="closeMoreMenu()"
+                 class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-950/50 hover:text-teal-800 dark:hover:text-teal-200 transition-colors">
+                <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                <span>بانک خبرگان و نخبگان</span>
+              </a>
+              <a routerLink="/karbest" (click)="closeMoreMenu()"
+                 class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-950/50 hover:text-teal-800 dark:hover:text-teal-200 transition-colors">
+                <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>کاربست تجارب شهری</span>
+              </a>
+              <div class="my-1 border-t border-slate-100 dark:border-slate-800"></div>
+              <a routerLink="/analytics" (click)="closeMoreMenu()"
+                 class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-950/50 hover:text-teal-800 dark:hover:text-teal-200 transition-colors">
+                <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                <span>داشبورد هوش سازمانی</span>
+              </a>
+              <a routerLink="/transcript" (click)="closeMoreMenu()"
+                 class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-950/50 hover:text-teal-800 dark:hover:text-teal-200 transition-colors">
+                <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                <span>کارنامه و امتیازات دانشی</span>
+              </a>
+            </div>
+          }
+        </div>
       </nav>
 
       <!-- Action Area: Staff Login & Mobile Trigger -->
@@ -179,7 +206,7 @@
         <button (click)="toggleMobileMenu()"
                 type="button"
                 aria-label="منوی دسترسی سامانه"
-                class="xl:hidden w-10 h-10 rounded-xl flex items-center justify-center text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-teal-950/50 transition-colors">
+                class="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-teal-950/50 transition-colors">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             @if (mobileMenuOpen()) {
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -195,7 +222,7 @@
 
   <!-- Mobile Comprehensive Drawer Navigation -->
   @if (mobileMenuOpen()) {
-    <div class="xl:hidden border-t border-teal-100 dark:border-teal-950/80 bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl px-4 py-5 space-y-4 max-h-[80vh] overflow-y-auto">
+    <div class="lg:hidden border-t border-teal-100 dark:border-teal-950/80 bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl px-4 py-5 space-y-4 max-h-[80vh] overflow-y-auto">
       
       <!-- Quick Mobile Header Info -->
       <div class="sm:hidden flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 text-xs text-slate-500">
