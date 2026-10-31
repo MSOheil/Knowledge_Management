@@ -48,6 +48,13 @@ public class SmsNotificationService {
         dispatchSms(recipient, message);
     }
 
+    public void broadcastPanelOpen(com.isfahan.km.entity.ExperiencePanel panel) {
+        String secretariatName = panel.getSecretariat() != null ? panel.getSecretariat().getName() : "دبیرخانه مدیریت دانش";
+        String message = String.format("شهرداری اصفهان - پویش گردآوری تجربه\nپویش «%s» ذیل %s گشوده شد.\nمهلت ثبت تجارب: %d روز. جهت مشارکت به سامانه مراجعه فرمایید.",
+                panel.getTitle(), secretariatName, panel.getDurationDays());
+        dispatchSms("09130000000", message);
+    }
+
     private String resolveRecipientPhone(KnowledgeItem item) {
         if (item.getUser() != null && item.getUser().getUsername() != null) {
             return item.getUser().getUsername();

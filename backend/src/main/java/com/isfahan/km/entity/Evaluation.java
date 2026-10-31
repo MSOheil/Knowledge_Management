@@ -30,8 +30,13 @@ public class Evaluation extends BaseEntity {
     private User evaluator;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "stage", nullable = false, length = 50)
+    @Column(name = "stage", length = 50)
     private EvaluationStage stage;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stage_id")
+    @JsonIgnoreProperties({"workflow"})
+    private WorkflowStage workflowStage;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "decision", nullable = false, length = 50)

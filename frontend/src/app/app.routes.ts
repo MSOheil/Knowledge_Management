@@ -125,6 +125,31 @@ export const routes: Routes = [
         path: 'admin/committee-ranking',
         loadComponent: () => import('./features/admin/committee-ranking/committee-ranking.component').then(m => m.CommitteeRankingComponent),
         title: 'رتبه‌بندی کمیته‌های داوری | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'panels',
+        loadComponent: () => import('./features/panels/panel-explorer/panel-explorer.component').then(m => m.PanelExplorerComponent),
+        title: 'پویش‌های تجربه سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'panels/:id',
+        loadComponent: () => import('./features/panels/panel-detail/panel-detail.component').then(m => m.PanelDetailComponent),
+        title: 'جزییات پویش تجربی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'panels/:id/synthesis',
+        loadComponent: () => import('./features/panels/panel-synthesis/panel-synthesis.component').then(m => m.PanelSynthesisComponent),
+        title: 'سنتز و تجمیع تجارب پویش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'admin/workflows',
+        loadComponent: () => import('./features/admin/workflow-builder/workflow-builder.component').then(m => m.WorkflowBuilderComponent),
+        title: 'طراحی گردش‌کارهای پویا | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'admin/secretariats',
+        loadComponent: () => import('./features/admin/secretariats/secretariat-list.component').then(m => m.SecretariatListComponent),
+        title: 'مدیریت دبیرخانه‌های تخصصی | سامانه مدیریت دانش شهرداری اصفهان'
       }
     ]
   },

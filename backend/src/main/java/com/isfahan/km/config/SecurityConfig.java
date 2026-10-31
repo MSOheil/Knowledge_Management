@@ -31,16 +31,6 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-    @Bean(name = "whitelistUrls")
-    public String[] whitelistUrls() {
-        return new String[] {
-                "/api/auth/**",
-                "/api/public/**",
-                "/v3/api-docs/**",
-                "/swagger-ui/**",
-                "/actuator/**"
-        };
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -58,7 +48,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(jwtAccessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(whitelistUrls()).permitAll()
+                        .requestMatchers(SecurityWhitelistConfig.WHITELIST).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

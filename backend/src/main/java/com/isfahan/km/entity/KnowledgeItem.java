@@ -66,6 +66,21 @@ public class KnowledgeItem extends BaseEntity {
     @JsonIgnoreProperties({"knowledgeItem"})
     private List<Appeal> appeals = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "workflow_id")
+    @JsonIgnoreProperties({"stages"})
+    private WorkflowDefinition workflow;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "current_stage_id")
+    @JsonIgnoreProperties({"workflow"})
+    private WorkflowStage currentStage;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "panel_id")
+    @JsonIgnoreProperties({"contributions"})
+    private ExperiencePanel panel;
+
     @Transient
     @JsonIgnore
     private List<MultipartFile> uploadedFiles = new ArrayList<>();

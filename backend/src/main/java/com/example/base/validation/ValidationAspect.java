@@ -23,12 +23,29 @@ public class ValidationAspect {
             return;
         }
 
-        // Target body object (first non-primitive object or matching param)
+        // Target body object (prioritize @RequestBody, otherwise first non-simple object)
         Object target = null;
-        for (Object arg : args) {
-            if (arg != null && !isPrimitiveOrWrapper(arg.getClass()) && !(arg instanceof String)) {
-                target = arg;
-                break;
+        if (joinPoint.getSignature() instanceof org.aspectj.lang.reflect.MethodSignature methodSignature) {
+            java.lang.annotation.Annotation[][] paramAnnotations = methodSignature.getMethod().getParameterAnnotations();
+            for (int i = 0; i < args.length; i++) {
+                if (paramAnnotations.length > i) {
+                    for (java.lang.annotation.Annotation ann : paramAnnotations[i]) {
+                        if (ann instanceof org.springframework.web.bind.annotation.RequestBody) {
+                            target = args[i];
+                            break;
+                        }
+                    }
+                }
+                if (target != null) break;
+            }
+        }
+
+        if (target == null) {
+            for (Object arg : args) {
+                if (arg != null && !isSimpleType(arg.getClass())) {
+                    target = arg;
+                    break;
+                }
             }
         }
 
@@ -113,7 +130,7 @@ public class ValidationAspect {
         return null;
     }
 
-    private boolean isPrimitiveOrWrapper(Class<?> clazz) {
+    private boolean isSimpleType(Class<?> clazz) {
         return clazz.isPrimitive() ||
                 clazz.equals(Boolean.class) ||
                 clazz.equals(Integer.class) ||
@@ -122,6 +139,10 @@ public class ValidationAspect {
                 clazz.equals(Short.class) ||
                 clazz.equals(Double.class) ||
                 clazz.equals(Long.class) ||
-                clazz.equals(Float.class);
+                clazz.equals(Float.class) ||
+                clazz.equals(String.class) ||
+                java.util.UUID.class.isAssignableFrom(clazz) ||
+                Number.class.isAssignableFrom(clazz) ||
+                java.time.temporal.Temporal.class.isAssignableFrom(clazz);
     }
 }

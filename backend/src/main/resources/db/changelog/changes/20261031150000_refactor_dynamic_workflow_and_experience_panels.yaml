@@ -1,0 +1,577 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261031150000-create-secretariats-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: secretariats
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+
+  - changeSet:
+      id: 20261031150000-create-workflow-definitions-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: workflow_definitions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: knowledge_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: secretariat_id
+                  type: UUID
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: workflow_definitions
+            baseColumnNames: secretariat_id
+            referencedTableName: secretariats
+            referencedColumnNames: id
+            constraintName: fk_workflow_definitions_secretariat
+            onDelete: SET NULL
+
+  - changeSet:
+      id: 20261031150000-create-workflow-stages-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: workflow_stages
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: workflow_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: stage_order
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: stage_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reviewer_role
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: form_schema_json
+                  type: TEXT
+              - column:
+                  name: sla_hours
+                  type: INT
+                  defaultValueNumeric: 48
+                  constraints:
+                    nullable: false
+              - column:
+                  name: requires_scoring
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: min_passing_score
+                  type: DOUBLE PRECISION
+                  defaultValueNumeric: 0.0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: workflow_stages
+            baseColumnNames: workflow_id
+            referencedTableName: workflow_definitions
+            referencedColumnNames: id
+            constraintName: fk_workflow_stages_workflow
+            onDelete: CASCADE
+        - createIndex:
+            indexName: idx_workflow_stages_order
+            tableName: workflow_stages
+            columns:
+              - column:
+                  name: workflow_id
+              - column:
+                  name: stage_order
+
+  - changeSet:
+      id: 20261031150000-create-experience-panels-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: experience_panels
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: creator_id
+                  type: UUID
+              - column:
+                  name: secretariat_id
+                  type: UUID
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: topic_description
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: PENDING_APPROVAL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: opened_at
+                  type: TIMESTAMP
+              - column:
+                  name: deadline_at
+                  type: TIMESTAMP
+              - column:
+                  name: duration_days
+                  type: INT
+                  defaultValueNumeric: 30
+                  constraints:
+                    nullable: false
+              - column:
+                  name: synthesis_summary
+                  type: TEXT
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: experience_panels
+            baseColumnNames: creator_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_experience_panels_creator
+            onDelete: SET NULL
+        - addForeignKeyConstraint:
+            baseTableName: experience_panels
+            baseColumnNames: secretariat_id
+            referencedTableName: secretariats
+            referencedColumnNames: id
+            constraintName: fk_experience_panels_secretariat
+            onDelete: SET NULL
+        - createIndex:
+            indexName: idx_experience_panels_status
+            tableName: experience_panels
+            columns:
+              - column:
+                  name: status
+
+  - changeSet:
+      id: 20261031150000-create-experience-panel-contributions-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: experience_panel_contributions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: panel_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: contributor_id
+                  type: UUID
+              - column:
+                  name: experience_title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: experience_body
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: attachment_path
+                  type: VARCHAR(1000)
+              - column:
+                  name: submitted_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: experience_panel_contributions
+            baseColumnNames: panel_id
+            referencedTableName: experience_panels
+            referencedColumnNames: id
+            constraintName: fk_exp_contributions_panel
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: experience_panel_contributions
+            baseColumnNames: contributor_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_exp_contributions_user
+            onDelete: SET NULL
+
+  - changeSet:
+      id: 20261031150000-alter-knowledge-items-add-dynamic-workflow-fields
+      author: antigravity
+      changes:
+        - addColumn:
+            tableName: knowledge_items
+            columns:
+              - column:
+                  name: workflow_id
+                  type: UUID
+              - column:
+                  name: current_stage_id
+                  type: UUID
+              - column:
+                  name: panel_id
+                  type: UUID
+        - addForeignKeyConstraint:
+            baseTableName: knowledge_items
+            baseColumnNames: workflow_id
+            referencedTableName: workflow_definitions
+            referencedColumnNames: id
+            constraintName: fk_knowledge_items_workflow
+            onDelete: SET NULL
+        - addForeignKeyConstraint:
+            baseTableName: knowledge_items
+            baseColumnNames: current_stage_id
+            referencedTableName: workflow_stages
+            referencedColumnNames: id
+            constraintName: fk_knowledge_items_current_stage
+            onDelete: SET NULL
+        - addForeignKeyConstraint:
+            baseTableName: knowledge_items
+            baseColumnNames: panel_id
+            referencedTableName: experience_panels
+            referencedColumnNames: id
+            constraintName: fk_knowledge_items_panel
+            onDelete: SET NULL
+
+  - changeSet:
+      id: 20261031150000-alter-evaluations-add-workflow-stage-field
+      author: antigravity
+      changes:
+        - addColumn:
+            tableName: evaluations
+            columns:
+              - column:
+                  name: stage_id
+                  type: UUID
+        - addForeignKeyConstraint:
+            baseTableName: evaluations
+            baseColumnNames: stage_id
+            referencedTableName: workflow_stages
+            referencedColumnNames: id
+            constraintName: fk_evaluations_workflow_stage
+            onDelete: SET NULL
+        - dropNotNullConstraint:
+            tableName: evaluations
+            columnName: stage
+            columnDataType: VARCHAR(50)
+
+  - changeSet:
+      id: 20261031150000-seed-default-secretariats-and-workflows
+      author: antigravity
+      changes:
+        - insert:
+            tableName: secretariats
+            columns:
+              - column:
+                  name: id
+                  value: 11111111-1111-1111-1111-111111111111
+              - column:
+                  name: name
+                  value: دبیرخانه تخصصی عمران و زیرساخت شهری
+              - column:
+                  name: code
+                  value: SEC-CIVIL
+              - column:
+                  name: description
+                  value: ارزیابی و راهبری دانش‌های فنی، مهندسی و زیرساخت‌های عمرانی شهرداری اصفهان
+              - column:
+                  name: is_active
+                  valueBoolean: true
+        - insert:
+            tableName: secretariats
+            columns:
+              - column:
+                  name: id
+                  value: 22222222-2222-2222-2222-222222222222
+              - column:
+                  name: name
+                  value: دبیرخانه تخصصی حمل و نقل و شهر هوشمند
+              - column:
+                  name: code
+                  value: SEC-TRAFFIC
+              - column:
+                  name: description
+                  value: پایش و داوری طرح‌ها و تجارب حوزه ترافیک، سیستم‌های هوشمند شهری و فاوا
+              - column:
+                  name: is_active
+                  valueBoolean: true
+        - insert:
+            tableName: secretariats
+            columns:
+              - column:
+                  name: id
+                  value: 33333333-3333-3333-3333-333333333333
+              - column:
+                  name: name
+                  value: دبیرخانه تخصصی خدمات شهری و محیط زیست
+              - column:
+                  name: code
+                  value: SEC-SERVICES
+              - column:
+                  name: description
+                  value: تجارب مدیریت پسماند، فضای سبز، زیباسازی و بحران‌های شهری
+              - column:
+                  name: is_active
+                  valueBoolean: true
+        - insert:
+            tableName: workflow_definitions
+            columns:
+              - column:
+                  name: id
+                  value: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+              - column:
+                  name: title
+                  value: گردش کار ۳ مرحله‌ای ارزیابی تجارب سازمانی
+              - column:
+                  name: knowledge_type
+                  value: EXPERIENCE
+              - column:
+                  name: secretariat_id
+                  value: 11111111-1111-1111-1111-111111111111
+              - column:
+                  name: is_active
+                  valueBoolean: true
+        - insert:
+            tableName: workflow_stages
+            columns:
+              - column:
+                  name: id
+                  value: bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbb0001
+              - column:
+                  name: workflow_id
+                  value: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+              - column:
+                  name: stage_order
+                  valueNumeric: 1
+              - column:
+                  name: stage_name
+                  value: انطباق‌سنجی و بررسی اولیه دبیرخانه
+              - column:
+                  name: reviewer_role
+                  value: SECRETARIAT
+              - column:
+                  name: sla_hours
+                  valueNumeric: 24
+              - column:
+                  name: requires_scoring
+                  valueBoolean: false
+              - column:
+                  name: min_passing_score
+                  valueNumeric: 0.0
+        - insert:
+            tableName: workflow_stages
+            columns:
+              - column:
+                  name: id
+                  value: bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbb0002
+              - column:
+                  name: workflow_id
+                  value: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+              - column:
+                  name: stage_order
+                  valueNumeric: 2
+              - column:
+                  name: stage_name
+                  value: داوری تخصصی کمیته علمی و محتوایی
+              - column:
+                  name: reviewer_role
+                  value: SPECIALIZED_COMMITTEE
+              - column:
+                  name: sla_hours
+                  valueNumeric: 72
+              - column:
+                  name: requires_scoring
+                  valueBoolean: true
+              - column:
+                  name: min_passing_score
+                  valueNumeric: 70.0
+        - insert:
+            tableName: workflow_stages
+            columns:
+              - column:
+                  name: id
+                  value: bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbb0003
+              - column:
+                  name: workflow_id
+                  value: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+              - column:
+                  name: stage_order
+                  valueNumeric: 3
+              - column:
+                  name: stage_name
+                  value: تایید نهایی معاونت و مجوز انتشار
+              - column:
+                  name: reviewer_role
+                  value: DEPARTMENT_HEAD
+              - column:
+                  name: sla_hours
+                  valueNumeric: 48
+              - column:
+                  name: requires_scoring
+                  valueBoolean: false
+              - column:
+                  name: min_passing_score
+                  valueNumeric: 0.0

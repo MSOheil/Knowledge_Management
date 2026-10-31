@@ -1,0 +1,106 @@
+<div class="space-y-6">
+  @if (isLoading()) {
+    <div class="text-center py-12 text-slate-400 text-sm">در حال بارگذاری میز سنتز تجارب...</div>
+  } @else if (panel()) {
+    <!-- Breadcrumb & Header -->
+    <div class="space-y-2">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a routerLink="/panels" class="hover:text-indigo-600 transition-colors">پویش‌ها</a>
+        <span>/</span>
+        <a [routerLink]="['/panels', panelId()]" class="hover:text-indigo-600 transition-colors">{{ panel().title }}</a>
+        <span>/</span>
+        <span class="text-slate-800 dark:text-slate-200 font-bold">میز سنتز و تلفیق تجارب</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">
+            سنتز و تدوین خروجی نهایی پویش تجربی
+          </h1>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            مشارکت‌های واصله: <strong class="text-indigo-600 dark:text-indigo-400">{{ contributions().length }} مورد</strong> | دبیرخانه ناظر: {{ panel().secretariat?.name || 'عمومی' }}
+          </p>
+        </div>
+
+        <button
+          (click)="triggerAiSummarize()"
+          [disabled]="isSynthesizing()"
+          type="button"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md hover:shadow-purple-500/20 transition-all disabled:opacity-50">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          {{ isSynthesizing() ? 'در حال تحلیل و استخراج...' : 'سنتز هوشمند با AI (دستیار تجمیع)' }}
+        </button>
+      </div>
+    </div>
+
+    @if (successMessage()) {
+      <div class="p-4 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold">
+        {{ successMessage() }}
+      </div>
+    }
+    @if (errorMessage()) {
+      <div class="p-4 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 text-xs font-bold">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <!-- Two-column workspace: Left contributions feed, Right synthesis editor -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- Right/Main: Synthesis Editor -->
+      <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-800 dark:text-slate-200 mb-1">
+            متن نهایی سنتز و درس‌آموخته‌های یکپارچه‌شده
+          </label>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-2">
+            می‌توانید از خروجی دستیار هوش مصنوعی استفاده نموده یا مستقیماً متن را ویرایش و غنی‌سازی کنید.
+          </p>
+          <textarea
+            [(ngModel)]="synthesisText"
+            rows="18"
+            placeholder="خلاصه یافته‌ها، اشتراکات تجارب ارسالی، پیشنهادات بهبود رویه‌های شهرداری..."
+            class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 text-sm leading-relaxed text-slate-900 dark:text-slate-100 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 font-sans"
+          ></textarea>
+        </div>
+
+        <div class="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-800">
+          <span class="text-xs text-slate-500">
+            تعداد کاراکتر: {{ synthesisText().length }}
+          </span>
+
+          <button
+            (click)="submitSynthesizedKnowledge()"
+            [disabled]="isSubmitting() || !synthesisText().trim()"
+            type="button"
+            class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-colors disabled:opacity-50">
+            {{ isSubmitting() ? 'در حال ارسال...' : 'ثبت نهایی و ارسال به موتور داوری پویا' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Left: Contributions reference panel -->
+      <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs space-y-4 max-h-[700px] overflow-y-auto">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          تجارب ثبت‌شده در این پویش ({{ contributions().length }})
+        </h3>
+
+        <div class="space-y-3">
+          @for (c of contributions(); track c.id; let idx = $index) {
+            <div class="p-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 space-y-1.5 text-xs">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 dark:text-slate-100">#{{ idx + 1 }}. {{ c.experienceTitle }}</strong>
+                <span class="text-[10px] text-slate-400">{{ c.contributor?.fullName || 'همکار' }}</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-300 whitespace-pre-line line-clamp-4">
+                {{ c.experienceBody }}
+              </p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
