@@ -1,0 +1,400 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261031120000-create-evaluation-criteria-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: evaluation_criteria
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: max_score
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: weight
+                  type: DOUBLE PRECISION
+                  defaultValueNumeric: 1.0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: knowledge_type
+                  type: VARCHAR(50)
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+
+  - changeSet:
+      id: 20261031120000-create-evaluations-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: evaluations
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: knowledge_item_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: evaluator_id
+                  type: UUID
+              - column:
+                  name: stage
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: decision
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: score
+                  type: DOUBLE PRECISION
+              - column:
+                  name: feedback
+                  type: TEXT
+              - column:
+                  name: conditional_requirements
+                  type: TEXT
+              - column:
+                  name: correction_hint
+                  type: TEXT
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: evaluations
+            baseColumnNames: knowledge_item_id
+            referencedTableName: knowledge_items
+            referencedColumnNames: id
+            constraintName: fk_evaluations_knowledge_item
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: evaluations
+            baseColumnNames: evaluator_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_evaluations_evaluator
+            onDelete: SET NULL
+        - createIndex:
+            indexName: idx_evaluations_item_id
+            tableName: evaluations
+            columns:
+              - column:
+                  name: knowledge_item_id
+        - createIndex:
+            indexName: idx_evaluations_evaluator_id
+            tableName: evaluations
+            columns:
+              - column:
+                  name: evaluator_id
+        - createIndex:
+            indexName: idx_evaluations_stage
+            tableName: evaluations
+            columns:
+              - column:
+                  name: stage
+        - createIndex:
+            indexName: idx_evaluations_decision
+            tableName: evaluations
+            columns:
+              - column:
+                  name: decision
+
+  - changeSet:
+      id: 20261031120000-create-evaluation-criterion-scores-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: evaluation_criterion_scores
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: evaluation_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: criterion_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: given_score
+                  type: DOUBLE PRECISION
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: evaluation_criterion_scores
+            baseColumnNames: evaluation_id
+            referencedTableName: evaluations
+            referencedColumnNames: id
+            constraintName: fk_criterion_scores_evaluation
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: evaluation_criterion_scores
+            baseColumnNames: criterion_id
+            referencedTableName: evaluation_criteria
+            referencedColumnNames: id
+            constraintName: fk_criterion_scores_criterion
+            onDelete: CASCADE
+
+  - changeSet:
+      id: 20261031120000-create-appeals-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: appeals
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: knowledge_item_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_id
+                  type: UUID
+              - column:
+                  name: reason
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: PENDING
+                  constraints:
+                    nullable: false
+              - column:
+                  name: admin_feedback
+                  type: TEXT
+              - column:
+                  name: appeal_count
+                  type: INT
+                  defaultValueNumeric: 1
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            baseTableName: appeals
+            baseColumnNames: knowledge_item_id
+            referencedTableName: knowledge_items
+            referencedColumnNames: id
+            constraintName: fk_appeals_knowledge_item
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: appeals
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_appeals_user
+            onDelete: SET NULL
+        - createIndex:
+            indexName: idx_appeals_status
+            tableName: appeals
+            columns:
+              - column:
+                  name: status
+
+  - changeSet:
+      id: 20261031120000-insert-default-evaluation-criteria
+      author: antigravity
+      changes:
+        - insert:
+            tableName: evaluation_criteria
+            columns:
+              - column:
+                  name: id
+                  valueComputed: gen_random_uuid()
+              - column:
+                  name: title
+                  value: نوآوری و بدیع بودن ایده در مسائل شهری اصفهان
+              - column:
+                  name: max_score
+                  valueNumeric: 25
+              - column:
+                  name: weight
+                  valueNumeric: 1.0
+              - column:
+                  name: is_active
+                  valueBoolean: true
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: evaluation_criteria
+            columns:
+              - column:
+                  name: id
+                  valueComputed: gen_random_uuid()
+              - column:
+                  name: title
+                  value: کارایی، امکان‌پذیری و قابلیت تعمیم در مناطق و سازمان‌های شهرداری
+              - column:
+                  name: max_score
+                  valueNumeric: 30
+              - column:
+                  name: weight
+                  valueNumeric: 1.2
+              - column:
+                  name: is_active
+                  valueBoolean: true
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: evaluation_criteria
+            columns:
+              - column:
+                  name: id
+                  valueComputed: gen_random_uuid()
+              - column:
+                  name: title
+                  value: صرفه‌جویی اقتصادی، کاهش هزینه و افزایش بهره‌وری فرآیندها
+              - column:
+                  name: max_score
+                  valueNumeric: 25
+              - column:
+                  name: weight
+                  valueNumeric: 1.0
+              - column:
+                  name: is_active
+                  valueBoolean: true
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+        - insert:
+            tableName: evaluation_criteria
+            columns:
+              - column:
+                  name: id
+                  valueComputed: gen_random_uuid()
+              - column:
+                  name: title
+                  value: کیفیت مستندسازی و استخراج درس‌آموخته‌های فنی و اجرایی
+              - column:
+                  name: max_score
+                  valueNumeric: 20
+              - column:
+                  name: weight
+                  valueNumeric: 0.8
+              - column:
+                  name: is_active
+                  valueBoolean: true
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP

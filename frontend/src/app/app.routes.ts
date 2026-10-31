@@ -40,6 +40,21 @@ export const routes: Routes = [
         path: 'admin/form-builder',
         loadComponent: () => import('./features/admin/form-builder/form-builder.component').then(m => m.FormBuilderComponent),
         title: 'طراحی فرم‌های پویا | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'admin/evaluations',
+        loadComponent: () => import('./features/admin/evaluator-cartable/evaluator-cartable.component').then(m => m.EvaluatorCartableComponent),
+        title: 'کارتابل ارزیابی دانش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'evaluations',
+        loadComponent: () => import('./features/admin/evaluator-cartable/evaluator-cartable.component').then(m => m.EvaluatorCartableComponent),
+        title: 'کارتابل ارزیابی دانش | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'evaluation',
+        loadComponent: () => import('./features/admin/evaluator-cartable/evaluator-cartable.component').then(m => m.EvaluatorCartableComponent),
+        title: 'کارتابل ارزیابی دانش | سامانه مدیریت دانش شهرداری اصفهان'
       }
     ]
   },

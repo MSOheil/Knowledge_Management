@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/changes/20261031100000_create_knowledge_tree_and_item_tables.yaml
   - include:
       file: db/changelog/changes/20261031110000_create_knowledge_attachments_and_dynamic_forms.yaml
+  - include:
+      file: db/changelog/changes/20261031120000_create_evaluation_workflow_and_appeals_tables.yaml

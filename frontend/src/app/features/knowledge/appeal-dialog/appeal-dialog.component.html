@@ -1,0 +1,137 @@
+<div
+  (click)="onBackdropClick($event)"
+  class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
+>
+  <div class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-8">
+    <!-- Header -->
+    <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-800/50">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">رسیدگی به اعتراض ارزیابی</h3>
+          <p class="text-xs text-slate-500 line-clamp-1">
+            دانش: {{ item?.knowledgeItem?.title || item?.title }}
+          </p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        (click)="close.emit()"
+        class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-6 space-y-5">
+      @if (errorMessage()) {
+        <div class="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-rose-700 dark:text-rose-300 text-xs font-medium flex items-center gap-2">
+          <span>⚠️</span>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      @if (isLoading()) {
+        <div class="py-8 text-center text-slate-400 text-xs flex items-center justify-center gap-2">
+          <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+          <span>در حال استعلام وضعیت اعتراض...</span>
+        </div>
+      } @else if (existingAppeal()) {
+        <!-- Display Existing Appeal Details -->
+        <div class="space-y-4">
+          <div class="p-4 rounded-2xl bg-purple-50/60 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/80 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-purple-900 dark:text-purple-200">وضعیت اعتراض ثبت شده:</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold {{ getStatusBadgeClass(existingAppeal().status) }}">
+                {{ getStatusText(existingAppeal().status) }}
+              </span>
+            </div>
+
+            <div class="text-xs text-slate-700 dark:text-slate-300 space-y-1">
+              <span class="font-bold">شرح اعتراض کاربر:</span>
+              <p class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-purple-100 dark:border-purple-900/60 leading-relaxed">
+                {{ existingAppeal().reason }}
+              </p>
+            </div>
+
+            @if (existingAppeal().adminFeedback) {
+              <div class="text-xs text-slate-700 dark:text-slate-300 space-y-1">
+                <span class="font-bold text-emerald-700 dark:text-emerald-400">پاسخ هیئت داوران / دبیرخانه:</span>
+                <p class="p-3 bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl leading-relaxed">
+                  {{ existingAppeal().adminFeedback }}
+                </p>
+              </div>
+            }
+
+            <div class="text-[11px] text-slate-400">
+              نوبت اعتراض مصرف‌شده: {{ existingAppeal().appealCount || 1 }} از حداکثر ۱ نوبت مجاز
+            </div>
+          </div>
+        </div>
+      } @else {
+        <!-- New Appeal Submission Form -->
+        <div class="space-y-4">
+          <!-- Mandatory One-Time Appeal Legal Warning -->
+          <div class="p-3.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-2xl flex items-start gap-2.5 text-xs text-amber-800 dark:text-amber-300">
+            <span class="text-base leading-none">⚠️</span>
+            <div class="space-y-0.5">
+              <span class="font-bold">قانون ثبت اعتراض نظام مدیریت دانش:</span>
+              <p class="leading-relaxed">
+                مطابق دستورالعمل ارزیابی، برای هر دانش مردود، <strong>صرفاً یک نوبت</strong> امکان ثبت لایحه اعتراض وجود دارد. لطفاً دلایل و مستندات خود را به صورت کامل و دقیق درج فرمایید.
+              </p>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">متن و استدلال اعتراض:</label>
+            <textarea
+              [(ngModel)]="reason"
+              rows="5"
+              placeholder="دلایل عدم انطباق رأی، دفاعیات فنی، مراجع علمی یا اصلاحات انجام شده را تشریح فرمایید..."
+              class="w-full p-3.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+            ></textarea>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Footer -->
+    <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50 flex items-center justify-end gap-3">
+      <button
+        type="button"
+        (click)="close.emit()"
+        class="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+      >
+        بستن
+      </button>
+
+      @if (!existingAppeal()) {
+        <button
+          type="button"
+          (click)="onSubmit()"
+          [disabled]="isSubmitting() || !reason().trim()"
+          class="px-5 py-2 text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 rounded-xl shadow-md hover:shadow-lg transition-all disabled:opacity-50 flex items-center gap-2"
+        >
+          @if (isSubmitting()) {
+            <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            <span>در حال ثبت لایحه اعتراض...</span>
+          } @else {
+            <span>ثبت نهایی اعتراض (تنها نوبت)</span>
+          }
+        </button>
+      }
+    </div>
+  </div>
+</div>

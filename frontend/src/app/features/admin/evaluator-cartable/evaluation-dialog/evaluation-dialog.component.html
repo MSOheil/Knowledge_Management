@@ -1,0 +1,234 @@
+<div
+  (click)="onBackdropClick($event)"
+  class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
+>
+  <div class="relative w-full max-w-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-8">
+    <!-- Header -->
+    <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-800/50">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">فرم ارزیابی و داوری دانش</h3>
+          <p class="text-xs text-slate-500 line-clamp-1">
+            عنوان دانش: {{ item?.knowledgeItem?.title || item?.title || 'ارزیابی دانش' }}
+          </p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        (click)="close.emit()"
+        class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Content Body -->
+    <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+      @if (errorMessage()) {
+        <div class="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-rose-700 dark:text-rose-300 text-xs font-medium flex items-center gap-2">
+          <span>⚠️</span>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <!-- Stage Selector -->
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">مرحله ارزیابی (جریان کار):</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            (click)="stage.set('SECRETARIAT_STAGE')"
+            [class]="stage() === 'SECRETARIAT_STAGE'
+              ? 'p-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 transition-all'
+              : 'p-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs flex items-center justify-center gap-2 transition-all'"
+          >
+            <span>مرحله اول: دبیرخانه نظام پیشنهادها</span>
+          </button>
+          <button
+            type="button"
+            (click)="stage.set('SPECIALIZED_COMMITTEE_STAGE')"
+            [class]="stage() === 'SPECIALIZED_COMMITTEE_STAGE'
+              ? 'p-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 transition-all'
+              : 'p-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs flex items-center justify-center gap-2 transition-all'"
+          >
+            <span>مرحله دوم: کمیته تخصصی داوری</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dynamic Evaluation Criteria Scoring Breakdown -->
+      <div class="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-4">
+        <div class="flex items-center justify-between">
+          <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+            <span>📊</span>
+            <span>ریز نمرات شاخص‌های ارزیابی کیفی و کمی</span>
+          </h4>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-mono text-xs font-bold">
+            <span>نمره کل محاسبه شده:</span>
+            <span>{{ calculatedScore }} / 100</span>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          @for (c of criteria(); track c.id) {
+            <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700/60 space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-medium text-slate-800 dark:text-slate-200">{{ c.title }}</span>
+                <span class="text-slate-500 font-mono">
+                  ضریب: {{ c.weight }} | سقف: {{ c.maxScore }}
+                </span>
+              </div>
+              <div class="flex items-center gap-4">
+                <input
+                  type="range"
+                  [min]="0"
+                  [max]="c.maxScore"
+                  [(ngModel)]="c.givenScore"
+                  class="w-full accent-emerald-500 cursor-pointer"
+                />
+                <input
+                  type="number"
+                  [min]="0"
+                  [max]="c.maxScore"
+                  [(ngModel)]="c.givenScore"
+                  class="w-16 px-2 py-1 text-center font-mono text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200"
+                />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Decision Selector -->
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">رأی و تصمیم نهایی ارزیاب:</label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <!-- APPROVED -->
+          <button
+            type="button"
+            (click)="decision.set('APPROVED')"
+            [class]="decision() === 'APPROVED'
+              ? 'p-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-bold text-xs flex flex-col items-center gap-1 shadow-2xs'
+              : 'p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs flex flex-col items-center gap-1'"
+          >
+            <span class="text-base">✓</span>
+            <span>تایید نهایی</span>
+          </button>
+
+          <!-- CONDITIONAL_APPROVED -->
+          <button
+            type="button"
+            (click)="decision.set('CONDITIONAL_APPROVED')"
+            [class]="decision() === 'CONDITIONAL_APPROVED'
+              ? 'p-2.5 rounded-xl border-2 border-amber-500 bg-amber-50 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-bold text-xs flex flex-col items-center gap-1 shadow-2xs'
+              : 'p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs flex flex-col items-center gap-1'"
+          >
+            <span class="text-base">⚖️</span>
+            <span>تایید مشروط</span>
+          </button>
+
+          <!-- REFERRED_FOR_CORRECTION -->
+          <button
+            type="button"
+            (click)="decision.set('REFERRED_FOR_CORRECTION')"
+            [class]="decision() === 'REFERRED_FOR_CORRECTION'
+              ? 'p-2.5 rounded-xl border-2 border-sky-500 bg-sky-50 dark:bg-sky-950 text-sky-800 dark:text-sky-300 font-bold text-xs flex flex-col items-center gap-1 shadow-2xs'
+              : 'p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs flex flex-col items-center gap-1'"
+          >
+            <span class="text-base">↩️</span>
+            <span>ارجاع جهت اصلاح</span>
+          </button>
+
+          <!-- REJECTED -->
+          <button
+            type="button"
+            (click)="decision.set('REJECTED')"
+            [class]="decision() === 'REJECTED'
+              ? 'p-2.5 rounded-xl border-2 border-rose-500 bg-rose-50 dark:bg-rose-950 text-rose-800 dark:text-rose-300 font-bold text-xs flex flex-col items-center gap-1 shadow-2xs'
+              : 'p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs flex flex-col items-center gap-1'"
+          >
+            <span class="text-base">✕</span>
+            <span>رد دانش</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Conditional Requirements Box -->
+      @if (decision() === 'CONDITIONAL_APPROVED') {
+        <div class="p-4 bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 rounded-2xl space-y-2">
+          <label class="text-xs font-bold text-amber-900 dark:text-amber-200 flex items-center gap-1.5">
+            <span>📝</span>
+            <span>مدارک تکمیلی و شروط تایید مشروط:</span>
+          </label>
+          <textarea
+            [(ngModel)]="conditionalRequirements"
+            rows="3"
+            placeholder="مدارک، آزمایشات یا تعهداتی که نویسنده باید قبل از انتشار ارائه کند..."
+            class="w-full p-3 text-xs bg-white dark:bg-slate-800 border border-amber-300 dark:border-amber-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-slate-900 dark:text-slate-100"
+          ></textarea>
+        </div>
+      }
+
+      <!-- Hint Box for Technical Amendments -->
+      @if (decision() === 'REFERRED_FOR_CORRECTION') {
+        <div class="p-4 bg-sky-50/70 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800/80 rounded-2xl space-y-2">
+          <label class="text-xs font-bold text-sky-900 dark:text-sky-200 flex items-center gap-1.5">
+            <span>💡</span>
+            <span>جعبه راهنمای اصلاح فنی (Hint Box):</span>
+          </label>
+          <textarea
+            [(ngModel)]="correctionHint"
+            rows="3"
+            placeholder="راهنمایی دقیق به پدیدآورنده دانش جهت رفع نواقص ساختاری و فنی..."
+            class="w-full p-3 text-xs bg-white dark:bg-slate-800 border border-sky-300 dark:border-sky-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-slate-900 dark:text-slate-100"
+          ></textarea>
+        </div>
+      }
+
+      <!-- General Feedback -->
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">توضیحات و بازخورد تفصیلی داور:</label>
+        <textarea
+          [(ngModel)]="feedback"
+          rows="3"
+          placeholder="توضیحات تکمیلی یا نقاط قوت و ضعف برای درج در سابقه..."
+          class="w-full p-3 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 text-slate-900 dark:text-slate-100"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50 flex items-center justify-end gap-3">
+      <button
+        type="button"
+        (click)="close.emit()"
+        class="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+      >
+        انصراف
+      </button>
+
+      <button
+        type="button"
+        (click)="onSubmit()"
+        [disabled]="isSubmitting()"
+        class="px-5 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-md hover:shadow-lg transition-all disabled:opacity-50 flex items-center gap-2"
+      >
+        @if (isSubmitting()) {
+          <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+          <span>در حال ثبت رأی...</span>
+        } @else {
+          <span>ثبت قطعی رأی ارزیابی</span>
+        }
+      </button>
+    </div>
+  </div>
+</div>

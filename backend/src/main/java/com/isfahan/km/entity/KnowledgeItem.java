@@ -58,6 +58,14 @@ public class KnowledgeItem extends BaseEntity {
     @JsonIgnoreProperties({"knowledgeItem"})
     private List<KnowledgeAttachment> attachments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "knowledgeItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"knowledgeItem"})
+    private List<Evaluation> evaluations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "knowledgeItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"knowledgeItem"})
+    private List<Appeal> appeals = new ArrayList<>();
+
     @Transient
     @JsonIgnore
     private List<MultipartFile> uploadedFiles = new ArrayList<>();
