@@ -1,0 +1,83 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261101110000-seed-isfahan-knowledge-tree-nodes
+      author: antigravity
+      changes:
+        - sql:
+            comment: "Seed comprehensive municipal hierarchy nodes into knowledge_nodes"
+            sql: |
+              DO $$
+              DECLARE
+                  root_id UUID := '679433f8-58d8-4fd7-8ae6-83d7827bac7a';
+                  env_id UUID := '11111111-1111-1111-1111-111111111001';
+                  traf_id UUID := '11111111-1111-1111-1111-111111111002';
+                  urb_id UUID := '11111111-1111-1111-1111-111111111003';
+                  plan_id UUID := '11111111-1111-1111-1111-111111111004';
+                  ict_id UUID := '11111111-1111-1111-1111-111111111005';
+                  dis_id UUID := '11111111-1111-1111-1111-111111111006';
+                  
+                  parks_id UUID := '22222222-2222-2222-2222-222222222001';
+                  waste_id UUID := '22222222-2222-2222-2222-222222222002';
+                  fire_id UUID := '22222222-2222-2222-2222-222222222003';
+
+                  its_id UUID := '22222222-2222-2222-2222-222222222004';
+                  metro_id UUID := '22222222-2222-2222-2222-222222222005';
+                  bus_id UUID := '22222222-2222-2222-2222-222222222006';
+
+                  zoning_id UUID := '22222222-2222-2222-2222-222222222007';
+                  eserv_id UUID := '22222222-2222-2222-2222-222222222008';
+                  heritage_id UUID := '22222222-2222-2222-2222-222222222009';
+
+                  bpr_id UUID := '22222222-2222-2222-2222-222222222010';
+                  km_unit_id UUID := '22222222-2222-2222-2222-222222222011';
+
+                  cloud_id UUID := '22222222-2222-2222-2222-222222222012';
+                  smart_id UUID := '22222222-2222-2222-2222-222222222013';
+
+                  sub_id UUID := '22222222-2222-2222-2222-222222222014';
+                  bcp_id UUID := '22222222-2222-2222-2222-222222222015';
+
+              BEGIN
+                  -- Level 1: Major Deputies
+                  INSERT INTO knowledge_nodes (id, parent_id, title, code, description, node_order, is_active, created_by, updated_by)
+                  VALUES
+                  (env_id, root_id, 'معاونت خدمات شهری و محیط زیست', 'KM-ENV', 'تجارب، دستورالعمل‌ها و الگوهای مدیریت فضای سبز، بازیافت پسماند، خدمات ایمنی و ساماندهی مشاغل شهری', 1, true, 'system', 'system'),
+                  (traf_id, root_id, 'معاونت حمل و نقل و ترافیک', 'KM-TRAF', 'دانش تخصصی در حوزه‌های قطار شهری، اتوبوسرانی، سامانه‌های هوشمند کنترل ترافیک و مهندسی معابر', 2, true, 'system', 'system'),
+                  (urb_id, root_id, 'معاونت شهرسازی و معماری', 'KM-URB', 'مستندات طرح‌های تفصیلی، شهرسازی الکترونیک (سامانه اصنو)، بازآفرینی بافت تاریخی و کنترل ضوابط ساختمانی', 3, true, 'system', 'system'),
+                  (plan_id, root_id, 'معاونت برنامه‌ریزی و توسعه سرمایه انسانی', 'KM-PLAN', 'تحول سازمانی، الگوهای ارزیابی بهره‌وری، یادگیری سازمانی، بازمهندسی فرایندها و مدیریت عملکرد', 4, true, 'system', 'system'),
+                  (ict_id, root_id, 'سازمان فناوری اطلاعات و ارتباطات (فاوا)', 'KM-ICT', 'زیرساخت‌های مراکز داده، سکوی اصفهان‌من، اینترنت اشیاء شهری، امنیت سایبری و پلتفرم‌های دولت هوشمند', 5, true, 'system', 'system'),
+                  (dis_id, root_id, 'مدیریت بحران و پدافند غیرعامل', 'KM-DISASTER', 'تاب‌آوری شهری، مدیریت فرونشست زمین، پدافند غیرعامل و برنامه‌های تداوم خدمات در شرایط اضطراری', 6, true, 'system', 'system')
+                  ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, code = EXCLUDED.code, description = EXCLUDED.description;
+
+                  -- Level 2: Organizations & Directorates
+                  INSERT INTO knowledge_nodes (id, parent_id, title, code, description, node_order, is_active, created_by, updated_by)
+                  VALUES
+                  (parks_id, env_id, 'سازمان پارک‌ها و فضای سبز', 'KM-ENV-PARKS', 'دانش بومی‌سازی گونه‌های کم‌آب‌بر، بهینه‌سازی شبکه‌های آبرسانی و خاک‌شناسی شهری', 1, true, 'system', 'system'),
+                  (waste_id, env_id, 'سازمان مدیریت پسماند', 'KM-ENV-WASTE', 'فرایندهای هوشمند جمع‌آوری، هاضم بیوگاز، تفکیک از مبدا و خطوط استاندارد تولید کمپوست', 2, true, 'system', 'system'),
+                  (fire_id, env_id, 'سازمان آتش‌نشانی و خدمات ایمنی', 'KM-ENV-FIRE', 'روش‌های اطفای سازه‌های تاریخی، مانیتورینگ حریق و تجهیزات امداد و نجات تخصصی', 3, true, 'system', 'system'),
+                  (its_id, traf_id, 'مرکز کنترل هوشمند ترافیک', 'KM-TRAF-ITS', 'الگوریتم‌های تقاطع‌های هوشمند، مدیریت خطوط BRT و پردازش تصویری تردد خودروها', 1, true, 'system', 'system'),
+                  (metro_id, traf_id, 'شرکت قطار شهری اصفهان (مترو)', 'KM-TRAF-METRO', 'نگهداری و تعمیرات پیشگیرانه ناوگان (PM)، ریل‌گذاری، خطوط بالاست و کنترل ناوگان زیرزمینی', 2, true, 'system', 'system'),
+                  (bus_id, traf_id, 'شرکت واحد اتوبوسرانی اصفهان', 'KM-TRAF-BUS', 'نوسازی ناوگان پاک، تحلیل تراکم مسافری و بهینه‌سازی ایستگاه‌ها و خطوط حومه‌ای', 3, true, 'system', 'system'),
+                  (zoning_id, urb_id, 'اداره کل طرح‌های جامع و تفصیلی', 'KM-URB-PLAN', 'تحلیل پهنه‌بندی کاربری‌ها، ضوابط تراکم و حقوق توسعه شهری', 1, true, 'system', 'system'),
+                  (eserv_id, urb_id, 'سامانه شهرسازی الکترونیک (اصنو)', 'KM-URB-ESERVICES', 'مکانیزاسیون فرآیند صدور پروانه و گواهی عدم خلاف و سرویس‌های مکان‌محور GIS', 2, true, 'system', 'system'),
+                  (heritage_id, urb_id, 'بافت تاریخی و معماری ایرانی-اسلامی', 'KM-URB-HERITAGE', 'الگوهای مرمت بافت واجد ارزش، مصالح سازگار با کویر و جداره‌سازی تاریخی', 3, true, 'system', 'system'),
+                  (bpr_id, plan_id, 'اداره کل نوسازی و تحول اداری', 'KM-PLAN-PROCESS', 'مهندسی مجدد فرایندهای شهرداری و اصلاح ساختارهای سازمانی موازی', 1, true, 'system', 'system'),
+                  (km_unit_id, plan_id, 'اداره مدیریت دانش و تعالی سازمانی', 'KM-PLAN-KM', 'چارچوب ثبت تجارب، داوری، پاداش‌های انگیزشی و کاربست‌های سازمانی', 2, true, 'system', 'system'),
+                  (cloud_id, ict_id, 'زیرساخت ابری و مرکز داده', 'KM-ICT-INFRA', 'معماری همگرای سرورها، مجازی‌سازی، ذخیره‌سازی داده‌های حجیم و امنیت سایبری', 1, true, 'system', 'system'),
+                  (smart_id, ict_id, 'سکوی خدمات شهروندی (اصفهان‌من)', 'KM-ICT-SMART', 'توسعه میکروسرویس‌های پرداخت الکترونیک، خدمات هوشمند شهری و پلتفرم IoT', 2, true, 'system', 'system'),
+                  (sub_id, dis_id, 'پایش فرونشست زمین و ژئوتکنیک', 'KM-DISASTER-SUBSIDENCE', 'شبکه ایستگاه‌های پایش راداری و برآورد اثرات فرونشست بر معابر و پل‌ها', 1, true, 'system', 'system'),
+                  (bcp_id, dis_id, 'برنامه تداوم کسب‌وکار در بحران', 'KM-DISASTER-BCP', 'سناریوهای مانور بحران، ذخایر استراتژیک و مسیرهای لجستیک اضطراری', 2, true, 'system', 'system')
+                  ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, code = EXCLUDED.code, description = EXCLUDED.description;
+
+                  -- Level 3: Micro-specializations
+                  INSERT INTO knowledge_nodes (id, parent_id, title, code, description, node_order, is_active, created_by, updated_by)
+                  VALUES
+                  ('33333333-3333-3333-3333-333333333001', parks_id, 'سامانه‌های بازچرخانی پساب خاکستری و زهاب', 'KM-ENV-WATER', 'فناوری‌های تصفیه پساب برای تغذیه پایدار فضای سبز و مزارع تفرجگاهی', 1, true, 'system', 'system'),
+                  ('33333333-3333-3333-3333-333333333002', parks_id, 'گونه‌های گیاهی سازگار با اقلیم خشک اصفهان', 'KM-ENV-PLANTS', 'بانک داده گیاهان شورپسند و کم‌نیاز به آب جهت کاشت در معابر و پارک‌ها', 2, true, 'system', 'system'),
+                  ('33333333-3333-3333-3333-333333333003', waste_id, 'سامانه تفکیک هوشمند پسماند خشک (اصفه‌پسماند)', 'KM-ENV-SMART-WASTE', 'تجربه توسعه اپلیکیشن دریافت پسماند درب منازل و اتصال به کیف پول شهروندی', 1, true, 'system', 'system'),
+                  ('33333333-3333-3333-3333-333333333004', its_id, 'موج سبز تقاطع‌های مرکزی و اولویت‌دهی BRT', 'KM-TRAF-WAVE', 'همگام‌سازی زمان‌بندی چراغ‌های راهنمایی در معابر پرتراکم خیابان‌های اصلی', 1, true, 'system', 'system'),
+                  ('33333333-3333-3333-3333-333333333005', eserv_id, 'صدور پروانه ساختمانی دومرحله‌ای در اصنو', 'KM-URB-PERMIT', 'حذف مراجعات حضوری و استعلام برخط بانک‌های اطلاعاتی ثبت و دارایی', 1, true, 'system', 'system'),
+                  ('33333333-3333-3333-3333-333333333006', smart_id, 'سرویس‌های برخط نقشه ترافیکی و ره‌گیری اتوبوس', 'KM-ICT-BUS-TRACK', 'استفاده از GPS ناوبری خودروها و نمایش زنده در اپلیکیشن اصفهان‌من', 1, true, 'system', 'system')
+                  ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, code = EXCLUDED.code, description = EXCLUDED.description;
+              END $$;
+

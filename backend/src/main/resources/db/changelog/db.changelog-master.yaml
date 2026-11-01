@@ -13,3 +13,5 @@ databaseChangeLog:
       file: db/changelog/changes/20261031140000_create_gamification_and_rewards_tables.yaml
   - include:
       file: db/changelog/changes/20261031150000_refactor_dynamic_workflow_and_experience_panels.yaml
+  - include:
+      file: db/changelog/changes/20261101110000_seed_isfahan_knowledge_tree_nodes.yaml
