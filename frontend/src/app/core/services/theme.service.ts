@@ -11,8 +11,13 @@ export class ThemeService {
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
       const savedTheme = localStorage.getItem('km_theme');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      if (savedTheme === 'dark') {
         this.isDarkMode.set(true);
+      } else {
+        // Strictly default to light theme for a bright, clean, minimalist aesthetic
+        this.isDarkMode.set(false);
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('km_theme', 'light');
       }
     }
 

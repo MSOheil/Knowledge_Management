@@ -3,7 +3,7 @@
 @theme {
   --font-sans: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
-  /* Official Isfahan Municipal Navy & Turquoise Palette (کاشی‌کاری فیروزه‌ای و سرمه‌ای حاکمیتی) */
+  /* Fresh, Clean, Minimalist Teal & Slate Palette */
   --color-primary-50: #f0fdfa;
   --color-primary-100: #ccfbf1;
   --color-primary-200: #99f6e4;
@@ -16,25 +16,20 @@
   --color-primary-900: #134e4a;
   --color-primary-950: #042f2e;
 
-  /* Deep Municipal Blue / Navy */
-  --color-gov-navy-800: #0f1e36;
-  --color-gov-navy-900: #0b1526;
-  --color-gov-navy-950: #060c18;
+  /* Bright Turquoise Shades */
+  --color-turquoise-50: #f0fdfa;
+  --color-turquoise-100: #ccfbf1;
+  --color-turquoise-200: #99f6e4;
+  --color-turquoise-300: #5eead4;
+  --color-turquoise-400: #2dd4bf;
+  --color-turquoise-500: #14b8a6;
+  --color-turquoise-600: #0d9488;
+  --color-turquoise-700: #0f766e;
+  --color-turquoise-800: #115e59;
+  --color-turquoise-900: #134e4a;
+  --color-turquoise-950: #042f2e;
 
-  /* Turquoise Brand Shades */
-  --color-turquoise-50: #e6fffa;
-  --color-turquoise-100: #b2f5ea;
-  --color-turquoise-200: #81e6d9;
-  --color-turquoise-300: #4fd1c5;
-  --color-turquoise-400: #38b2ac;
-  --color-turquoise-500: #00a896;
-  --color-turquoise-600: #028090;
-  --color-turquoise-700: #056676;
-  --color-turquoise-800: #034c56;
-  --color-turquoise-900: #023038;
-  --color-turquoise-950: #011b20;
-
-  /* Royal Isfahan Gold Accent */
+  /* Soft Warm Gold Accent */
   --color-gold-400: #fbbf24;
   --color-gold-500: #f59e0b;
   --color-gold-600: #d97706;
@@ -51,7 +46,7 @@
   --radius-2xl: 1.5rem;
 }
 
-/* Local Fonts (Vazirmatn) - Robust multi-path resolution */
+/* Local Fonts (Vazirmatn) */
 @font-face {
   font-family: 'Vazirmatn';
   src: url('/assets/fonts/Vazirmatn-Regular.woff2') format('woff2'),
@@ -89,7 +84,7 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
-  background-color: #f8fafc;
+  background-color: #fafbfc;
   color: #0f172a;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -98,7 +93,7 @@ html, body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Dark mode styling support */
+/* Dark mode styling support (preserved when explicitly toggled) */
 html.dark, body.dark {
   background-color: #090d16;
   color: #f1f5f9;
@@ -109,15 +104,15 @@ html.dark, body.dark {
   display: none !important;
 }
 
-/* Accessible Interactive touch targets (>= 44px) */
+/* Accessible Interactive touch targets (>= 40px) */
 button, a.btn, input, select, textarea {
   min-height: 40px;
 }
 
-/* Scrollbar beautification */
+/* Minimalist Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -125,107 +120,53 @@ button, a.btn, input, select, textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #e2e8f0;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0d9488;
+  background: #cbd5e1;
 }
 
 .dark ::-webkit-scrollbar-thumb {
   background: #334155;
 }
 
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #14b8a6;
-}
-
-/* Iranian National 3-Color Ribbon Accent */
+/* Delicate 2px Iranian National Ribbon */
 .gov-flag-ribbon {
-  height: 3px;
+  height: 2px;
   width: 100%;
   background: linear-gradient(90deg, 
-    #22c55e 0%, #22c55e 33.3%, 
+    #16a34a 0%, #16a34a 33.3%, 
     #ffffff 33.3%, #ffffff 66.6%, 
-    #ef4444 66.6%, #ef4444 100%);
+    #dc2626 66.6%, #dc2626 100%);
 }
 
-/* Authentic Isfahan Municipal Geometric Gradients & Girih Utilities */
-.bg-girih-pattern {
-  background-image: radial-gradient(circle at 50% 50%, rgba(2, 128, 144, 0.08) 1.5px, transparent 1.5px),
-                    radial-gradient(circle at 0% 0%, rgba(0, 168, 150, 0.05) 1.5px, transparent 1.5px);
-  background-size: 24px 24px;
+/* Minimalist Light Hero Ambient Glow */
+.bg-light-hero {
+  background: radial-gradient(ellipse at 50% 0%, rgba(240, 253, 250, 0.9) 0%, rgba(248, 250, 252, 0.7) 50%, #ffffff 100%);
 }
 
-.bg-gov-hero {
-  background: radial-gradient(circle at top right, #093b44 0%, #06242c 40%, #06111f 100%);
+/* Subtle Girih Pattern in Ultra-Low Opacity */
+.bg-girih-pattern-light {
+  background-image: radial-gradient(circle at 50% 50%, rgba(13, 148, 136, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
-.bg-turquoise-mesh {
-  background-color: #061520;
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(0, 168, 150, 0.35) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(2, 128, 144, 0.3) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.15) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(13, 148, 136, 0.25) 0px, transparent 50%);
+/* Minimalist Card Styling */
+.minimal-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Acrylic Glassmorphism Card for Official Systems */
-.glass-gov-card {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+.minimal-card:hover {
+  border-color: rgba(20, 184, 166, 0.4);
+  box-shadow: 0 6px 16px -2px rgba(13, 148, 136, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
 }
 
-.dark .glass-gov-card {
+.dark .minimal-card {
   background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(51, 65, 85, 0.8);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
-}
-
-/* Official Badges */
-.badge-gold {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  color: #92400e;
-  border: 1px solid #f59e0b;
-}
-
-.dark .badge-gold {
-  background: rgba(120, 53, 15, 0.35);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.4);
-}
-
-.badge-official {
-  background: rgba(13, 148, 136, 0.1);
-  color: #0f766e;
-  border: 1px solid rgba(13, 148, 136, 0.25);
-}
-
-.dark .badge-official {
-  background: rgba(20, 184, 166, 0.15);
-  color: #5eead4;
-  border: 1px solid rgba(20, 184, 166, 0.3);
-}
-
-/* Stamp & Official Seal Effect */
-.official-seal {
-  position: relative;
-  overflow: hidden;
-}
-
-.official-seal::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, rgba(20, 184, 166, 0.15) 0%, transparent 70%);
-  border-radius: 0 0 0 100%;
+  border-color: rgba(51, 65, 85, 0.8);
 }
