@@ -12,5 +12,5 @@ import { I18nService } from '../../core/services/i18n.service';
 })
 export class FooterComponent {
   protected i18n = inject(I18nService);
-  public currentYear = new Date().getFullYear();
+  public currentJalaliYear = '۱۴۰۳';
 }
