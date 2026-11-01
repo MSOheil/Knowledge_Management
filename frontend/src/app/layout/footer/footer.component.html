@@ -1,99 +1,18 @@
-<footer class="bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-t border-slate-200/80 dark:border-slate-800 mt-auto transition-colors">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-      
-      <!-- Brand & Mission -->
-      <div class="lg:col-span-2 space-y-3.5">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950 border border-teal-200/80 dark:border-teal-800 flex items-center justify-center text-teal-700 dark:text-teal-400">
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L3 9v11a2 2 0 002 2h14a2 2 0 002-2V9l-9-7z" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 22V12" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 7a2 2 0 100-4 2 2 0 000 4z" />
-              <circle cx="12" cy="12" r="3" stroke-width="1.5" />
-            </svg>
-          </div>
-          <div>
-            <span class="block text-sm sm:text-base font-bold text-slate-900 dark:text-white">سامانه جامع مدیریت دانش</span>
-            <span class="block text-xs font-medium text-teal-700 dark:text-teal-400">شهرداری اصفهان</span>
-          </div>
-        </div>
-
-        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-normal max-w-sm">
-          بستر یکپارچه مستندسازی تجارب، درس‌آموخته‌های پروژه‌های شهری و تبادل جریان دانایی میان معاونت‌ها و مناطق ۱۵گانه شهرداری اصفهان.
-        </p>
-
-        <div class="pt-1 flex flex-wrap items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-md bg-teal-50 dark:bg-teal-950/80 text-teal-800 dark:text-teal-300 border border-teal-100 dark:border-teal-900 text-[11px] font-medium">
-            انطباق با نظام مدیریت دانش کشور
-          </span>
-          <span class="px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px] font-medium">
-            شبکه امن سازمانی
-          </span>
-        </div>
-      </div>
-
-      <!-- Quick Navigation -->
-      <div class="space-y-2.5">
-        <h4 class="text-xs font-bold text-slate-900 dark:text-white">
-          درگاه‌های دانشی
-        </h4>
-        <ul class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
-          <li><a routerLink="/knowledge-tree" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">درخت دانش شهرداری</a></li>
-          <li><a routerLink="/panels" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">پویش‌های تجربه</a></li>
-          <li><a routerLink="/submit-knowledge" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">ثبت دانش و نوآوری</a></li>
-          <li><a routerLink="/experts" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">بانک خبرگان و نخبگان</a></li>
-          <li><a routerLink="/karbest" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">کاربست تجارب شهری</a></li>
-        </ul>
-      </div>
-
-      <!-- Related Portals -->
-      <div class="space-y-2.5">
-        <h4 class="text-xs font-bold text-slate-900 dark:text-white">
-          سامانه‌های مرتبط
-        </h4>
-        <ul class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
-          <li><a href="https://isfahan.ir" target="_blank" rel="noopener noreferrer" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">درگاه اصلی شهرداری اصفهان</a></li>
-          <li><a href="https://my.isfahan.ir" target="_blank" rel="noopener noreferrer" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">میز خدمت الکترونیک</a></li>
-          <li><a routerLink="/analytics" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">داشبورد هوش سازمانی</a></li>
-          <li><a routerLink="/evaluation" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">میز داوری و ممیزی</a></li>
-          <li><a routerLink="/transcript" class="hover:text-teal-700 dark:hover:text-teal-300 transition-colors">کارنامه دانشی پرسنل</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact Info -->
-      <div class="space-y-2.5">
-        <h4 class="text-xs font-bold text-slate-900 dark:text-white">
-          ارتباط با دبیرخانه
-        </h4>
-        <div class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
-          <p class="leading-relaxed">
-            اصفهان، میدان امام حسین (ع)، ساختمان مرکزی شهرداری اصفهان
-          </p>
-          <p class="flex items-center gap-1.5">
-            <span>مرکز ارتباطات:</span>
-            <strong class="text-amber-600 dark:text-amber-400 font-bold">۱۳۷</strong>
-          </p>
-          <p class="text-slate-500">
-            پست الکترونیکی: km&#64;isfahan.ir
-          </p>
-        </div>
-      </div>
-
+<footer class="bg-white border-t border-[#E4E9F0] py-4 px-6 text-xs text-[#667085] flex flex-col sm:flex-row items-center justify-between gap-3 mt-auto shrink-0">
+  <div class="flex items-center gap-2.5">
+    <div class="w-6 h-6 rounded-md bg-[#17365D] text-white flex items-center justify-center text-[10px] font-bold">
+      KM
     </div>
-
-    <!-- Bottom Copyright -->
-    <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
-      <p>
-        تمامی حقوق متعلق به شهرداری اصفهان است. — سال {{ currentJalaliYear }}
-      </p>
-      <div class="flex items-center gap-3 text-[11px]">
-        <span>حفظ حریم خصوصی</span>
-        <span>•</span>
-        <span>قوانین و ضوابط</span>
-        <span>•</span>
-        <span>دسترسی‌پذیری</span>
-      </div>
-    </div>
+    <span class="font-bold text-[#17365D]">سامانه جامع مدیریت دانش</span>
+    <span class="text-slate-300">|</span>
+    <span>شهرداری اصفهان — سال {{ currentJalaliYear }}</span>
+  </div>
+  <div class="flex flex-wrap items-center gap-4 text-[11px]">
+    <a routerLink="/search" class="hover:text-[#246B8F] transition-colors">پایگاه دانش</a>
+    <a routerLink="/knowledge-tree" class="hover:text-[#246B8F] transition-colors">درخت دانش</a>
+    <a routerLink="/evaluation" class="hover:text-[#246B8F] transition-colors">کارتابل ممیزی</a>
+    <a href="https://isfahan.ir" target="_blank" rel="noopener noreferrer" class="hover:text-[#246B8F] transition-colors">پرتال شهرداری</a>
+    <span class="text-slate-300">|</span>
+    <span>مرکز ارتباطات: <strong class="text-amber-600 font-bold">۱۳۷</strong></span>
   </div>
 </footer>

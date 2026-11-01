@@ -1,11 +1,12 @@
 import { Component, inject, signal, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { filter } from 'rxjs/operators';
 import { I18nService } from '../../core/services/i18n.service';
 import { ThemeService } from '../../core/services/theme.service';
-import { DirectionService } from '../../core/services/direction.service';
 import { AuthService } from '../../core/services/auth.service';
+import { LayoutService, BreadcrumbItem } from '../../core/services/layout.service';
 
 export interface QuickSearchItem {
   title: string;
@@ -24,15 +25,13 @@ export interface QuickSearchItem {
 export class HeaderComponent implements OnInit {
   protected i18n = inject(I18nService);
   protected theme = inject(ThemeService);
-  protected direction = inject(DirectionService);
   public auth = inject(AuthService);
+  public layout = inject(LayoutService);
   private router = inject(Router);
 
-  public mobileMenuOpen = signal<boolean>(false);
-  public moreMenuOpen = signal<boolean>(false);
-  public servicesMenuOpen = signal<boolean>(false);
   public notificationsOpen = signal<boolean>(false);
   public userMenuOpen = signal<boolean>(false);
+  public helpModalOpen = signal<boolean>(false);
   public commandPaletteOpen = signal<boolean>(false);
   public quickSearch = signal<string>('');
   public todayJalaliDate = signal<string>('شنبه، ۱۰ آبان ۱۴۰۳');
@@ -81,8 +80,11 @@ export class HeaderComponent implements OnInit {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
       event.preventDefault();
       this.toggleCommandPalette();
-    } else if (event.key === 'Escape' && this.commandPaletteOpen()) {
-      this.closeCommandPalette();
+    } else if (event.key === 'Escape') {
+      if (this.commandPaletteOpen()) this.closeCommandPalette();
+      if (this.helpModalOpen()) this.helpModalOpen.set(false);
+      if (this.notificationsOpen()) this.notificationsOpen.set(false);
+      if (this.userMenuOpen()) this.userMenuOpen.set(false);
     }
   }
 
@@ -96,32 +98,48 @@ export class HeaderComponent implements OnInit {
       }).format(new Date());
       this.todayJalaliDate.set(formatted);
     } catch {
-      // fallback preserved
+      // fallback
     }
+
+    this.updateBreadcrumbs(this.router.url);
+    this.router.events.pipe(
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd)
+    ).subscribe(e => {
+      this.updateBreadcrumbs(e.urlAfterRedirects);
+    });
   }
 
-  public toggleMobileMenu(): void {
-    this.mobileMenuOpen.update(v => !v);
-  }
+  private updateBreadcrumbs(url: string): void {
+    const cleanUrl = url.split('?')[0];
+    const items: BreadcrumbItem[] = [{ label: 'سامانه مدیریت دانش', route: '/' }];
 
-  public closeMobileMenu(): void {
-    this.mobileMenuOpen.set(false);
-  }
+    if (cleanUrl === '/' || cleanUrl === '') {
+      items.push({ label: 'داشبورد مدیریتی' });
+    } else if (cleanUrl.includes('search')) {
+      items.push({ label: 'پایگاه دانش سازمانی' });
+    } else if (cleanUrl.includes('submit')) {
+      items.push({ label: 'ثبت مقاله و تجربه' });
+    } else if (cleanUrl.includes('knowledge-tree')) {
+      items.push({ label: 'دسته‌بندی و درخت دانش' });
+    } else if (cleanUrl.includes('evaluation')) {
+      items.push({ label: 'کارتابل داوری و تاییدات' });
+    } else if (cleanUrl.includes('experts')) {
+      items.push({ label: 'کاربران و ساختار سازمانی' });
+    } else if (cleanUrl.includes('analytics')) {
+      items.push({ label: 'گزارش‌ها و هوش سازمانی' });
+    } else if (cleanUrl.includes('panels')) {
+      items.push({ label: 'پویش‌های تجربه سازمانی' });
+    } else if (cleanUrl.includes('communities')) {
+      items.push({ label: 'اشتراک‌گذاری و تالار خبرگی' });
+    } else if (cleanUrl.includes('transcript')) {
+      items.push({ label: 'کارنامه دانشی همکار' });
+    } else if (cleanUrl.includes('karbest')) {
+      items.push({ label: 'کاربست و اشاعه دانش' });
+    } else {
+      items.push({ label: 'صفحه جاری' });
+    }
 
-  public toggleMoreMenu(): void {
-    this.moreMenuOpen.update(v => !v);
-  }
-
-  public closeMoreMenu(): void {
-    this.moreMenuOpen.set(false);
-  }
-
-  public toggleServicesMenu(): void {
-    this.servicesMenuOpen.update(v => !v);
-  }
-
-  public closeServicesMenu(): void {
-    this.servicesMenuOpen.set(false);
+    this.layout.setBreadcrumbs(items);
   }
 
   public toggleNotifications(): void {
@@ -152,6 +170,10 @@ export class HeaderComponent implements OnInit {
   public closeCommandPalette(): void {
     this.commandPaletteOpen.set(false);
     this.quickSearch.set('');
+  }
+
+  public toggleHelpModal(): void {
+    this.helpModalOpen.update(v => !v);
   }
 
   public get filteredQuickItems(): QuickSearchItem[] {
