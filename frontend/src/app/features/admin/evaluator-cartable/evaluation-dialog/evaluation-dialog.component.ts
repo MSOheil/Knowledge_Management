@@ -58,19 +58,19 @@ export class EvaluationDialogComponent implements OnInit {
           this.criteria.set(mapped);
         } else {
           this.criteria.set([
-            { id: '1', title: 'اصالت و نوآوری دانش', maxScore: 25, weight: 1.0, givenScore: 20 },
-            { id: '2', title: 'کاربردی بودن در مدیریت شهری', maxScore: 35, weight: 1.5, givenScore: 30 },
-            { id: '3', title: 'کیفیت مستندسازی و وضوح', maxScore: 20, weight: 1.0, givenScore: 16 },
-            { id: '4', title: 'قابلیت بازتولید و تعمیم‌پذیری', maxScore: 20, weight: 1.0, givenScore: 15 }
+            { id: '1', title: 'اصالت و نوآوری دانش (Originality)', maxScore: 25, weight: 1.0, givenScore: 21 },
+            { id: '2', title: 'اثربخشی در مدیریت شهری (Effectiveness)', maxScore: 25, weight: 1.0, givenScore: 22 },
+            { id: '3', title: 'تعمیم‌پذیری و بازتولید در مناطق (Generalizability)', maxScore: 25, weight: 1.0, givenScore: 20 },
+            { id: '4', title: 'کاهش هزینه و صرفه‌جویی اقتصادی (Cost Reduction)', maxScore: 25, weight: 1.0, givenScore: 22 }
           ]);
         }
       },
       error: () => {
         this.criteria.set([
-          { id: '1', title: 'اصالت و نوآوری دانش', maxScore: 25, weight: 1.0, givenScore: 20 },
-          { id: '2', title: 'کاربردی بودن در مدیریت شهری', maxScore: 35, weight: 1.5, givenScore: 30 },
-          { id: '3', title: 'کیفیت مستندسازی و وضوح', maxScore: 20, weight: 1.0, givenScore: 16 },
-          { id: '4', title: 'قابلیت بازتولید و تعمیم‌پذیری', maxScore: 20, weight: 1.0, givenScore: 15 }
+          { id: '1', title: 'اصالت و نوآوری دانش (Originality)', maxScore: 25, weight: 1.0, givenScore: 21 },
+          { id: '2', title: 'اثربخشی در مدیریت شهری (Effectiveness)', maxScore: 25, weight: 1.0, givenScore: 22 },
+          { id: '3', title: 'تعمیم‌پذیری و بازتولید در مناطق (Generalizability)', maxScore: 25, weight: 1.0, givenScore: 20 },
+          { id: '4', title: 'کاهش هزینه و صرفه‌جویی اقتصادی (Cost Reduction)', maxScore: 25, weight: 1.0, givenScore: 22 }
         ]);
       }
     });

@@ -1,6 +1,8 @@
 import { Component, OnInit, signal, inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { KnowledgeLifecycleComponent } from '../../../shared/components/knowledge-lifecycle/knowledge-lifecycle.component';
 import { environment } from '../../../../environments/environment';
 
 export interface TranscriptItem {
@@ -27,7 +29,7 @@ export interface GamificationProfile {
 @Component({
   selector: 'app-knowledge-transcript',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, KnowledgeLifecycleComponent],
   templateUrl: './knowledge-transcript.component.html',
   styleUrl: './knowledge-transcript.component.scss'
 })

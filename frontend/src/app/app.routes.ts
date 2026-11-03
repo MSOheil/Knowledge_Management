@@ -17,6 +17,15 @@ export const routes: Routes = [
         title: 'ورود به سامانه | سامانه مدیریت دانش شهرداری اصفهان'
       },
       {
+        path: 'admin/users',
+        loadComponent: () => import('./features/admin/user-management/user-management.component').then(m => m.UserManagementComponent),
+        title: 'مدیریت کاربران و دسترسی‌ها | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'users',
+        redirectTo: 'admin/users'
+      },
+      {
         path: 'admin/knowledge-tree',
         loadComponent: () => import('./features/admin/knowledge-tree/knowledge-tree.component').then(m => m.KnowledgeTreeComponent),
         title: 'مدیریت درخت دانش | سامانه مدیریت دانش شهرداری اصفهان'
@@ -57,14 +66,28 @@ export const routes: Routes = [
         title: 'کارتابل ارزیابی دانش | سامانه مدیریت دانش شهرداری اصفهان'
       },
       {
+        path: 'dashboard',
+        redirectTo: 'admin/analytics'
+      },
+      {
+        path: 'knowledge',
+        loadComponent: () => import('./features/knowledge/knowledge-search/knowledge-search.component').then(m => m.KnowledgeSearchComponent),
+        title: 'پایگاه دانش و تجارب سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
+        path: 'knowledge/catalog',
+        loadComponent: () => import('./features/knowledge/knowledge-search/knowledge-search.component').then(m => m.KnowledgeSearchComponent),
+        title: 'فهرست تجارب و دانش سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
+      },
+      {
         path: 'search',
         loadComponent: () => import('./features/knowledge/knowledge-search/knowledge-search.component').then(m => m.KnowledgeSearchComponent),
-        title: 'جستجوی پیشرفته دانش | سامانه مدیریت دانش شهرداری اصفهان'
+        title: 'پایگاه دانش و تجارب سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
       },
       {
         path: 'knowledge/search',
         loadComponent: () => import('./features/knowledge/knowledge-search/knowledge-search.component').then(m => m.KnowledgeSearchComponent),
-        title: 'جستجوی پیشرفته دانش | سامانه مدیریت دانش شهرداری اصفهان'
+        title: 'پایگاه دانش و تجارب سازمانی | سامانه مدیریت دانش شهرداری اصفهان'
       },
       {
         path: 'karbest',

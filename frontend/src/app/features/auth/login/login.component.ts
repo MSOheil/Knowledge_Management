@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   public isLoading = signal<boolean>(false);
   public errorMessage = signal<string | null>(null);
+  public showPassword = signal<boolean>(false);
 
   public loginForm = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
@@ -40,11 +41,20 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  public toggleShowPassword(): void {
+    this.showPassword.update(v => !v);
+  }
+
   public fillAdminCredentials(): void {
     this.loginForm.patchValue({
       username: 'admin',
       password: '123456'
     });
+  }
+
+  public quickRoleLogin(role: 'ADMIN' | 'EVALUATOR' | 'EXPERT'): void {
+    this.auth.quickLoginAs(role);
+    this.router.navigate(['/']);
   }
 
   public onSubmit(): void {

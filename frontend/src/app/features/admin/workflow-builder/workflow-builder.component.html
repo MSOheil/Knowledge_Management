@@ -1,34 +1,52 @@
 <div class="space-y-6">
-  <!-- Header -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <div>
-      <div class="flex items-center gap-2">
-        <span class="p-2 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-          </svg>
-        </span>
-        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">طراحی و مدیریت گردش‌کارهای پویا</h1>
+  <!-- Header & Executive Breadcrumb -->
+  <div class="bg-white rounded-2xl border border-[#E2E8F0] p-6 shadow-xs">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div class="space-y-1.5">
+        <nav class="flex items-center gap-2 text-xs text-[#64748B] mb-1">
+          <a routerLink="/" class="hover:text-[#086288] transition-colors flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span>صفحه نخست</span>
+          </a>
+          <span class="text-[#E2E8F0]">/</span>
+          <span class="text-[#64748B]">مدیریت و حاکمیت سیستم</span>
+          <span class="text-[#E2E8F0]">/</span>
+          <span class="text-[#086288] font-bold">طراحی گردش‌کارهای پویا</span>
+        </nav>
+        
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-xl bg-[#086288]/10 text-[#086288] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+            </svg>
+          </span>
+          <h1 class="text-xl font-bold text-[#172B3A]">طراحی و پیکربندی فرآیندهای گردش‌کار پویا</h1>
+        </div>
+        <p class="text-xs text-[#64748B]">
+          تعریف فرآیندهای چندمرحله‌ای داوری، انتساب دبیرخانه تخصصی، تنظیم مهلت SLA و شروط نمره قبولی در شهرداری اصفهان
+        </p>
       </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-        تعریف فرآیندهای چندمرحله‌ای داوری، انتساب دبیرخانه تخصصی، تنظیم مهلت SLA و شروط نمره قبولی
-      </p>
-    </div>
 
-    <button
-      (click)="isCreateWorkflowModalOpen.set(true)"
-      type="button"
-      class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-teal-600 hover:bg-teal-700 text-white shadow-xs transition-colors">
-      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-      </svg>
-      تعریف فرآیند گردش‌کار جدید
-    </button>
+      <button
+        (click)="isCreateWorkflowModalOpen.set(true)"
+        type="button"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#086288] hover:bg-[#064662] text-white shadow-xs transition-colors cursor-pointer">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+        <span>تعریف فرآیند گردش‌کار جدید</span>
+      </button>
+    </div>
   </div>
 
-  <!-- Workflows Table with Horizontal Scroll Safety -->
-  <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-xs overflow-x-auto">
-    <h2 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 mb-3">فرآیندهای گردش‌کار فعال</h2>
+  <!-- Workflows Table Container -->
+  <div class="bg-white rounded-2xl border border-[#E2E8F0] p-5 shadow-xs overflow-x-auto">
+    <div class="flex items-center justify-between mb-3 pb-3 border-b border-[#E2E8F0]">
+      <h2 class="text-sm font-bold text-[#172B3A]">فرآیندهای گردش‌کار فعال سامانه</h2>
+      <span class="text-xs text-[#64748B]">جهت مدیریت مراحل هر گردش‌کار، روی ردیف مربوطه کلیک کنید</span>
+    </div>
     <app-table
       #tableRef
       [config]="tableConfig"
@@ -38,54 +56,54 @@
 
   <!-- Stage Pipeline Designer (When a workflow is selected) -->
   @if (selectedWorkflow()) {
-    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+    <div class="bg-white rounded-2xl border border-[#E2E8F0] p-6 shadow-xs space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-[#E2E8F0] pb-4">
         <div>
-          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300">
-            طراحی گام‌ها
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#086288]/10 text-[#086288]">
+            طراحی گام‌ها و مراحل
           </span>
-          <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1">
+          <h3 class="text-lg font-bold text-[#172B3A] mt-1">
             {{ selectedWorkflow().title }}
           </h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400">
-            قالب: {{ selectedWorkflow().knowledgeType }} | دبیرخانه: {{ selectedWorkflow().secretariat?.name || 'عمومی' }}
+          <p class="text-xs text-[#64748B]">
+            قالب: {{ selectedWorkflow().knowledgeType }} | دبیرخانه: {{ selectedWorkflow().secretariat?.name || 'دبیرخانه مرکزی' }}
           </p>
         </div>
 
         <button
           (click)="openAddStageModal()"
           type="button"
-          class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-slate-800 transition-colors">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-[#086288] text-white hover:bg-[#064662] transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
           </svg>
-          افزودن مرحله جدید به این فرآیند
+          <span>افزودن مرحله جدید به این فرآیند</span>
         </button>
       </div>
 
       <!-- Pipeline Stages List -->
       <div class="space-y-3">
         @if (stages().length === 0) {
-          <div class="text-center py-8 text-slate-400 text-sm">
+          <div class="text-center py-8 text-[#64748B] text-sm">
             هیچ مرحله‌ای برای این گردش‌کار تعریف نشده است. با کلیک بر روی دکمه بالا اولین مرحله را اضافه کنید.
           </div>
         }
 
         @for (st of stages(); track st.id; let idx = $index) {
-          <div class="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800 transition-colors">
+          <div class="flex items-center justify-between p-4 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-white hover:border-[#086288]/40 transition-all">
             <div class="flex items-center gap-4">
-              <span class="w-8 h-8 rounded-full bg-teal-600 text-white font-bold text-sm flex items-center justify-center">
+              <span class="w-8 h-8 rounded-full bg-[#086288] text-white font-bold text-sm flex items-center justify-center shrink-0">
                 {{ st.stageOrder }}
               </span>
               <div>
-                <h4 class="text-sm font-bold text-slate-900 dark:text-slate-100">{{ st.stageName }}</h4>
-                <div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  <span>نقش: <strong class="text-slate-700 dark:text-slate-300">{{ st.reviewerRole }}</strong></span>
+                <h4 class="text-sm font-bold text-[#172B3A]">{{ st.stageName }}</h4>
+                <div class="flex items-center gap-3 text-xs text-[#64748B] mt-1">
+                  <span>نقش: <strong class="text-[#172B3A]">{{ st.reviewerRole }}</strong></span>
                   <span>•</span>
-                  <span>مهلت SLA: <strong class="text-slate-700 dark:text-slate-300">{{ st.slaHours }} ساعت</strong></span>
+                  <span>مهلت SLA: <strong class="text-[#172B3A]">{{ st.slaHours }} ساعت</strong></span>
                   @if (st.requiresScoring) {
                     <span>•</span>
-                    <span class="text-amber-600 dark:text-amber-400">حداقل نمره قبولی: {{ st.minPassingScore }}</span>
+                    <span class="text-[#086288] font-bold">حداقل نمره قبولی: {{ st.minPassingScore }} از ۱۰۰</span>
                   }
                 </div>
               </div>
@@ -97,7 +115,7 @@
                 [disabled]="idx === 0"
                 type="button"
                 aria-label="انتقال به بالا"
-                class="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-30">
+                class="p-1.5 rounded-lg border border-[#E2E8F0] text-[#64748B] hover:bg-white disabled:opacity-30 cursor-pointer">
                 ▲
               </button>
               <button
@@ -105,14 +123,14 @@
                 [disabled]="idx === stages().length - 1"
                 type="button"
                 aria-label="انتقال به پایین"
-                class="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-30">
+                class="p-1.5 rounded-lg border border-[#E2E8F0] text-[#64748B] hover:bg-white disabled:opacity-30 cursor-pointer">
                 ▼
               </button>
               <button
                 (click)="deleteStage(st.id)"
                 type="button"
                 aria-label="حذف مرحله"
-                class="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors ms-2">
+                class="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors ms-2 cursor-pointer">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
@@ -126,27 +144,27 @@
 
   <!-- Add Stage Modal -->
   @if (isStageModalOpen()) {
-    <div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 shadow-xl border border-slate-200 dark:border-slate-800 space-y-4">
-        <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">افزودن مرحله جدید به گردش‌کار</h3>
+    <div class="fixed inset-0 z-50 bg-[#172B3A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl border border-[#E2E8F0] space-y-4">
+        <h3 class="text-base font-bold text-[#172B3A]">افزودن مرحله جدید به گردش‌کار</h3>
 
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">نام گام ارزیابی</label>
+            <label class="block text-xs font-semibold text-[#172B3A] mb-1">نام گام ارزیابی</label>
             <input
               [(ngModel)]="currentEditingStage().stageName"
               type="text"
               placeholder="مثال: داوری کمیته تخصصی هوشمندسازی"
-              class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-hidden focus:ring-2 focus:ring-teal-500"
+              class="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm focus:outline-hidden focus:ring-2 focus:ring-[#086288]/20 focus:border-[#086288] text-[#172B3A]"
             />
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">نقش بررسی‌کننده</label>
+              <label class="block text-xs font-semibold text-[#172B3A] mb-1">نقش بررسی‌کننده</label>
               <select
                 [(ngModel)]="currentEditingStage().reviewerRole"
-                class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-hidden focus:ring-2 focus:ring-teal-500">
+                class="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm focus:outline-hidden focus:ring-2 focus:ring-[#086288]/20 focus:border-[#086288] text-[#172B3A] cursor-pointer">
                 <option value="SECRETARIAT">دبیرخانه تخصصی</option>
                 <option value="SPECIALIZED_COMMITTEE">کمیته تخصصی داوری</option>
                 <option value="DEPARTMENT_HEAD">معاونت / رئیس اداره</option>
@@ -154,11 +172,11 @@
               </select>
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">مهلت SLA (ساعت)</label>
+              <label class="block text-xs font-semibold text-[#172B3A] mb-1">مهلت SLA (ساعت)</label>
               <input
                 [(ngModel)]="currentEditingStage().slaHours"
                 type="number"
-                class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-hidden focus:ring-2 focus:ring-teal-500"
+                class="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm focus:outline-hidden focus:ring-2 focus:ring-[#086288]/20 focus:border-[#086288] text-[#172B3A]"
               />
             </div>
           </div>
@@ -168,36 +186,36 @@
               [(ngModel)]="currentEditingStage().requiresScoring"
               type="checkbox"
               id="scoringCheck"
-              class="w-4 h-4 text-teal-600 rounded-sm"
+              class="w-4 h-4 text-[#086288] rounded-sm focus:ring-[#086288]"
             />
-            <label for="scoringCheck" class="text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <label for="scoringCheck" class="text-xs font-semibold text-[#172B3A] cursor-pointer">
               این مرحله نیازمند ثبت امتیاز و نمره‌دهی است
             </label>
           </div>
 
           @if (currentEditingStage().requiresScoring) {
             <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">حداقل نمره قبولی (از ۱۰۰)</label>
+              <label class="block text-xs font-semibold text-[#172B3A] mb-1">حداقل نمره قبولی (از ۱۰۰)</label>
               <input
                 [(ngModel)]="currentEditingStage().minPassingScore"
                 type="number"
-                class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-hidden focus:ring-2 focus:ring-teal-500"
+                class="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm focus:outline-hidden focus:ring-2 focus:ring-[#086288]/20 focus:border-[#086288] text-[#172B3A]"
               />
             </div>
           }
         </div>
 
-        <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+        <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 pt-3 border-t border-[#E2E8F0]">
           <button
             (click)="isStageModalOpen.set(false)"
             type="button"
-            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold border border-[#E2E8F0] text-[#64748B] hover:bg-[#F8FAFC] transition-colors cursor-pointer">
             انصراف
           </button>
           <button
             (click)="saveStage()"
             type="button"
-            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-teal-700 text-white hover:bg-teal-600 transition-colors">
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-[#086288] text-white hover:bg-[#064662] transition-colors cursor-pointer">
             ذخیره مرحله
           </button>
         </div>
@@ -207,26 +225,26 @@
 
   <!-- Create Workflow Modal -->
   @if (isCreateWorkflowModalOpen()) {
-    <div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 dark:border-slate-800 space-y-4">
-        <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">تعریف فرآیند گردش‌کار جدید</h3>
+    <div class="fixed inset-0 z-50 bg-[#172B3A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-[#E2E8F0] space-y-4">
+        <h3 class="text-base font-bold text-[#172B3A]">تعریف فرآیند گردش‌کار جدید</h3>
 
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">عنوان فرآیند</label>
+            <label class="block text-xs font-semibold text-[#172B3A] mb-1">عنوان فرآیند</label>
             <input
               [(ngModel)]="newWorkflow.title"
               type="text"
               placeholder="مثال: گردش کار ارزیابی مقالات علمی شهرداری"
-              class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-hidden focus:ring-2 focus:ring-teal-500"
+              class="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm focus:outline-hidden focus:ring-2 focus:ring-[#086288]/20 focus:border-[#086288] text-[#172B3A]"
             />
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">قالب دانش مرتبط</label>
+            <label class="block text-xs font-semibold text-[#172B3A] mb-1">قالب دانش مرتبط</label>
             <select
               [(ngModel)]="newWorkflow.knowledgeType"
-              class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-hidden focus:ring-2 focus:ring-teal-500">
+              class="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm focus:outline-hidden focus:ring-2 focus:ring-[#086288]/20 focus:border-[#086288] text-[#172B3A] cursor-pointer">
               <option value="EXPERIENCE">تجربه زیسته</option>
               <option value="RESEARCH_PROJECT">پروژه پژوهشی</option>
               <option value="ARTICLE">مقاله علمی</option>
@@ -236,10 +254,10 @@
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">دبیرخانه تخصصی ناظر (اختیاری)</label>
+            <label class="block text-xs font-semibold text-[#172B3A] mb-1">دبیرخانه تخصصی ناظر (اختیاری)</label>
             <select
               [(ngModel)]="newWorkflow.secretariatId"
-              class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-hidden focus:ring-2 focus:ring-teal-500">
+              class="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm focus:outline-hidden focus:ring-2 focus:ring-[#086288]/20 focus:border-[#086288] text-[#172B3A] cursor-pointer">
               <option value="">بدون دبیرخانه اختصاصی (فرآیند عمومی)</option>
               @for (sec of secretariats(); track sec.id) {
                 <option [value]="sec.id">{{ sec.name }} ({{ sec.code }})</option>
@@ -248,17 +266,17 @@
           </div>
         </div>
 
-        <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+        <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 pt-3 border-t border-[#E2E8F0]">
           <button
             (click)="isCreateWorkflowModalOpen.set(false)"
             type="button"
-            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold border border-[#E2E8F0] text-[#64748B] hover:bg-[#F8FAFC] transition-colors cursor-pointer">
             انصراف
           </button>
           <button
             (click)="createWorkflow()"
             type="button"
-            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-teal-700 text-white hover:bg-teal-600 transition-colors">
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-[#086288] text-white hover:bg-[#064662] transition-colors cursor-pointer">
             ایجاد فرآیند
           </button>
         </div>
@@ -266,4 +284,3 @@
     </div>
   }
 </div>
-

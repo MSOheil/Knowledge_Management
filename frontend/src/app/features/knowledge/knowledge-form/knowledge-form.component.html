@@ -1,110 +1,84 @@
-<div class="space-y-8">
+<div class="space-y-6 sm:space-y-7 pb-12 select-none">
   
   <!-- Header & Page Navigation -->
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-    <div>
-      <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-2">
-        <a routerLink="/" class="hover:text-cyan-600 dark:hover:text-cyan-400">صفحه نخست</a>
-        <span>/</span>
-        <span class="text-slate-800 dark:text-slate-200 font-bold">ثبت دانش جدید</span>
-      </nav>
-      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-        فرم ثبت و اشاعه دانش سازمانی
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-xs relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <!-- Top Gradient Accent Strip -->
+    <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-500 via-amber-500 to-orange-500"></div>
+
+    <div class="space-y-1 pt-1">
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
+          میز خدمت ثبت و اشاعه دانش
+        </span>
+        <span class="text-xs text-slate-300 dark:text-slate-700">|</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">شهرداری اصفهان</span>
+      </div>
+      <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        فرم تدوین و ثبت دانش و تجربه سازمانی
       </h1>
-      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-        اشتراک‌گذاری تجارب، خلاقیت‌ها و درس‌آموخته‌های پرسنل، مدیران و کارشناسان شهرداری اصفهان
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+        اشتراک‌گذاری تجارب، درس‌آموخته‌ها و نوآوری‌های پرسنل، مدیران و خبرگان مناطق ۱۵‌گانه شهرداری اصفهان
       </p>
     </div>
 
-    <!-- Quick Link to Form Builder -->
-    <a routerLink="/admin/form-builder"
-       class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-      <svg class="w-4 h-4 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-      <span>طراحی فرم‌های پویا (مدیریت)</span>
-    </a>
+    <!-- Quick Link to Form Builder (Admin) -->
+    @if (auth.isAdmin()) {
+      <a routerLink="/admin/form-builder"
+         class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-orange-300 hover:bg-orange-50 dark:hover:bg-slate-700 transition-colors">
+        <i class="pi pi-cog text-orange-600"></i>
+        <span>مدیریت ساختار فرم‌های پویا</span>
+      </a>
+    }
   </div>
 
   <!-- Knowledge Type Selector Buttons -->
-  <div class="p-2 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-xs">
+  <div class="p-2.5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
       <button type="button"
               (click)="onTypeChange('EXPERIENCE')"
-              [class.bg-gradient-to-r]="selectedType() === 'EXPERIENCE'"
-              [class.from-cyan-600]="selectedType() === 'EXPERIENCE'"
-              [class.to-teal-600]="selectedType() === 'EXPERIENCE'"
-              [class.text-white]="selectedType() === 'EXPERIENCE'"
-              [class.shadow-md]="selectedType() === 'EXPERIENCE'"
-              [class.text-slate-700]="selectedType() !== 'EXPERIENCE'"
-              [class.dark:text-slate-300]="selectedType() !== 'EXPERIENCE'"
-              class="px-3 py-2.5 rounded-xl text-xs font-bold transition-all hover:bg-slate-100 dark:hover:bg-slate-700/60">
+              [class]="selectedType() === 'EXPERIENCE'
+                ? 'px-3 py-2.5 rounded-2xl text-xs font-bold bg-orange-600 text-white shadow-xs transition-all'
+                : 'px-3 py-2.5 rounded-2xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 hover:text-orange-700 dark:hover:text-orange-300 transition-all border border-slate-200/60 dark:border-slate-700'">
         تجربه و درس‌آموخته
       </button>
 
       <button type="button"
               (click)="onTypeChange('RESEARCH_PROJECT')"
-              [class.bg-gradient-to-r]="selectedType() === 'RESEARCH_PROJECT'"
-              [class.from-cyan-600]="selectedType() === 'RESEARCH_PROJECT'"
-              [class.to-teal-600]="selectedType() === 'RESEARCH_PROJECT'"
-              [class.text-white]="selectedType() === 'RESEARCH_PROJECT'"
-              [class.shadow-md]="selectedType() === 'RESEARCH_PROJECT'"
-              [class.text-slate-700]="selectedType() !== 'RESEARCH_PROJECT'"
-              [class.dark:text-slate-300]="selectedType() !== 'RESEARCH_PROJECT'"
-              class="px-3 py-2.5 rounded-xl text-xs font-bold transition-all hover:bg-slate-100 dark:hover:bg-slate-700/60">
+              [class]="selectedType() === 'RESEARCH_PROJECT'
+                ? 'px-3 py-2.5 rounded-2xl text-xs font-bold bg-orange-600 text-white shadow-xs transition-all'
+                : 'px-3 py-2.5 rounded-2xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 hover:text-orange-700 dark:hover:text-orange-300 transition-all border border-slate-200/60 dark:border-slate-700'">
         پروژه پژوهشی
       </button>
 
       <button type="button"
               (click)="onTypeChange('ARTICLE')"
-              [class.bg-gradient-to-r]="selectedType() === 'ARTICLE'"
-              [class.from-cyan-600]="selectedType() === 'ARTICLE'"
-              [class.to-teal-600]="selectedType() === 'ARTICLE'"
-              [class.text-white]="selectedType() === 'ARTICLE'"
-              [class.shadow-md]="selectedType() === 'ARTICLE'"
-              [class.text-slate-700]="selectedType() !== 'ARTICLE'"
-              [class.dark:text-slate-300]="selectedType() !== 'ARTICLE'"
-              class="px-3 py-2.5 rounded-xl text-xs font-bold transition-all hover:bg-slate-100 dark:hover:bg-slate-700/60">
+              [class]="selectedType() === 'ARTICLE'
+                ? 'px-3 py-2.5 rounded-2xl text-xs font-bold bg-orange-600 text-white shadow-xs transition-all'
+                : 'px-3 py-2.5 rounded-2xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 hover:text-orange-700 dark:hover:text-orange-300 transition-all border border-slate-200/60 dark:border-slate-700'">
         مقاله علمی
       </button>
 
       <button type="button"
               (click)="onTypeChange('BOOK')"
-              [class.bg-gradient-to-r]="selectedType() === 'BOOK'"
-              [class.from-cyan-600]="selectedType() === 'BOOK'"
-              [class.to-teal-600]="selectedType() === 'BOOK'"
-              [class.text-white]="selectedType() === 'BOOK'"
-              [class.shadow-md]="selectedType() === 'BOOK'"
-              [class.text-slate-700]="selectedType() !== 'BOOK'"
-              [class.dark:text-slate-300]="selectedType() !== 'BOOK'"
-              class="px-3 py-2.5 rounded-xl text-xs font-bold transition-all hover:bg-slate-100 dark:hover:bg-slate-700/60">
+              [class]="selectedType() === 'BOOK'
+                ? 'px-3 py-2.5 rounded-2xl text-xs font-bold bg-orange-600 text-white shadow-xs transition-all'
+                : 'px-3 py-2.5 rounded-2xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 hover:text-orange-700 dark:hover:text-orange-300 transition-all border border-slate-200/60 dark:border-slate-700'">
         کتاب / تالیف
       </button>
 
       <button type="button"
               (click)="onTypeChange('THESIS')"
-              [class.bg-gradient-to-r]="selectedType() === 'THESIS'"
-              [class.from-cyan-600]="selectedType() === 'THESIS'"
-              [class.to-teal-600]="selectedType() === 'THESIS'"
-              [class.text-white]="selectedType() === 'THESIS'"
-              [class.shadow-md]="selectedType() === 'THESIS'"
-              [class.text-slate-700]="selectedType() !== 'THESIS'"
-              [class.dark:text-slate-300]="selectedType() !== 'THESIS'"
-              class="px-3 py-2.5 rounded-xl text-xs font-bold transition-all hover:bg-slate-100 dark:hover:bg-slate-700/60">
+              [class]="selectedType() === 'THESIS'
+                ? 'px-3 py-2.5 rounded-2xl text-xs font-bold bg-orange-600 text-white shadow-xs transition-all'
+                : 'px-3 py-2.5 rounded-2xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 hover:text-orange-700 dark:hover:text-orange-300 transition-all border border-slate-200/60 dark:border-slate-700'">
         پایان‌نامه دانشگاهی
       </button>
 
       <button type="button"
               (click)="onTypeChange('CONTRACTOR_EXPERIENCE')"
-              [class.bg-gradient-to-r]="selectedType() === 'CONTRACTOR_EXPERIENCE'"
-              [class.from-cyan-600]="selectedType() === 'CONTRACTOR_EXPERIENCE'"
-              [class.to-teal-600]="selectedType() === 'CONTRACTOR_EXPERIENCE'"
-              [class.text-white]="selectedType() === 'CONTRACTOR_EXPERIENCE'"
-              [class.shadow-md]="selectedType() === 'CONTRACTOR_EXPERIENCE'"
-              [class.text-slate-700]="selectedType() !== 'CONTRACTOR_EXPERIENCE'"
-              [class.dark:text-slate-300]="selectedType() !== 'CONTRACTOR_EXPERIENCE'"
-              class="px-3 py-2.5 rounded-xl text-xs font-bold transition-all hover:bg-slate-100 dark:hover:bg-slate-700/60">
+              [class]="selectedType() === 'CONTRACTOR_EXPERIENCE'
+                ? 'px-3 py-2.5 rounded-2xl text-xs font-bold bg-orange-600 text-white shadow-xs transition-all'
+                : 'px-3 py-2.5 rounded-2xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 hover:text-orange-700 dark:hover:text-orange-300 transition-all border border-slate-200/60 dark:border-slate-700'">
         تجربه پیمانکاران
       </button>
     </div>
@@ -112,31 +86,29 @@
 
   <!-- Real-time Similarity Warning Panel -->
   @if (similarityMatches().length > 0) {
-    <div class="p-6 rounded-3xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 shadow-sm space-y-4 text-start animate-in fade-in duration-300">
-      <div class="flex items-center gap-3 text-amber-800 dark:text-amber-300 font-bold text-base">
-        <svg class="w-6 h-6 shrink-0 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-        </svg>
+    <div class="p-6 rounded-3xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 shadow-xs space-y-3 text-start animate-in fade-in duration-300">
+      <div class="flex items-center gap-2.5 text-amber-950 dark:text-amber-200 font-bold text-sm">
+        <i class="pi pi-exclamation-triangle text-amber-600 text-lg shrink-0"></i>
         <span>هشدارهای هوشمند هم‌پوشانی و شباهت با دانش‌های موجود در شهرداری:</span>
       </div>
 
-      <p class="text-xs sm:text-sm text-amber-700 dark:text-amber-400 leading-relaxed">
+      <p class="text-xs text-amber-900/80 dark:text-amber-300/80 leading-relaxed">
         سیستم هوش مصنوعی تطبیق متن متوجه دانش‌های مشابه از قبل ثبت‌شده در بانک مدیریت دانش گردید. لطفاً پیش از ثبت نهایی بررسی فرمایید تا از دوباره‌کاری پرهیز شود:
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
         @for (item of similarityMatches(); track item.id) {
-          <div class="p-3.5 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-amber-200 dark:border-amber-800/80 shadow-xs space-y-2">
+          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-900/40 shadow-xs space-y-1.5">
             <div class="flex items-center justify-between text-xs">
               <span class="font-bold text-slate-900 dark:text-white truncate">{{ item.title }}</span>
-              <span class="px-2 py-0.5 rounded-md font-bold text-amber-700 bg-amber-100 dark:bg-amber-900/60 dark:text-amber-300 text-[11px]">
+              <span class="px-2.5 py-0.5 rounded-full font-bold text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/50 border border-amber-200 text-[10px]">
                 {{ item.similarityPercentage }}٪ شباهت
               </span>
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
               {{ item.summary || 'بدون خلاصه ثبت‌شده' }}
             </p>
-            <div class="text-[11px] text-amber-600 dark:text-amber-400 font-medium">
+            <div class="text-[10px] text-orange-600 font-bold">
               دلیل تطبیق: {{ item.matchReason }}
             </div>
           </div>
@@ -147,25 +119,24 @@
 
   <!-- Success & Error Alert Messages -->
   @if (successMessage()) {
-    <div class="p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm flex items-center gap-3">
-      <svg class="w-6 h-6 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-      </svg>
+    <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-xs font-bold flex items-center gap-2.5">
+      <i class="pi pi-check-circle text-emerald-600 text-lg shrink-0"></i>
       <span>{{ successMessage() }}</span>
     </div>
   }
 
   @if (errorMessage()) {
-    <div class="p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-300 dark:border-rose-900 text-rose-800 dark:text-rose-200 text-sm flex items-center gap-3">
-      <svg class="w-6 h-6 text-rose-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-      </svg>
+    <div class="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs font-semibold flex items-center gap-2.5">
+      <i class="pi pi-times-circle text-rose-500 text-lg shrink-0"></i>
       <span>{{ errorMessage() }}</span>
     </div>
   }
 
+  <!-- 10-Step Knowledge Lifecycle Roadmap Preview -->
+  <app-knowledge-lifecycle [currentStep]="1" knowledgeTitle="مراحل ده‌گانه گردش‌کار از ثبت تا پاداش سازمانی" trackingCode="پیش‌نویس اول"></app-knowledge-lifecycle>
+
   <!-- Main Dynamic Form Container -->
-  <div class="p-6 sm:p-10 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-md transition-colors">
+  <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
     <dynamic-form [config]="formConfig"
                   (formSubmit)="onSubmit($event)"
                   (valueChange)="onValueChange($event)">

@@ -1,124 +1,129 @@
-<div class="max-w-5xl mx-auto space-y-6">
+<div class="max-w-5xl mx-auto space-y-6 sm:space-y-7 pb-12 select-none">
   <!-- Page Header -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <div class="space-y-1">
-      <div class="flex items-center gap-2.5">
-        <span class="p-2.5 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-          </svg>
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-xs relative overflow-hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <!-- Top Gradient Accent Strip -->
+    <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-500 via-amber-500 to-orange-500"></div>
+
+    <div class="space-y-1 pt-1">
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
+          پرونده عملکرد و گیمیفیکیشن سازمانی
         </span>
-        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">کارنامه دانشی و پرونده انگیزشی همکار</h1>
+        <span class="text-xs text-slate-300 dark:text-slate-700">|</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">شهرداری اصفهان</span>
       </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        سامانه ثبت امتیازات حاصل از ثبت تجربه، کاربست موفق، داوری و بهره‌برداری هدفمند از دانش
+      <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        کارنامه دانشی و سوابق انگیزشی همکار
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+        رهگیری شفاف امتیازات حاصل از ثبت تجربه، داوری علمی، کاربست موفق و اعطای پاداش‌های مصوب
       </p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <span class="px-3.5 py-2 rounded-2xl text-xs font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-orange-600"></span>
+        <span>مبنای ارزیابی فصلی ۱۴۰۳</span>
+      </span>
     </div>
   </div>
 
-  <!-- Profile Gamification Card -->
-  <div class="p-6 sm:p-8 bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl shadow-xl space-y-6 relative overflow-hidden">
-    <!-- Background Watermark Pattern -->
-    <div class="absolute -end-10 -bottom-10 opacity-5 pointer-events-none select-none text-9xl">
-      🏅
-    </div>
+  <!-- Profile Institutional Merit Card -->
+  <div class="p-6 sm:p-8 bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 text-white rounded-3xl shadow-md border border-orange-700/20 space-y-6 relative overflow-hidden">
+    <div class="absolute -end-12 -bottom-12 w-64 h-64 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
 
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5 relative z-10">
       <div class="flex items-center gap-4">
-        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-400 to-yellow-500 flex items-center justify-center text-slate-900 text-2xl font-black shadow-lg">
+        <div class="w-16 h-16 rounded-2xl bg-white text-orange-600 flex items-center justify-center text-2xl font-black shadow-md border-2 border-orange-200">
           {{ (profile().user?.fullName || 'ک')[0] }}
         </div>
         <div class="space-y-1">
-          <div class="flex items-center gap-2">
-            <h2 class="text-lg font-bold">{{ profile().user?.fullName || 'کارشناس شهرداری' }}</h2>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <h2 class="text-base sm:text-lg font-black text-white">{{ profile().user?.fullName || 'کارشناس شهرداری' }}</h2>
             @if (profile().hasBlueBadge) {
               <!-- Blue Verification Badge -->
-              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30" title="دارای نشان آبی خبرگی شهرداری اصفهان">
-                <svg class="w-3.5 h-3.5 fill-current text-blue-400" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                </svg>
-                <span>نشان آبی خبرگی</span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-white/20 text-white border border-white/30" title="دارای نشان آبی خبرگی شهرداری اصفهان">
+                <i class="pi pi-verified text-xs"></i>
+                <span>نشان آبی خبرگی شهرداری</span>
               </span>
             }
           </div>
-          <span class="text-xs text-slate-300">کد پرسنلی / نام کاربری: {{ profile().user?.username }}</span>
+          <span class="text-xs text-orange-100 font-mono">شناسه کاربری: {{ profile().user?.username }}</span>
         </div>
       </div>
 
-      <div class="px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/10 text-center">
-        <span class="block text-[11px] text-slate-300">سطح فعال در چرخه دانش</span>
-        <span class="block text-sm font-bold text-amber-300">
+      <div class="px-4 py-2 rounded-2xl bg-white/15 backdrop-blur-xs border border-white/20 text-start sm:text-center">
+        <span class="block text-[11px] text-orange-100">سطح مشارکت در چرخه دانش</span>
+        <span class="block text-xs sm:text-sm font-bold text-white mt-0.5">
           {{ profile().knowledgeContributorLevel === 'DEVELOPER' ? 'توسعه‌دهنده دانش (Developer)' : profile().knowledgeContributorLevel === 'CONTRIBUTOR' ? 'مشارکت‌کننده فعال' : 'نوپدیدار (Novice)' }}
         </span>
       </div>
     </div>
 
     <!-- Incentives Metrics Row -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
-      <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-1">
-        <span class="text-xs text-slate-400">مجموع امتیازات کسب‌شده</span>
-        <div class="text-2xl font-bold font-mono text-amber-400">{{ profile().totalPoints }} امتیاز</div>
-        <span class="text-[10px] text-slate-400">حد نصاب نشان آبی: ۱۰ امتیاز</span>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/20">
+      <div class="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-1">
+        <span class="text-xs text-orange-100">مجموع امتیازات کسب‌شده</span>
+        <div class="text-2xl font-black font-mono text-white">{{ profile().totalPoints }} امتیاز</div>
+        <span class="text-[10px] text-orange-100">حد نصاب نشان آبی: ۱۰ امتیاز</span>
       </div>
 
-      <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-1">
-        <span class="text-xs text-slate-400">پاداش نقدی استحقاقی</span>
-        <div class="text-xl font-bold font-mono text-emerald-400">
+      <div class="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-1">
+        <span class="text-xs text-orange-100">پاداش نقدی مصوب و استحقاقی</span>
+        <div class="text-xl font-black font-mono text-white">
           {{ profile().bonusAmountEligible | number }} ریال
         </div>
-        <span class="text-[10px] text-slate-400">پرداخت فصلی با تایید امور مالی</span>
+        <span class="text-[10px] text-orange-100">پرداخت فصلی با تایید امور مالی</span>
       </div>
 
-      <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-1">
-        <span class="text-xs text-slate-400">استحقاق تقدیرنامه شهردار</span>
-        <div class="text-xl font-bold text-teal-300 flex items-center gap-1.5">
-          <span>{{ profile().certificateEligible ? 'واجد شرایط' : 'در حال تکمیل' }}</span>
-          @if (profile().certificateEligible) {
-            <span>📜</span>
-          }
+      <div class="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-1">
+        <span class="text-xs text-orange-100">تقدیرنامه رسمی شهردار</span>
+        <div class="text-xl font-black text-white flex items-center gap-1.5">
+          <span>{{ profile().certificateEligible ? 'واجد شرایط اعطا' : 'در حال تکمیل حدنصاب' }}</span>
         </div>
-        <span class="text-[10px] text-slate-400">درج در پرونده پرسنلی کارمند</span>
+        <span class="text-[10px] text-orange-100">درج در پرونده پرسنلی کارمند</span>
       </div>
     </div>
   </div>
 
+  <!-- 10-Step Knowledge Lifecycle Progress in Career Path -->
+  <app-knowledge-lifecycle [currentStep]="9" knowledgeTitle="مسیر تعالی دانشی و ارتقای سرمایه فکری همکار در شهرداری اصفهان" trackingCode="شناسنامه دانشی"></app-knowledge-lifecycle>
+
   <!-- Transcript Detailed History Table -->
-  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-    <div class="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs overflow-hidden">
+    <div class="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-800/40">
       <div class="space-y-0.5">
-        <h3 class="text-sm font-bold text-slate-900 dark:text-slate-100">ریز تراکنش‌ها و سوابق اعطای امتیاز</h3>
-        <p class="text-xs text-slate-400">تاریخچه شفاف فعالیت‌های موثر در مدیریت دانش</p>
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white">ریز سوابق و رویدادهای اعطای امتیاز</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400">تاریخچه شفاف فعالیت‌های موثر در نظام مدیریت دانش شهرداری اصفهان</p>
       </div>
-      <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono">
-        {{ transcripts().length }} رکورد ثبت‌شده
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-orange-600 font-mono">
+        {{ transcripts().length }} سابقه ثبت‌شده
       </span>
     </div>
 
     <div class="overflow-x-auto w-full">
       <table class="w-full text-start border-collapse text-xs">
         <thead>
-          <tr class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
-            <th class="py-3.5 ps-5 pe-3 text-start w-12">#</th>
-            <th class="py-3.5 px-4 text-start">نوع فعالیت</th>
-            <th class="py-3.5 px-4 text-start">شرح اقدام و رفرنس</th>
-            <th class="py-3.5 px-4 text-center w-24">امتیاز مکتسبه</th>
-            <th class="py-3.5 px-4 text-start w-32">تاریخ ثبت</th>
+          <tr class="bg-slate-50/50 dark:bg-slate-800/30 text-slate-500 dark:text-slate-400 font-bold border-b border-slate-100 dark:border-slate-800">
+            <th class="py-3.5 px-4 text-start">نوع فعالیت دانشی</th>
+            <th class="py-3.5 px-4 text-start">شرح رویداد و مصوبه</th>
+            <th class="py-3.5 px-4 text-center">امتیاز</th>
+            <th class="py-3.5 px-4 text-start">تاریخ ثبت</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-200">
-          @for (item of transcripts(); track item.id; let idx = $index) {
-            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
-              <td class="py-3.5 ps-5 pe-3 text-slate-400 font-mono">{{ idx + 1 }}</td>
-              <td class="py-3.5 px-4">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold {{ getActivityBadgeClass(item.activityType) }}">
-                  {{ getActivityLabel(item.activityType) }}
-                </span>
+        <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
+          @for (item of transcripts(); track item.id) {
+            <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors">
+              <td class="py-3.5 px-4 font-semibold text-orange-600">
+                {{ item.activityType }}
               </td>
-              <td class="py-3.5 px-4 font-medium">{{ item.description }}</td>
-              <td class="py-3.5 px-4 text-center font-mono font-bold text-amber-600 dark:text-amber-400 text-sm">
+              <td class="py-3.5 px-4 text-slate-800 dark:text-slate-200">
+                {{ item.description }}
+              </td>
+              <td class="py-3.5 px-4 text-center font-mono font-bold text-orange-600">
                 +{{ item.points }}
               </td>
-              <td class="py-3.5 px-4 text-slate-400 font-mono">
+              <td class="py-3.5 px-4 font-mono text-slate-400">
                 {{ item.createdAt | slice:0:10 }}
               </td>
             </tr>

@@ -1,0 +1,375 @@
+<div class="space-y-6 sm:space-y-7 pb-12 select-none">
+
+  <!-- ======================================================== -->
+  <!-- 1. PAGE HEADER & ACTIONS                                 -->
+  <!-- ======================================================== -->
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-xs relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <!-- Top Gradient Accent Strip -->
+    <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-500 via-amber-500 to-orange-500"></div>
+
+    <div class="space-y-1 pt-1">
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
+          ماژول مدیریت سازمانی
+        </span>
+        <span class="text-xs text-slate-300 dark:text-slate-700">|</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">شهرداری اصفهان</span>
+      </div>
+      <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        مدیریت کاربران و سطوح دسترسی
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+        تعریف پرسنل، تخصیص نقش‌های ممیزی و ارزیابی، مدیریت دسترسی‌ها و پایش فعالیت همکاران.
+      </p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button
+        type="button"
+        (click)="openCreateModal()"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-white bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 shadow-xs transition-all duration-150">
+        <i class="pi pi-user-plus text-xs"></i>
+        <span>افزودن کاربر جدید</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Alert -->
+  @if (successMessage()) {
+    <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs flex items-center justify-between shadow-xs animate-in fade-in duration-200">
+      <div class="flex items-center gap-2">
+        <i class="pi pi-check-circle text-emerald-600 text-base shrink-0"></i>
+        <span>{{ successMessage() }}</span>
+      </div>
+      <button (click)="successMessage.set(null)" class="text-emerald-700 hover:text-emerald-900 text-sm font-bold">×</button>
+    </div>
+  }
+
+  <!-- ======================================================== -->
+  <!-- 2. QUICK STATS SUMMARY                                   -->
+  <!-- ======================================================== -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs">
+      <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">کل کاربران سامانه</div>
+      <div class="text-2xl font-black text-slate-900 dark:text-white mt-1 font-mono">{{ stats().total }} نفر</div>
+      <div class="text-[10px] text-slate-400 mt-1">پرسنل ثبت‌نام شده</div>
+    </div>
+    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs">
+      <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">مدیران ارشد (Admin)</div>
+      <div class="text-2xl font-black text-orange-600 mt-1 font-mono">{{ stats().admins }} نفر</div>
+      <div class="text-[10px] text-slate-400 mt-1">دسترسی جامع سیستمی</div>
+    </div>
+    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs">
+      <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">ارزیابان و داوران</div>
+      <div class="text-2xl font-black text-amber-600 mt-1 font-mono">{{ stats().evaluators }} نفر</div>
+      <div class="text-[10px] text-slate-400 mt-1">شورای علمی و کمیته‌ها</div>
+    </div>
+    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs">
+      <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">کاربران فعال</div>
+      <div class="text-2xl font-black text-emerald-600 mt-1 font-mono">{{ stats().active }} نفر</div>
+      <div class="text-[10px] text-slate-400 mt-1">وضعیت حساب مجاز</div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 3. SEARCH & FILTERS BAR                                  -->
+  <!-- ======================================================== -->
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+    
+    <!-- Search Input -->
+    <div class="relative flex-1 max-w-md">
+      <input
+        type="text"
+        [ngModel]="searchQuery()"
+        (ngModelChange)="searchQuery.set($event)"
+        placeholder="جستجوی نام همکار، نام کاربری، ایمیل یا حوزه سازمانی..."
+        class="w-full ps-10 pe-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/70 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" />
+      <i class="pi pi-search text-xs text-slate-400 absolute start-3.5 top-3.5 pointer-events-none"></i>
+    </div>
+
+    <!-- Filters Strip -->
+    <div class="flex flex-wrap items-center gap-2">
+      <!-- Role Filter -->
+      <select
+        [ngModel]="selectedRole()"
+        (ngModelChange)="selectedRole.set($event)"
+        class="px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:bg-white dark:focus:bg-slate-900 focus:outline-hidden focus:border-orange-500">
+        <option value="all">همه نقش‌ها</option>
+        <option value="ADMIN">مدیر سیستم (Admin)</option>
+        <option value="EVALUATOR">ارزیاب / داور</option>
+        <option value="EXPERT">خبره / کارشناس</option>
+      </select>
+
+      <!-- Status Filter -->
+      <select
+        [ngModel]="selectedStatus()"
+        (ngModelChange)="selectedStatus.set($event)"
+        class="px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:bg-white dark:focus:bg-slate-900 focus:outline-hidden focus:border-orange-500">
+        <option value="all">همه وضعیت‌ها</option>
+        <option value="ACTIVE">فقط کاربران فعال</option>
+        <option value="INACTIVE">کاربران غیرفعال</option>
+      </select>
+    </div>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 4. USERS DATA TABLE                                      -->
+  <!-- ======================================================== -->
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs overflow-hidden">
+    
+    <div class="overflow-x-auto">
+      <table class="w-full text-start text-xs">
+        <thead>
+          <tr class="bg-slate-50/70 dark:bg-slate-800/40 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-semibold">
+            <th class="py-3.5 px-4 text-start">مشخصات کاربر</th>
+            <th class="py-3.5 px-4 text-start">حوزه و معاونت</th>
+            <th class="py-3.5 px-4 text-start">نقش‌های سازمانی</th>
+            <th class="py-3.5 px-4 text-start">عملکرد دانشی</th>
+            <th class="py-3.5 px-4 text-start">وضعیت دسترسی</th>
+            <th class="py-3.5 px-4 text-start">تاریخ عضویت</th>
+            <th class="py-3.5 px-4 text-end">عملیات</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+          @for (u of filteredUsers(); track u.id) {
+            <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors group">
+              
+              <!-- User Name & Username -->
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-2xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 flex items-center justify-center font-bold text-xs shrink-0 border border-orange-200 dark:border-orange-900/60">
+                    {{ u.fullName.charAt(0) }}
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-bold text-slate-900 dark:text-white group-hover:text-orange-600 transition-colors">
+                      {{ u.fullName }}
+                    </div>
+                    <div class="text-[11px] text-slate-400 font-mono">
+                      {{ u.username }} • {{ u.email }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Department -->
+              <td class="py-3.5 px-4 text-slate-600 dark:text-slate-400 font-medium truncate max-w-[180px]">
+                {{ u.department }}
+              </td>
+
+              <!-- Roles Badges -->
+              <td class="py-3.5 px-4">
+                <div class="flex flex-wrap gap-1.5">
+                  @for (role of u.roles; track role) {
+                    <span [class]="'px-2.5 py-0.5 rounded-full text-[10px] font-bold border ' + getRoleBadgeClass(role)">
+                      {{ getRoleLabel(role) }}
+                    </span>
+                  }
+                </div>
+              </td>
+
+              <!-- Knowledge Performance -->
+              <td class="py-3.5 px-4 text-slate-500">
+                <div class="flex items-center gap-2 text-[11px]">
+                  <span>ثبت: <strong class="text-slate-900 dark:text-white">{{ u.knowledgeCount || 0 }}</strong></span>
+                  <span class="text-slate-300 dark:text-slate-700">|</span>
+                  <span>داوری: <strong class="text-orange-600">{{ u.evaluationsCount || 0 }}</strong></span>
+                </div>
+              </td>
+
+              <!-- Status Switch / Pill -->
+              <td class="py-3.5 px-4">
+                <button
+                  type="button"
+                  (click)="toggleUserStatus(u)"
+                  [title]="u.status === 'ACTIVE' ? 'کلیک جهت غیرفعال‌سازی' : 'کلیک جهت فعال‌سازی'"
+                  [class]="u.status === 'ACTIVE'
+                    ? 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 transition-colors'
+                    : 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 transition-colors'">
+                  <span class="w-1.5 h-1.5 rounded-full" [class.bg-emerald-500]="u.status === 'ACTIVE'" [class.bg-slate-400]="u.status !== 'ACTIVE'"></span>
+                  <span>{{ u.status === 'ACTIVE' ? 'فعال' : 'معلق / غیرفعال' }}</span>
+                </button>
+              </td>
+
+              <!-- Created At -->
+              <td class="py-3.5 px-4 text-slate-400 font-mono text-[11px]">
+                {{ u.createdAt }}
+              </td>
+
+              <!-- Actions -->
+              <td class="py-3.5 px-4 text-end">
+                <div class="flex items-center justify-end gap-1.5">
+                  <button
+                    type="button"
+                    (click)="openEditModal(u)"
+                    title="ویرایش کاربر"
+                    class="p-2 rounded-xl text-slate-400 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-slate-800 transition-colors">
+                    <i class="pi pi-pencil text-xs"></i>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="deleteUser(u)"
+                    title="حذف کاربر"
+                    class="p-2 rounded-xl text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors">
+                    <i class="pi pi-trash text-xs"></i>
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="py-12 text-center text-slate-400">
+                هیچ کاربری با مشخصات جستجو شده یافت نشد.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Table Footer Count -->
+    <div class="p-4 bg-slate-50/70 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+      <span>تعداد کل نتایج: <strong class="text-slate-900 dark:text-white font-mono">{{ filteredUsers().length }}</strong> کاربر</span>
+      <span class="text-[11px]">مدیریت متمرکز سطوح احراز هویت و ممیزی سازمانی</span>
+    </div>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 5. CREATE / EDIT USER MODAL DIALOG                       -->
+  <!-- ======================================================== -->
+  @if (isModalOpen()) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150">
+      
+      <!-- Modal Box -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95 duration-150" (click)="$event.stopPropagation()">
+        
+        <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/40">
+          <div class="space-y-0.5">
+            <h2 class="text-base font-black text-slate-900 dark:text-white">
+              {{ editingUserId() ? 'ویرایش اطلاعات و دسترسی‌های کاربر' : 'افزودن کاربر جدید به سامانه' }}
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400">مشخصات هویتی و نقش‌های سازمانی را تعیین فرمایید.</p>
+          </div>
+          <button (click)="closeModal()" class="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            ✕
+          </button>
+        </div>
+
+        <form [formGroup]="userForm" (ngSubmit)="onSaveUser()" class="p-6 space-y-4 text-xs">
+          
+          <!-- Full Name -->
+          <div class="space-y-1">
+            <label class="font-bold text-slate-700 dark:text-slate-300">نام و نام خانوادگی <span class="text-rose-500">*</span></label>
+            <input
+              type="text"
+              formControlName="fullName"
+              placeholder="مثال: مهندس علی حسینی"
+              class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:outline-hidden" />
+          </div>
+
+          <!-- Username & Email -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="space-y-1">
+              <label class="font-bold text-slate-700 dark:text-slate-300">نام کاربری <span class="text-rose-500">*</span></label>
+              <input
+                type="text"
+                formControlName="username"
+                placeholder="مثال: a.hosseini"
+                class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:outline-hidden font-mono" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="font-bold text-slate-700 dark:text-slate-300">پست الکترونیک <span class="text-rose-500">*</span></label>
+              <input
+                type="email"
+                formControlName="email"
+                placeholder="hosseini@isfahan.ir"
+                class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:outline-hidden font-mono" />
+            </div>
+          </div>
+
+          <!-- Phone & Department -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="space-y-1">
+              <label class="font-bold text-slate-700 dark:text-slate-300">شماره تماس همراه</label>
+              <input
+                type="text"
+                formControlName="phoneNumber"
+                placeholder="09131234567"
+                class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:outline-hidden font-mono" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="font-bold text-slate-700 dark:text-slate-300">حوزه / معاونت سازمانی <span class="text-rose-500">*</span></label>
+              <select
+                formControlName="department"
+                class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:outline-hidden">
+                <option value="معاونت خدمات شهری و محیط زیست">معاونت خدمات شهری و محیط زیست</option>
+                <option value="سازمان فناوری اطلاعات و ارتباطات (فاوا)">سازمان فاوا (فناوری اطلاعات)</option>
+                <option value="معاونت شهرسازی و معماری">معاونت شهرسازی و معماری</option>
+                <option value="معاونت حمل و نقل و ترافیک">معاونت حمل و نقل و ترافیک</option>
+                <option value="شورای عالی ممیزی و پژوهش">شورای عالی ممیزی و پژوهش</option>
+                <option value="شهرداری منطقه ۳ اصفهان">شهرداری منطقه ۳ اصفهان</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Roles Checkboxes -->
+          <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <label class="font-bold text-slate-700 dark:text-slate-300 block">سطوح دسترسی و نقش‌های مجاز:</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              
+              <label class="flex items-center gap-2 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 cursor-pointer hover:bg-orange-50 dark:hover:bg-slate-700 transition-colors">
+                <input type="checkbox" formControlName="roleExpert" class="rounded text-orange-600 focus:ring-orange-500" />
+                <span class="font-semibold text-slate-800 dark:text-slate-200">خبره / کارشناس</span>
+              </label>
+
+              <label class="flex items-center gap-2 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 cursor-pointer hover:bg-orange-50 dark:hover:bg-slate-700 transition-colors">
+                <input type="checkbox" formControlName="roleEvaluator" class="rounded text-orange-600 focus:ring-orange-500" />
+                <span class="font-semibold text-slate-800 dark:text-slate-200">ارزیاب / داور</span>
+              </label>
+
+              <label class="flex items-center gap-2 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 cursor-pointer hover:bg-orange-50 dark:hover:bg-slate-700 transition-colors">
+                <input type="checkbox" formControlName="roleAdmin" class="rounded text-orange-600 focus:ring-orange-500" />
+                <span class="font-semibold text-slate-800 dark:text-slate-200">مدیر سیستم</span>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- Status Selection -->
+          <div class="space-y-1">
+            <label class="font-bold text-slate-700 dark:text-slate-300">وضعیت حساب کاربری</label>
+            <select
+              formControlName="status"
+              class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:outline-hidden">
+              <option value="ACTIVE">فعال (امکان ورود و فعالیت)</option>
+              <option value="INACTIVE">معلق / غیرفعال (مسدودسازی موقت)</option>
+            </select>
+          </div>
+
+          <!-- Modal Actions -->
+          <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <button
+              type="button"
+              (click)="closeModal()"
+              class="px-4 py-2 rounded-2xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold transition-colors">
+              انصراف
+            </button>
+            <button
+              type="submit"
+              class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold transition-all shadow-xs">
+              ذخیره و اعمال
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  }
+
+</div>

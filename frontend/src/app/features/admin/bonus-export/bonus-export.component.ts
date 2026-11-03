@@ -1,5 +1,6 @@
 import { Component, OnInit, signal, inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 
@@ -17,7 +18,7 @@ export interface BonusExportItem {
 @Component({
   selector: 'app-bonus-export',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './bonus-export.component.html',
   styleUrl: './bonus-export.component.scss'
 })

@@ -9,6 +9,9 @@ build/
 **/build/
 bin/
 out/
+# ---- Build & Publish Artifacts ----
+/publish/
+*.jar
 !gradle/wrapper/gradle-wrapper.jar
 !**/gradle/wrapper/gradle-wrapper.jar
 .gradletasknamecache

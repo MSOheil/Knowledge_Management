@@ -1,56 +1,83 @@
 @import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* === Brand Palette (Matched with http://localhost:4201/) === */
+  --color-primary: #ea580c;
+  --color-primary-light: #fff7ed;
+  --color-secondary: #f97316;
+  --color-accent: #f59e0b;
+  --color-highlight: #ffedd5;
+
+  /* === Surface & Background === */
+  --color-bg-canvas: #FFFFF9;
+  --color-bg-main: #FFFFF9;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #F8FAFC;
+  --color-surface-3: #F1F5F9;
+
+  /* === Text === */
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94A3B8;
+
+  /* === Border === */
+  --color-border: #E2E8F0;
+  --color-border-subtle: #F1F5F9;
+  --color-border-focus: #f97316;
+}
 
 @theme {
   --font-sans: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
-  /* Fresh, Clean, Minimalist Teal & Slate Palette */
-  --color-primary-50: #f0fdfa;
-  --color-primary-100: #ccfbf1;
-  --color-primary-200: #99f6e4;
-  --color-primary-300: #5eead4;
-  --color-primary-400: #2dd4bf;
-  --color-primary-500: #14b8a6;
-  --color-primary-600: #0d9488;
-  --color-primary-700: #0f766e;
-  --color-primary-800: #115e59;
-  --color-primary-900: #134e4a;
-  --color-primary-950: #042f2e;
+  /* === Primary Brand (Vibrant Orange — Matched with localhost:4201) === */
+  --color-primary-50:  #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+  --color-primary-950: #431407;
 
-  /* Bright Turquoise Shades */
-  --color-turquoise-50: #f0fdfa;
-  --color-turquoise-100: #ccfbf1;
-  --color-turquoise-200: #99f6e4;
-  --color-turquoise-300: #5eead4;
-  --color-turquoise-400: #2dd4bf;
-  --color-turquoise-500: #14b8a6;
-  --color-turquoise-600: #0d9488;
-  --color-turquoise-700: #0f766e;
-  --color-turquoise-800: #115e59;
-  --color-turquoise-900: #134e4a;
-  --color-turquoise-950: #042f2e;
+  /* === Neutral Surfaces === */
+  --color-bg-canvas:  #FFFFF9;
+  --color-bg-main:    #FFFFF9;
+  --color-surface:    #FFFFFF;
+  --color-surface-2:  #F8FAFC;
+  --color-surface-3:  #F1F5F9;
 
-  /* Soft Warm Gold Accent */
-  --color-gold-400: #fbbf24;
-  --color-gold-500: #f59e0b;
-  --color-gold-600: #d97706;
+  /* === Text === */
+  --color-text-primary:   #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-muted:     #94A3B8;
 
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
-  --color-accent-600: #d97706;
+  /* === Borders === */
+  --color-border:        #E2E8F0;
+  --color-border-subtle: #F1F5F9;
+  --color-border-focus:  #f97316;
 
-  --radius-xs: 0.25rem;
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
+  /* === Spacing & Radius === */
+  --radius-xs:  0.25rem;
+  --radius-sm:  0.375rem;
+  --radius-md:  0.5rem;
+  --radius-lg:  0.75rem;
+  --radius-xl:  1rem;
   --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
 }
 
-/* Local Fonts (Vazirmatn) */
+/* ============================================================
+   LOCAL FONT DEFINITIONS — ZERO CLS
+   ============================================================ */
 @font-face {
   font-family: 'Vazirmatn';
-  src: url('/assets/fonts/Vazirmatn-Regular.woff2') format('woff2'),
-       url('assets/fonts/Vazirmatn-Regular.woff2') format('woff2');
+  src: url('/assets/fonts/Vazirmatn-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -58,8 +85,7 @@
 
 @font-face {
   font-family: 'Vazirmatn';
-  src: url('/assets/fonts/Vazirmatn-Medium.woff2') format('woff2'),
-       url('assets/fonts/Vazirmatn-Medium.woff2') format('woff2');
+  src: url('/assets/fonts/Vazirmatn-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -67,14 +93,15 @@
 
 @font-face {
   font-family: 'Vazirmatn';
-  src: url('/assets/fonts/Vazirmatn-Bold.woff2') format('woff2'),
-       url('assets/fonts/Vazirmatn-Bold.woff2') format('woff2');
+  src: url('/assets/fonts/Vazirmatn-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* Global Application Reset & Typography Hierarchy */
+/* ============================================================
+   GLOBAL RESET & BASE
+   ============================================================ */
 *, ::before, ::after {
   font-family: var(--font-sans);
   box-sizing: border-box;
@@ -83,9 +110,10 @@
 html, body {
   margin: 0;
   padding: 0;
+  direction: rtl;
   font-family: var(--font-sans);
-  background-color: #fafbfc;
-  color: #0f172a;
+  background-color: #FFFFF9;
+  color: #0F172A;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -93,80 +121,115 @@ html, body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Dark mode styling support (preserved when explicitly toggled) */
+/* Dark mode */
 html.dark, body.dark {
-  background-color: #090d16;
-  color: #f1f5f9;
+  background-color: #020617;
+  color: #F8FAFC;
 }
 
-/* Mandatory PrimeNG license banner suppression */
+/* Selection */
+::selection {
+  background-color: #f97316;
+  color: #ffffff;
+}
+
+/* PrimeNG license banner suppression */
 #p-license-host {
   display: none !important;
 }
 
-/* Accessible Interactive touch targets (>= 40px) */
+/* Touch targets */
 button, a.btn, input, select, textarea {
-  min-height: 40px;
+  min-height: 38px;
 }
 
-/* Minimalist Scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
+  background: #cbd5e1;
   border-radius: 9999px;
 }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+.dark ::-webkit-scrollbar-thumb { background: #334155; }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #cbd5e1;
+/* ============================================================
+   HERO & CARD SYSTEM (MATCHED WITH localhost:4201)
+   ============================================================ */
+.bg-hero-premium {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% -5%, rgba(249, 115, 22, 0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 35% at 90% 50%, rgba(245, 158, 11, 0.08) 0%, transparent 55%),
+    linear-gradient(175deg, #FFFFFF 0%, #FFFFF9 60%, #FFF7ED 100%);
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  background: #334155;
+.bg-girih-dots {
+  background-image:
+    linear-gradient(to right, rgba(249, 115, 22, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(249, 115, 22, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, #000 60%, transparent 100%);
 }
 
-/* Delicate 2px Iranian National Ribbon */
-.gov-flag-ribbon {
-  height: 2px;
-  width: 100%;
-  background: linear-gradient(90deg, 
-    #16a34a 0%, #16a34a 33.3%, 
-    #ffffff 33.3%, #ffffff 66.6%, 
-    #dc2626 66.6%, #dc2626 100%);
-}
-
-/* Minimalist Light Hero Ambient Glow */
-.bg-light-hero {
-  background: radial-gradient(ellipse at 50% 0%, rgba(240, 253, 250, 0.9) 0%, rgba(248, 250, 252, 0.7) 50%, #ffffff 100%);
-}
-
-/* Subtle Girih Pattern in Ultra-Low Opacity */
-.bg-girih-pattern-light {
-  background-image: radial-gradient(circle at 50% 50%, rgba(13, 148, 136, 0.04) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-/* Minimalist Card Styling */
 .minimal-card {
   background: #ffffff;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 1px 2px -1px rgba(15, 23, 42, 0.02);
+  transition: all 0.2s ease;
 }
 
 .minimal-card:hover {
-  border-color: rgba(20, 184, 166, 0.4);
-  box-shadow: 0 6px 16px -2px rgba(13, 148, 136, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+  border-color: rgba(249, 115, 22, 0.35);
+  box-shadow: 0 8px 24px -4px rgba(249, 115, 22, 0.12), 0 2px 6px -2px rgba(15, 23, 42, 0.03);
+  transform: translateY(-1px);
 }
 
 .dark .minimal-card {
-  background: rgba(15, 23, 42, 0.85);
-  border-color: rgba(51, 65, 85, 0.8);
+  background: #0f172a;
+  border-color: #1e293b;
+}
+
+.dark .minimal-card:hover {
+  border-color: rgba(249, 115, 22, 0.4);
+}
+
+/* ============================================================
+   PREMIUM SECTION ACCENTS & BADGES
+   ============================================================ */
+.section-heading-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: rgba(249, 115, 22, 0.08);
+  color: #ea580c;
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   INPUT & FOCUS STYLES
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up { animation: slide-up-fade 0.25s ease forwards; }
+
+router-outlet + * {
+  animation: slide-up-fade 0.2s ease forwards;
 }

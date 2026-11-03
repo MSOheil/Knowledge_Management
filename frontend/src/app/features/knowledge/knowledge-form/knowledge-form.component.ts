@@ -3,7 +3,9 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DynamicFormComponent, IForm, FieldConfig } from '../../../shared/components/dynamic-form/dynamic-form.component';
+import { KnowledgeLifecycleComponent } from '../../../shared/components/knowledge-lifecycle/knowledge-lifecycle.component';
 import { SeoService } from '../../../core/services/seo.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { environment } from '../../../../environments/environment';
 
 export interface SimilarityMatch {
@@ -18,7 +20,7 @@ export interface SimilarityMatch {
 @Component({
   selector: 'app-knowledge-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, DynamicFormComponent],
+  imports: [CommonModule, RouterModule, DynamicFormComponent, KnowledgeLifecycleComponent],
   templateUrl: './knowledge-form.component.html',
   styleUrl: './knowledge-form.component.scss'
 })
@@ -27,6 +29,7 @@ export class KnowledgeFormComponent implements OnInit {
   private seo = inject(SeoService);
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
+  public auth = inject(AuthService);
 
   public selectedType = signal<string>('EXPERIENCE');
   public isSubmitting = signal<boolean>(false);

@@ -1,18 +1,90 @@
-<div class="min-h-screen flex bg-[#F3F6FA] text-[#344054] selection:bg-[#246B8F]/15 selection:text-[#17365D]">
-  <!-- Fixed Vertical Sidebar -->
-  <app-sidebar></app-sidebar>
+<!-- ======================================================== -->
+<!-- SCENARIO A: DEDICATED AUTHENTICATION SHELL (/auth/login) -->
+<!-- ======================================================== -->
+@if (isAuthPage()) {
+  <div class="min-h-screen flex flex-col bg-[#FFFFF9] dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-orange-500 selection:text-white">
+    <!-- Top 4px Orange Line -->
+    <div class="h-1 w-full bg-orange-600"></div>
 
-  <!-- Main Content Column -->
-  <div class="flex-1 flex flex-col min-w-0 transition-all duration-300">
-    <!-- Compact Top Navigation Bar -->
-    <app-header></app-header>
+    <!-- Minimal Institutional Header with Return Link -->
+    <header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl px-4 sm:px-8 flex items-center justify-between">
+      <a routerLink="/" class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-orange-600 transition-colors">
+        <i class="pi pi-arrow-right text-xs"></i>
+        <span>بازگشت به پرتال اصلی مدیریت دانش</span>
+      </a>
 
-    <!-- Page Content Container -->
+      <div class="flex items-center gap-3">
+        <!-- Theme Toggle Button -->
+        <button
+          (click)="layout.toggleDarkMode()"
+          type="button"
+          [title]="layout.isDarkMode() ? 'تغییر به حالت روشن' : 'تغییر به حالت تاریک'"
+          class="p-2 sm:px-3 text-xs font-bold rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-orange-50 dark:hover:bg-slate-800 hover:text-orange-600 dark:hover:text-orange-400 transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs">
+          <i class="pi text-xs" [ngClass]="layout.isDarkMode() ? 'pi-sun text-amber-400' : 'pi-moon text-slate-600 dark:text-slate-300'"></i>
+          <span class="hidden sm:inline text-[11px]">{{ layout.isDarkMode() ? 'تم روشن' : 'تم تاریک' }}</span>
+        </button>
+
+        <div class="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center text-xs font-bold shadow-md">
+          <i class="pi pi-building text-sm"></i>
+        </div>
+        <span class="text-xs font-black text-slate-800 dark:text-slate-200 hidden sm:inline">شهرداری اصفهان</span>
+      </div>
+    </header>
+
+    <!-- Main Auth Center Area -->
+    <main class="flex-1 flex items-center justify-center p-4">
+      <router-outlet></router-outlet>
+    </main>
+
+    <!-- Clean Footer -->
+    <app-footer></app-footer>
+  </div>
+}
+
+<!-- ======================================================== -->
+<!-- SCENARIO B: PUBLIC INSTITUTIONAL PORTAL (HOMEPAGE /)     -->
+<!-- ======================================================== -->
+@else if (isPublicHomepage()) {
+  <div class="min-h-screen flex flex-col bg-[#FFFFF9] dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-orange-500 selection:text-white">
+    <!-- Institutional Top Navigation (Matched with localhost:4201) -->
+    <app-public-nav></app-public-nav>
+
+    <!-- Full-Width Content Container -->
     <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
       <router-outlet></router-outlet>
     </main>
 
-    <!-- Compact Clean Footer -->
+    <!-- Comprehensive Municipal Footer -->
     <app-footer></app-footer>
   </div>
-</div>
+}
+
+<!-- ======================================================== -->
+<!-- SCENARIO C: AUTHENTICATED & OPERATIONAL APPLICATION SHELL -->
+<!-- ======================================================== -->
+@else {
+  <div class="min-h-screen flex flex-col bg-[#FFFFF9] dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-orange-500 selection:text-white">
+    <!-- Top Header (Across Full Width like localhost:4201) -->
+    <app-header></app-header>
+
+    <!-- Body Row: Sidebar + Workspace -->
+    <div class="flex-1 flex min-h-[calc(100vh-4rem)]">
+      <!-- Fixed / Collapsible Vertical Sidebar (Matched with localhost:4201) -->
+      <app-sidebar></app-sidebar>
+
+      <!-- Main Operational Workspace Column -->
+      <div class="flex-1 flex flex-col min-w-0 transition-all duration-300">
+        <!-- Multi-Tab Workspace Manager Bar -->
+        <app-workspace-tabs></app-workspace-tabs>
+
+        <!-- Standard Page Content Container -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto overflow-x-clip">
+          <router-outlet></router-outlet>
+        </main>
+
+        <!-- Compact Clean Footer -->
+        <app-footer></app-footer>
+      </div>
+    </div>
+  </div>
+}

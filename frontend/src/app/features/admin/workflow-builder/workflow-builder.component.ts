@@ -1,5 +1,6 @@
 import { Component, OnInit, signal, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { TableComponent, TableConfig } from '../../../shared/components/table/table.component';
@@ -18,7 +19,7 @@ export interface WorkflowStageItem {
 @Component({
   selector: 'app-workflow-builder',
   standalone: true,
-  imports: [CommonModule, FormsModule, TableComponent],
+  imports: [CommonModule, FormsModule, RouterModule, TableComponent],
   templateUrl: './workflow-builder.component.html',
   styleUrl: './workflow-builder.component.scss'
 })

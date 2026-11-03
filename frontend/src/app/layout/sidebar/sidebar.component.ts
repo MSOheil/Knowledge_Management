@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { LayoutService } from '../../core/services/layout.service';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -8,16 +9,26 @@ export interface NavItem {
   id: string;
   label: string;
   route: string;
-  icon: string;
+  piIcon: string;
+  icon?: string;
   badge?: string;
   badgeClass?: string;
   exact?: boolean;
+  group: 'public' | 'workspace' | 'evaluation' | 'admin';
+  roles?: string[];
+  requiresAuth?: boolean;
+}
+
+export interface NavGroup {
+  key: string;
+  title: string;
+  items: NavItem[];
 }
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
@@ -26,77 +37,207 @@ export class SidebarComponent {
   public auth = inject(AuthService);
   private router = inject(Router);
 
-  public readonly mainNavItems: NavItem[] = [
+  public readonly allNavItems: NavItem[] = [
+    // 1. Public Group
     {
-      id: 'dashboard',
-      label: 'داشبورد مدیریتی',
+      id: 'home',
+      label: 'معرفی سامانه (صفحه اصلی)',
       route: '/',
       exact: true,
-      icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'
+      group: 'public',
+      piIcon: 'pi pi-home'
+    },
+    {
+      id: 'dashboard',
+      label: 'داشبورد هوش سازمانی',
+      route: '/admin/analytics',
+      group: 'public',
+      piIcon: 'pi pi-chart-bar'
     },
     {
       id: 'knowledge-base',
-      label: 'پایگاه دانش سازمانی',
+      label: 'پایگاه تجارب و دانش کاربران',
       route: '/search',
-      icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'
-    },
-    {
-      id: 'articles',
-      label: 'ثبت و مدیریت مقالات',
-      route: '/submit-knowledge',
-      icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'
+      group: 'public',
+      piIcon: 'pi pi-book'
     },
     {
       id: 'categories',
-      label: 'دسته‌بندی و درخت دانش',
+      label: 'درخت دانش شهرداری',
       route: '/knowledge-tree',
-      icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'
+      group: 'public',
+      piIcon: 'pi pi-sitemap'
     },
     {
-      id: 'sharing',
-      label: 'اشتراک‌گذاری و تالار خبرگی',
-      route: '/communities',
-      icon: 'M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z'
-    },
-    {
-      id: 'workflow',
-      label: 'گردش‌کار و کارتابل تاییدات',
-      route: '/evaluation',
-      badge: '۳',
-      badgeClass: 'bg-[#FFF8E1] text-[#E6A23C] border border-[#FFE082]',
-      icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'
-    },
-    {
-      id: 'users',
-      label: 'کاربران و ساختار سازمانی',
+      id: 'experts',
+      label: 'بانک خبرگان سازمانی',
       route: '/experts',
-      icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'
+      group: 'public',
+      piIcon: 'pi pi-users'
+    },
+
+    // 2. Workspace Group
+    {
+      id: 'submit-knowledge',
+      label: 'ثبت تجربه دانش جدید',
+      route: '/submit-knowledge',
+      group: 'workspace',
+      requiresAuth: true,
+      roles: ['EXPERT', 'EVALUATOR', 'ADMIN'],
+      piIcon: 'pi pi-sparkles'
     },
     {
-      id: 'analytics',
-      label: 'گزارش‌ها و هوش سازمانی',
-      route: '/analytics',
-      icon: 'M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'
+      id: 'karbest',
+      label: 'ثبت کاربست و اثربخشی',
+      route: '/karbest',
+      group: 'workspace',
+      requiresAuth: true,
+      roles: ['EXPERT', 'EVALUATOR', 'ADMIN'],
+      piIcon: 'pi pi-check-circle'
+    },
+    {
+      id: 'communities',
+      label: 'تالار گفتگو و هم‌اندیشی',
+      route: '/communities',
+      group: 'workspace',
+      requiresAuth: true,
+      roles: ['EXPERT', 'EVALUATOR', 'ADMIN'],
+      piIcon: 'pi pi-comments'
     },
     {
       id: 'campaigns',
-      label: 'پویش‌های تجربه سازمانی',
+      label: 'پویش‌های تجربی شهری',
       route: '/panels',
+      group: 'workspace',
+      requiresAuth: true,
       badge: 'فعال',
-      badgeClass: 'bg-[#E8F5E9] text-[#16A36A] border border-[#C8E6C9]',
-      icon: 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z'
+      roles: ['EXPERT', 'EVALUATOR', 'ADMIN'],
+      piIcon: 'pi pi-megaphone'
     },
     {
       id: 'transcript',
-      label: 'کارنامه دانشی و پاداش‌ها',
+      label: 'کارنامه دانشی من',
       route: '/transcript',
-      icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+      group: 'workspace',
+      requiresAuth: true,
+      roles: ['EXPERT', 'EVALUATOR', 'ADMIN'],
+      piIcon: 'pi pi-id-card'
+    },
+
+    // 3. Evaluation Group
+    {
+      id: 'evaluations',
+      label: 'کارتابل داوری و ممیزی',
+      route: '/evaluations',
+      group: 'evaluation',
+      requiresAuth: true,
+      badge: '۳۴',
+      roles: ['EVALUATOR', 'ADMIN'],
+      piIcon: 'pi pi-shield'
+    },
+
+    // 4. Admin Group
+    {
+      id: 'admin-users',
+      label: 'مدیریت کاربران و دسترسی‌ها',
+      route: '/admin/users',
+      group: 'admin',
+      requiresAuth: true,
+      badge: 'ادمین',
+      roles: ['ADMIN'],
+      piIcon: 'pi pi-user-plus'
+    },
+    {
+      id: 'admin-forms',
+      label: 'طراحی فرم‌های پویا',
+      route: '/admin/form-builder',
+      group: 'admin',
+      requiresAuth: true,
+      roles: ['ADMIN'],
+      piIcon: 'pi pi-sliders-h'
+    },
+    {
+      id: 'admin-workflows',
+      label: 'گردش‌کار و فرآیندساز',
+      route: '/admin/workflows',
+      group: 'admin',
+      requiresAuth: true,
+      roles: ['ADMIN'],
+      piIcon: 'pi pi-sync'
+    },
+    {
+      id: 'admin-secretariats',
+      label: 'دبیرخانه‌های تخصصی',
+      route: '/admin/secretariats',
+      group: 'admin',
+      requiresAuth: true,
+      roles: ['ADMIN'],
+      piIcon: 'pi pi-building'
+    },
+    {
+      id: 'admin-ranking',
+      label: 'پاداش‌ها و رتبه‌بندی',
+      route: '/admin/committee-ranking',
+      group: 'admin',
+      requiresAuth: true,
+      roles: ['ADMIN'],
+      piIcon: 'pi pi-wallet'
     }
   ];
 
-  public navigateAndCloseMobile(route: string): void {
+  public visibleNavGroups = computed<NavGroup[]>(() => {
+    const isLoggedIn = this.auth.isLoggedIn();
+    const isAdmin = this.auth.isAdmin();
+    const isEvaluator = this.auth.isEvaluator();
+
+    const filterItems = (groupKey: string) => {
+      return this.allNavItems.filter(item => {
+        if (item.group !== groupKey) return false;
+        if (item.requiresAuth && !isLoggedIn) return false;
+        if (item.roles && item.roles.length > 0) {
+          if (item.roles.includes('ADMIN') && isAdmin) return true;
+          if (item.roles.includes('EVALUATOR') && isEvaluator) return true;
+          if (item.roles.includes('EXPERT') && isLoggedIn) return true;
+          return false;
+        }
+        return true;
+      });
+    };
+
+    const groups: NavGroup[] = [
+      { key: 'public', title: 'بخش عمومی', items: filterItems('public') },
+      { key: 'workspace', title: 'میز کار همکاران', items: filterItems('workspace') },
+      { key: 'evaluation', title: 'داوری و ممیزی', items: filterItems('evaluation') },
+      { key: 'admin', title: 'مدیریت و حاکمیت سیستم', items: filterItems('admin') }
+    ];
+
+    return groups.filter(g => g.items.length > 0);
+  });
+
+  public handleItemClick(item: NavItem): void {
     this.layout.closeMobileSidebar();
-    this.router.navigate([route]);
+    this.layout.openTab({
+      id: item.id,
+      title: item.label,
+      route: item.route
+    });
+  }
+
+  public logout(): void {
+    this.auth.logout();
+    this.layout.closeMobileSidebar();
+    this.router.navigate(['/']);
+  }
+
+  public onRoleChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    const role = select.value;
+    if (role === 'ADMIN') {
+      this.auth.quickLoginAs('ADMIN');
+    } else if (role === 'EVALUATOR') {
+      this.auth.quickLoginAs('EVALUATOR');
+    } else {
+      this.auth.quickLoginAs('EXPERT');
+    }
   }
 }
-

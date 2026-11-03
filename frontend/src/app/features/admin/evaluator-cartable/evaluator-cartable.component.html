@@ -1,66 +1,85 @@
-<div class="space-y-6">
+<div class="space-y-6 sm:space-y-7 pb-12 select-none">
   <!-- Page Header -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <div class="space-y-1">
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 shadow-xs relative overflow-hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <!-- Top Gradient Accent Strip -->
+    <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-500 via-amber-500 to-orange-500"></div>
+
+    <div class="space-y-1.5 pt-1">
       <div class="flex items-center gap-2">
-        <span class="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
+          کارتابل تخصصی ارزیابی
         </span>
-        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">کارتابل ارزیابی و داوری دانش</h1>
+        <span class="text-xs text-slate-300 dark:text-slate-700">|</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">شورای ممیزی شهرداری اصفهان</span>
       </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        سامانه جامع مدیریت دانش شهرداری اصفهان - موتور ارزیابی چندمرحله‌ای، ثبت آرا، بررسی اعتراضات و هدایت فرآیند
+      <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        کارتابل داوری، ممیزی و رسیدگی به تجارب
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+        ارزیابی دو مرحله‌ای (دبیرخانه تخصصی و کمیته‌های علمی)، ثبت نمرات ۴ شاخص کلیدی، بررسی اعتراضات و هدایت فرآیند تصویب
       </p>
     </div>
+
+    <div class="flex items-center gap-2">
+      <span class="px-3.5 py-2 rounded-2xl text-xs font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60 flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+        <span>پرونده‌های فعال در صف بررسی</span>
+      </span>
+    </div>
   </div>
 
-  <!-- Workflow Stages Overview Cards -->
+  <!-- Workflow Stages Decision Palette Cards -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <div class="p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-3.5">
-      <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-lg">
-        ✓
+    <!-- Final Approval: Emerald -->
+    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs flex items-center gap-4 hover:border-emerald-500/40 transition-all">
+      <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 border border-emerald-500/30 flex items-center justify-center shrink-0">
+        <i class="pi pi-check text-xl font-bold"></i>
       </div>
       <div>
-        <div class="text-xs text-slate-500 dark:text-slate-400">تایید نهایی</div>
-        <div class="text-sm font-bold text-slate-900 dark:text-slate-100">انتشار در مخزن دانش</div>
+        <div class="text-xs font-bold text-slate-900 dark:text-white">تایید نهایی ممیزی</div>
+        <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">انتشار رسمی در پایگاه دانش</div>
       </div>
     </div>
 
-    <div class="p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-3.5">
-      <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-lg">
-        ⚖️
+    <!-- Conditional Approval: Amber -->
+    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs flex items-center gap-4 hover:border-amber-500/40 transition-all">
+      <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 border border-amber-500/30 flex items-center justify-center shrink-0">
+        <i class="pi pi-clock text-xl"></i>
       </div>
       <div>
-        <div class="text-xs text-slate-500 dark:text-slate-400">تایید مشروط</div>
-        <div class="text-sm font-bold text-slate-900 dark:text-slate-100">در انتظار مدارک تکمیلی</div>
+        <div class="text-xs font-bold text-slate-900 dark:text-white">تایید مشروط</div>
+        <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">در انتظار چک‌لیست و ضمائم تکمیلی</div>
       </div>
     </div>
 
-    <div class="p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-3.5">
-      <div class="w-11 h-11 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold text-lg">
-        ↩️
+    <!-- Technical Referral / Correction: Sky -->
+    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs flex items-center gap-4 hover:border-orange-500/40 transition-all">
+      <div class="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-600 border border-orange-500/30 flex items-center justify-center shrink-0">
+        <i class="pi pi-undo text-xl"></i>
       </div>
       <div>
-        <div class="text-xs text-slate-500 dark:text-slate-400">ارجاع به نویسنده</div>
-        <div class="text-sm font-bold text-slate-900 dark:text-slate-100">اصلاح با Hint Box</div>
+        <div class="text-xs font-bold text-slate-900 dark:text-white">ارجاع جهت اصلاح فنی</div>
+        <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">بازنگری محتوا بر اساس کادر راهنما</div>
       </div>
     </div>
 
-    <div class="p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-3.5">
-      <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold text-lg">
-        ✕
+    <!-- Rejection / Appeal: Rose -->
+    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs flex items-center gap-4 hover:border-rose-500/40 transition-all">
+      <div class="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-600 border border-rose-500/30 flex items-center justify-center shrink-0">
+        <i class="pi pi-times text-xl"></i>
       </div>
       <div>
-        <div class="text-xs text-slate-500 dark:text-slate-400">رد شده</div>
-        <div class="text-sm font-bold text-slate-900 dark:text-slate-100">امکان ۱ نوبت اعتراض</div>
+        <div class="text-xs font-bold text-slate-900 dark:text-white">عدم تایید (رد شده)</div>
+        <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">امکان ثبت یک نوبت درخواست تجدیدنظر</div>
       </div>
     </div>
   </div>
 
-  <!-- Dynamic Data Table with Mobile Horizontal Scroll Safety -->
-  <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-3 sm:p-5 shadow-xs overflow-x-auto">
+  <!-- Interactive Workflow Pipeline Component -->
+  <app-knowledge-lifecycle [currentStep]="4"></app-knowledge-lifecycle>
+
+  <!-- Dynamic Data Table with Server-side Pagination & Sorting -->
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 shadow-xs">
     <app-table
       #tableRef
       [config]="tableConfig"

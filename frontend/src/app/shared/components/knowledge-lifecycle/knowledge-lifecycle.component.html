@@ -1,0 +1,166 @@
+<div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-xs space-y-6 select-none">
+  
+  <!-- Lifecycle Header & Progress Summary -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60 font-mono">
+          {{ trackingCode }}
+        </span>
+        <span class="text-xs text-slate-500 dark:text-slate-400">چرخه حیات ده‌گانه دانش و تجربه</span>
+      </div>
+      <h3 class="text-base font-bold text-slate-900 dark:text-white">
+        {{ knowledgeTitle }}
+      </h3>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="flex items-center gap-3 shrink-0">
+      <div class="text-end">
+        <span class="text-xs text-slate-500 dark:text-slate-400 block">پیشرفت فرآیند</span>
+        <span class="text-sm font-black text-orange-600 font-mono">{{ progressPercentage() }}٪</span>
+      </div>
+      <div class="w-32 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 h-2.5 rounded-full overflow-hidden">
+        <div class="bg-gradient-to-l from-orange-600 to-amber-500 h-full transition-all duration-500 rounded-full" [style.width.%]="progressPercentage()"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop 10-Step Horizontal Stepper -->
+  <div class="hidden lg:block overflow-x-auto pb-2">
+    <div class="relative flex items-start justify-between min-w-[920px] pt-3">
+      
+      <!-- Connecting Line -->
+      <div class="absolute top-7 start-6 end-6 h-0.5 bg-slate-200 dark:bg-slate-800 -z-0"></div>
+      
+      @for (step of steps(); track step.stepNumber; let idx = $index) {
+        <button
+          type="button"
+          (click)="selectStep(step)"
+          class="relative z-10 flex flex-col items-center text-center group cursor-pointer w-24 focus:outline-none"
+        >
+          <!-- Step Circle Indicator -->
+          <div
+            [class]="step.status === 'COMPLETED' 
+              ? 'w-9 h-9 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold text-xs shadow-xs ring-4 ring-white dark:ring-slate-900' 
+              : step.status === 'ACTIVE' 
+                ? 'w-9 h-9 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold text-xs shadow-xs ring-4 ring-orange-200 dark:ring-orange-950/60 border-2 border-orange-400 relative animate-pulse' 
+                : 'w-9 h-9 rounded-full bg-white dark:bg-slate-800 text-slate-400 border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center font-bold text-xs group-hover:border-orange-400 ring-4 ring-white dark:ring-slate-900 transition-all'"
+          >
+            @if (step.status === 'COMPLETED') {
+              <i class="pi pi-check text-xs"></i>
+            } @else {
+              <span class="font-mono text-xs">{{ step.stepNumber }}</span>
+            }
+          </div>
+
+          <!-- Step Titles -->
+          <span
+            [class]="step.id === selectedStep()?.id 
+              ? 'text-xs font-bold text-orange-600 mt-2 block' 
+              : step.status === 'ACTIVE' 
+                ? 'text-xs font-bold text-slate-900 dark:text-white mt-2 block' 
+                : 'text-xs font-medium text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white mt-2 block transition-colors'"
+          >
+            {{ step.title }}
+          </span>
+          <span class="text-[9px] text-slate-400 block mt-0.5 line-clamp-1 max-w-[85px]">
+            {{ step.subtitle }}
+          </span>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Tablet / Mobile Responsive Grid Stepper -->
+  <div class="lg:hidden grid grid-cols-2 sm:grid-cols-5 gap-2">
+    @for (step of steps(); track step.stepNumber) {
+      <button
+        type="button"
+        (click)="selectStep(step)"
+        [class]="step.id === selectedStep()?.id 
+          ? 'p-2.5 rounded-2xl border-2 border-orange-500 bg-orange-50/50 dark:bg-orange-950/30 text-start transition-all cursor-pointer' 
+          : 'p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-start hover:border-orange-300 transition-all cursor-pointer'"
+      >
+        <div class="flex items-center gap-1.5 mb-1">
+          <span
+            [class]="step.status === 'COMPLETED' ? 'w-5 h-5 rounded-full bg-orange-600 text-white flex items-center justify-center text-[10px] font-bold' : step.status === 'ACTIVE' ? 'w-5 h-5 rounded-full bg-orange-600 text-white flex items-center justify-center text-[10px] font-bold ring-2 ring-orange-200' : 'w-5 h-5 rounded-full bg-white dark:bg-slate-700 text-slate-400 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-[10px] font-bold font-mono'"
+          >
+            {{ step.stepNumber }}
+          </span>
+          <span class="text-[10px] font-bold {{ step.status === 'COMPLETED' ? 'text-orange-600' : step.status === 'ACTIVE' ? 'text-slate-900 dark:text-white' : 'text-slate-400' }}">
+            {{ step.status === 'COMPLETED' ? 'انجام شد' : step.status === 'ACTIVE' ? 'در حال بررسی' : 'در انتظار' }}
+          </span>
+        </div>
+        <div class="text-xs font-bold text-slate-900 dark:text-white line-clamp-1">
+          {{ step.title }}
+        </div>
+      </button>
+    }
+  </div>
+
+  <!-- Selected Step Details Card -->
+  @if (selectedStep()) {
+    <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 space-y-3 animate-in fade-in duration-200">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center font-bold text-xs font-mono shadow-xs">
+            {{ selectedStep()?.stepNumber }}
+          </span>
+          <div>
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white">
+              گام {{ selectedStep()?.stepNumber }}: {{ selectedStep()?.title }}
+            </h4>
+            <span class="text-xs text-slate-500 dark:text-slate-400">{{ selectedStep()?.subtitle }}</span>
+          </div>
+        </div>
+
+        <div>
+          @if (selectedStep()?.status === 'COMPLETED') {
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
+              <i class="pi pi-check text-xs"></i>
+              <span>مرحله با موفقیت تکمیل شد</span>
+            </span>
+          } @else if (selectedStep()?.status === 'ACTIVE') {
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-orange-600 animate-ping"></span>
+              <span>مرحله جاری — در دست اقدام و بررسی</span>
+            </span>
+          } @else {
+            <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+              در نوبت اقدام پس از تکمیل مراحل قبل
+            </span>
+          }
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <div class="p-3.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <span class="text-slate-400 block mb-1">واحد سازمانی مسئول:</span>
+          <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+            <i class="pi pi-building text-orange-600 text-xs"></i>
+            <span>{{ selectedStep()?.responsibleParty || 'دبیرخانه مرکزی مدیریت دانش' }}</span>
+          </span>
+        </div>
+
+        <div class="p-3.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <span class="text-slate-400 block mb-1">زمان‌بندی / مهلت استاندارد (SLA):</span>
+          <span class="font-bold text-slate-900 dark:text-white font-mono flex items-center gap-1.5">
+            <i class="pi pi-clock text-orange-600 text-xs"></i>
+            <span>{{ selectedStep()?.date || 'حداکثر ۴۸ ساعت کاری' }}</span>
+          </span>
+        </div>
+      </div>
+
+      @if (selectedStep()?.notes) {
+        <div class="p-3.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs">
+          <span class="text-slate-400 block mb-1">شرح اقدامات و ضوابط اجرایی این گام:</span>
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+            {{ selectedStep()?.notes }}
+          </p>
+        </div>
+      }
+    </div>
+  }
+
+</div>

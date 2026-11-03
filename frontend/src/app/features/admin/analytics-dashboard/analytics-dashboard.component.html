@@ -1,118 +1,293 @@
-<div class="space-y-6">
-  <!-- Page Header -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <div class="space-y-1">
-      <div class="flex items-center gap-2.5">
-        <span class="p-2.5 rounded-2xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
+<div class="space-y-6 sm:space-y-8 pb-16 select-none">
+  
+  <!-- ======================================================== -->
+  <!-- 1. EXECUTIVE PAGE HEADER                                 -->
+  <!-- ======================================================== -->
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 shadow-xs relative overflow-hidden flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+    <!-- Top Gradient Accent Strip -->
+    <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-500 via-amber-500 to-orange-500"></div>
+
+    <div class="space-y-2 pt-1">
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
+          هوش سازمانی و آمار راهبردی
         </span>
-        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">داشبورد هوش سازمانی و تحلیل آماری مدیریت دانش</h1>
+        <span class="text-xs text-slate-300 dark:text-slate-700">|</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">شهرداری اصفهان</span>
       </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        شهرداری اصفهان - رصد شاخص‌های کلیدی عملکرد، جریان سرانه دانش، رتبه‌بندی مناطق و عملکرد کمیته‌های داوری
+      <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        داشبورد هوش سازمانی و تحلیل داده‌های دانشی
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+        رصد شاخص‌های کلیدی عملکرد (KPIs)، تحلیل روند تولید و مصرف دانش، رتبه‌بندی معاونت‌ها و ماتریس ارزیابی کمیته‌های تخصصی
       </p>
     </div>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <button
+        (click)="exportBonusCsv()"
+        type="button"
+        class="px-5 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white shadow-xs transition-all flex items-center gap-2">
+        <i class="pi pi-file-excel text-xs"></i>
+        <span>خروجی اکسل پاداش خبرگان</span>
+      </button>
+
+      <a
+        routerLink="/admin/bonus-export"
+        class="px-4 py-2.5 rounded-2xl text-xs font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition-all flex items-center gap-2">
+        <i class="pi pi-list text-orange-600 text-xs"></i>
+        <span>فهرست تفصیلی پاداش‌ها</span>
+      </a>
+    </div>
   </div>
 
-  <!-- KPI Overview Cards -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <!-- Card 1 -->
-    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between">
-      <div class="space-y-1">
-        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">کل اسناد دانشی ثبت شده</span>
-        <div class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+  <!-- ======================================================== -->
+  <!-- 2. KPI METRICS CARDS (Gradient Top Strip & Localhost:4201 Style) -->
+  <!-- ======================================================== -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+    <!-- Card 1: Total Registered Knowledge -->
+    <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-orange-400 dark:hover:border-orange-500/60 transition-all flex items-center justify-between group">
+      <div class="space-y-1.5">
+        <span class="text-xs font-bold text-slate-500 dark:text-slate-400">کل اسناد دانشی ثبت شده</span>
+        <div class="text-3xl font-black text-slate-900 dark:text-white font-mono group-hover:text-orange-600 transition-colors">
           {{ totalSubmissions() }}
         </div>
-        <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">↑ ۱۸٪ رشد نسبت به فصل گذشته</span>
+        <div class="flex items-center gap-1.5 text-xs text-orange-600 font-bold">
+          <i class="pi pi-arrow-up text-xs"></i>
+          <span>۲۲٪ رشد سالانه در شهرداری</span>
+        </div>
       </div>
-      <div class="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 flex items-center justify-center text-xl">
-        📚
+      <div class="w-13 h-13 rounded-2xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 border border-orange-200 dark:border-orange-900/60 flex items-center justify-center shrink-0 group-hover:bg-orange-600 group-hover:text-white transition-all shadow-xs">
+        <i class="pi pi-book text-xl"></i>
       </div>
     </div>
 
-    <!-- Card 2 -->
-    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between">
-      <div class="space-y-1">
-        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">نرخ تایید و انتشار دانش</span>
-        <div class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+    <!-- Card 2: Per-Capita Knowledge Registration -->
+    <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-amber-400 dark:hover:border-amber-500/60 transition-all flex items-center justify-between group">
+      <div class="space-y-1.5">
+        <span class="text-xs font-bold text-slate-500 dark:text-slate-400">سرانه ثبت دانش به ازای پرسنل</span>
+        <div class="text-3xl font-black text-amber-600 font-mono">
+          {{ perCapitaSubmission() }}
+        </div>
+        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+          میانگین هدف: ۲.۰ سند در سال
+        </div>
+      </div>
+      <div class="w-13 h-13 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 border border-amber-200 dark:border-amber-900/60 flex items-center justify-center shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-all shadow-xs">
+        <i class="pi pi-user text-xl"></i>
+      </div>
+    </div>
+
+    <!-- Card 3: Active Experts / Contributors -->
+    <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-emerald-400 dark:hover:border-emerald-500/60 transition-all flex items-center justify-between group">
+      <div class="space-y-1.5">
+        <span class="text-xs font-bold text-slate-500 dark:text-slate-400">پدیدآورندگان و خبرگان فعال</span>
+        <div class="text-3xl font-black text-slate-900 dark:text-white font-mono group-hover:text-emerald-600 transition-colors">
+          {{ activeExpertsCount() }} نفر
+        </div>
+        <div class="flex items-center gap-1.5 text-xs text-emerald-600 font-bold">
+          <i class="pi pi-verified text-xs"></i>
+          <span>دارای نشان آبی و سطوح خبرگی</span>
+        </div>
+      </div>
+      <div class="w-13 h-13 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 border border-emerald-200 dark:border-emerald-900/60 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-xs">
+        <i class="pi pi-users text-xl"></i>
+      </div>
+    </div>
+
+    <!-- Card 4: Approval Rate -->
+    <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-rose-400 dark:hover:border-rose-500/60 transition-all flex items-center justify-between group">
+      <div class="space-y-1.5">
+        <span class="text-xs font-bold text-slate-500 dark:text-slate-400">نرخ تایید و انتشار دانش</span>
+        <div class="text-3xl font-black text-rose-600 font-mono">
           {{ approvedRatio() }}%
         </div>
-        <span class="text-[11px] text-teal-600 dark:text-teal-400 font-medium">سنجش کیفی و فنی دبیرخانه</span>
-      </div>
-      <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl">
-        ✓
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between">
-      <div class="space-y-1">
-        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">خبرگان فعال شناسایی‌شده</span>
-        <div class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
-          {{ activeExpertsCount() }}
+        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+          ممیزی علمی در ۲ مرحله داوری
         </div>
-        <span class="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium">دارای نشان آبی و سطح توسعه‌دهنده</span>
       </div>
-      <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl">
-        🎖️
-      </div>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between">
-      <div class="space-y-1">
-        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">مجموع امتیازات گیمیفیکیشن</span>
-        <div class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
-          {{ totalPointsAwarded() }}
-        </div>
-        <span class="text-[11px] text-amber-600 dark:text-amber-400 font-medium">مبنای پاداش و تقدیرنامه</span>
-      </div>
-      <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl">
-        ⚡
+      <div class="w-13 h-13 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 border border-rose-200 dark:border-rose-900/60 flex items-center justify-center shrink-0 group-hover:bg-rose-600 group-hover:text-white transition-all shadow-xs">
+        <i class="pi pi-check-circle text-xl"></i>
       </div>
     </div>
   </div>
 
-  <!-- Charts Row 1: Bar & Donut -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- Department Chart (2 Columns) -->
-    <div class="lg:col-span-2 p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-      <div class="flex items-center justify-between">
+  <!-- ======================================================== -->
+  <!-- 3. CHARTS ROW 1: MONTHLY TRENDS & TYPES DONUT            -->
+  <!-- ======================================================== -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- Trend Chart: Line/Bar (8 Columns) -->
+    <div class="lg:col-span-8 p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 gap-2">
         <div class="space-y-0.5">
-          <h2 class="text-sm font-bold text-slate-900 dark:text-slate-100">سرانه تولید دانش به تفکیک معاونت‌ها و مناطق شهری</h2>
-          <p class="text-xs text-slate-400">توزیع فراوانی اسناد ثبت‌شده در سیستم مدیریت دانش</p>
+          <h2 class="text-sm font-bold text-slate-900 dark:text-white">روند ماهانه تولید و مصرف دانش در سال جاری</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">مقایسه نرخ ثبت اسناد در برابر فراخوانی و کاربست در بدنه اجرایی</p>
         </div>
-        <span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-teal-50 text-teal-700 dark:bg-teal-950 dark:text-teal-300">
-          Apache ECharts
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
+          داده‌های برخط
         </span>
       </div>
 
-      <div #deptChartRef class="w-full h-80"></div>
+      <div #trendChartRef class="w-full h-80"></div>
     </div>
 
-    <!-- Knowledge Type Chart (1 Column) -->
-    <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-      <div class="space-y-0.5">
-        <h2 class="text-sm font-bold text-slate-900 dark:text-slate-100">ترکیب قالب‌های دانش</h2>
-        <p class="text-xs text-slate-400">سهم تجارب زیسته، پروژه‌ها و مقالات</p>
+    <!-- Knowledge Types Donut Chart (4 Columns) -->
+    <div class="lg:col-span-4 p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-4">
+      <div class="space-y-0.5 pb-3 border-b border-slate-100 dark:border-slate-800">
+        <h2 class="text-sm font-bold text-slate-900 dark:text-white">ترکیب قالب‌های دانشی</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">سهم تجارب زیسته، مقالات، طرح‌ها و کتب</p>
       </div>
 
       <div #typeChartRef class="w-full h-80"></div>
     </div>
   </div>
 
-  <!-- Charts Row 2: Radar Performance -->
-  <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-    <div class="flex items-center justify-between">
-      <div class="space-y-0.5">
-        <h2 class="text-sm font-bold text-slate-900 dark:text-slate-100">نمودار رادار ارزیابی عملکرد و چابکی کمیته‌های داوری</h2>
-        <p class="text-xs text-slate-400">مقایسه شاخص‌های سرعت بررسی، نرخ تایید، رضایت و کیفیت فنی</p>
+  <!-- ======================================================== -->
+  <!-- 4. CHARTS ROW 2: DEPARTMENT BAR & COMMITTEE RADAR        -->
+  <!-- ======================================================== -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- Department Distribution (7 Columns) -->
+    <div class="lg:col-span-7 p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div class="space-y-0.5">
+          <h2 class="text-sm font-bold text-slate-900 dark:text-white">سرانه تولید دانش به تفکیک معاونت‌ها و مناطق شهری</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">توزیع اسناد ثبت‌شده در سیستم مدیریت دانش شهرداری اصفهان</p>
+        </div>
       </div>
-      <span class="text-xs text-slate-400 font-mono">بروزرسانی بلادرنگ</span>
+
+      <div #deptChartRef class="w-full h-80"></div>
     </div>
 
-    <div #committeeChartRef class="w-full h-80"></div>
+    <!-- Committee Performance Radar (5 Columns) -->
+    <div class="lg:col-span-5 p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-4">
+      <div class="space-y-0.5 pb-3 border-b border-slate-100 dark:border-slate-800">
+        <h2 class="text-sm font-bold text-slate-900 dark:text-white">ماتریس رادار عملکرد کمیته‌های داوری</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">سنجش سرعت رسیدگی (ساعت)، نرخ پذیرش و درصد اعتراضات</p>
+      </div>
+
+      <div #committeeChartRef class="w-full h-80"></div>
+    </div>
   </div>
+
+  <!-- ======================================================== -->
+  <!-- 5. GAMIFICATION LEADERBOARD & REWARD RECOMMENDATION     -->
+  <!-- ======================================================== -->
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 shadow-xs space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-orange-600"></span>
+          <h2 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+            تابلوی افتخارات و رتبه‌بندی خبرگان شهرداری (Gamification Leaderboard)
+          </h2>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400">
+          معرفی پیشتازان اشتراک‌گذاری دانش، صاحبان نشان آبی و فهرست مشمولان ارتقا و پاداش‌های فصلی
+        </p>
+      </div>
+
+      <button
+        (click)="exportBonusCsv()"
+        type="button"
+        class="shrink-0 px-4 py-2 rounded-2xl text-xs font-bold bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 hover:bg-orange-100 transition-colors flex items-center gap-2">
+        <i class="pi pi-download text-xs"></i>
+        <span>دانلود فهرست پیشنهادی پاداش</span>
+      </button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-start text-xs">
+        <thead>
+          <tr class="border-b border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold bg-slate-50/50 dark:bg-slate-800/30">
+            <th class="py-3 px-3 text-start">رتبه</th>
+            <th class="py-3 px-3 text-start">خبره / پدیدآورنده</th>
+            <th class="py-3 px-3 text-start">معاونت / منطقه</th>
+            <th class="py-3 px-3 text-start">سطح مهارتی</th>
+            <th class="py-3 px-3 text-center">نشان آبی</th>
+            <th class="py-3 px-3 text-center">اسناد مصوب</th>
+            <th class="py-3 px-3 text-center">امتیاز کل</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60">
+          @for (u of leaderboard(); track u.id) {
+            <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+              <!-- Rank -->
+              <td class="py-3.5 px-3">
+                @if (u.rank === 1) {
+                  <span class="w-7 h-7 rounded-xl bg-amber-500/10 text-amber-600 border border-amber-500/30 flex items-center justify-center font-black">🥇</span>
+                } @else if (u.rank === 2) {
+                  <span class="w-7 h-7 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center font-black">🥈</span>
+                } @else if (u.rank === 3) {
+                  <span class="w-7 h-7 rounded-xl bg-amber-700/10 text-amber-700 border border-amber-700/30 flex items-center justify-center font-black">🥉</span>
+                } @else {
+                  <span class="w-7 h-7 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center font-bold font-mono">
+                    {{ u.rank }}
+                  </span>
+                }
+              </td>
+
+              <!-- Name & Avatar -->
+              <td class="py-3.5 px-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 border border-orange-200 dark:border-orange-800 flex items-center justify-center font-bold text-xs">
+                    {{ u.avatarText }}
+                  </div>
+                  <span class="font-bold text-slate-900 dark:text-white">{{ u.fullName }}</span>
+                </div>
+              </td>
+
+              <!-- Department -->
+              <td class="py-3.5 px-3 text-slate-600 dark:text-slate-400 font-medium">
+                {{ u.department }}
+              </td>
+
+              <!-- Level Badge -->
+              <td class="py-3.5 px-3">
+                @if (u.level === 'DEVELOPER') {
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800">
+                    <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                    {{ u.levelLabel }}
+                  </span>
+                } @else if (u.level === 'CONTRIBUTOR') {
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                    {{ u.levelLabel }}
+                  </span>
+                } @else {
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                    <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                    {{ u.levelLabel }}
+                  </span>
+                }
+              </td>
+
+              <!-- Blue Badge -->
+              <td class="py-3.5 px-3 text-center">
+                @if (u.hasBlueBadge) {
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-orange-50 text-orange-600 border border-orange-200" title="نشان رسمی خبرگی شهرداری اصفهان">
+                    <i class="pi pi-verified text-xs"></i>
+                  </span>
+                } @else {
+                  <span class="text-slate-300 dark:text-slate-600">-</span>
+                }
+              </td>
+
+              <!-- Approved Items -->
+              <td class="py-3.5 px-3 text-center font-mono font-bold text-slate-700 dark:text-slate-300">
+                {{ u.knowledgeCount }}
+              </td>
+
+              <!-- Points -->
+              <td class="py-3.5 px-3 text-center">
+                <span class="px-2.5 py-1 rounded-xl bg-orange-50 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800/60 font-mono font-bold">
+                  {{ u.points }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>

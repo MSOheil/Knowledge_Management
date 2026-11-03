@@ -1,203 +1,608 @@
-<div class="space-y-6">
-  <!-- Page Header -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <div class="space-y-1">
-      <div class="flex items-center gap-2.5">
-        <span class="p-2.5 rounded-2xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </span>
-        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">موتور جستجوی پیشرفته و مخزن دانش شهری</h1>
-      </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        جستجو در تجارب مدون، مقالات، طرح‌های پژوهشی و کتب تخصصی شهرداری اصفهان به همراه رهگیری چرخه کاربرد
-      </p>
-    </div>
-  </div>
+<div class="space-y-6 sm:space-y-8 pb-14 select-none">
+  
+  <!-- ======================================================== -->
+  <!-- 1. HERO & SEARCH BANNER (Matches Localhost:4201 Style)   -->
+  <!-- ======================================================== -->
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 shadow-xs space-y-6 relative overflow-hidden">
+    <!-- Top Gradient Accent Strip -->
+    <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-500 via-amber-500 to-orange-500"></div>
+    
+    <!-- Ambient delicate background gradient -->
+    <div class="absolute -top-20 -end-20 w-80 h-80 rounded-full bg-orange-400/10 blur-3xl pointer-events-none"></div>
 
-  <!-- Search Filter Box -->
-  <div class="p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-    <div class="flex flex-col md:flex-row items-center gap-3">
-      <!-- Search Input -->
-      <div class="w-full flex-1 relative">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10 pt-2">
+      <div class="space-y-2 max-w-2xl">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
+            پایگاه تجارب و سرمایه فکری شهرداری اصفهان
+          </span>
+          <span class="text-xs text-slate-300 dark:text-slate-700">|</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">مخزن مصوب شورای ممیزی</span>
+        </div>
+        <h1 class="text-xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+          بانک تجارب، نوآوری‌ها و درس‌آموخته‌های ثبت‌شده
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          کاوش در تجارب زیسته همکاران مناطق ۱۵‌گانه، مقالات علمی و پروژه‌های پژوهشی به همراه ثبت کاربست و انتقال تجربه
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a routerLink="/submit-knowledge"
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-white bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 shadow-sm transition-all duration-150">
+          <i class="pi pi-plus text-xs"></i>
+          <span>ثبت دانش جدید</span>
+        </a>
+
+        <a routerLink="/karbest"
+           class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 hover:border-orange-300 transition-all">
+          <i class="pi pi-check-circle text-orange-600"></i>
+          <span>ثبت کاربست دانش</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Prominent Search Bar -->
+    <div class="pt-2">
+      <div class="relative flex items-center rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 p-1.5 focus-within:bg-white dark:focus-within:bg-slate-900 focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-500/10 transition-all duration-200 shadow-xs">
+        <div class="flex items-center ps-3.5 pe-2 pointer-events-none text-slate-400">
+          <i class="pi pi-search text-orange-600 text-sm"></i>
+        </div>
+
         <input
           type="text"
           [(ngModel)]="keyword"
-          (keyup.enter)="onSearch()"
-          placeholder="جستجو در عنوان، خلاصه تجارب، نویسنده یا کلیدواژه‌ها..."
-          class="w-full ps-11 pe-4 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all"
+          placeholder="جستجو در عنوان دانش، چکیده، نویسنده، کد رهگیری (مثلاً KM-1403-ENV-014) یا کلیدواژه‌ها..."
+          class="flex-1 bg-transparent border-none text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-0 py-2.5 px-2 font-medium"
         />
-        <div class="absolute inset-y-0 start-0 ps-3.5 flex items-center pointer-events-none text-slate-400">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+
+        @if (keyword()) {
+          <button
+            type="button"
+            (click)="keyword.set('')"
+            class="px-2 text-xs text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
+            ✕
+          </button>
+        }
+
+        <div class="flex items-center gap-2 pe-2 shrink-0">
+          <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 px-2 hidden sm:inline">
+            {{ totalResultsCount() }} تجربه یافت شد
+          </span>
         </div>
       </div>
+    </div>
 
-      <!-- Type Filter Dropdown -->
-      <div class="w-full md:w-56">
+    <!-- Filter Tabs Strip -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-t border-slate-100 dark:border-slate-800 pt-4">
+      <!-- Tabs -->
+      <div class="flex flex-wrap items-center gap-1.5">
+        <button
+          type="button"
+          (click)="setTab('ALL')"
+          [class]="activeTab() === 'ALL'
+            ? 'px-4 py-2 rounded-xl text-xs font-bold bg-orange-600 text-white shadow-xs'
+            : 'px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent'">
+          همه تجارب
+        </button>
+
+        <button
+          type="button"
+          (click)="setTab('NEWEST')"
+          [class]="activeTab() === 'NEWEST'
+            ? 'px-4 py-2 rounded-xl text-xs font-bold bg-orange-600 text-white shadow-xs'
+            : 'px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent'">
+          جدیدترین‌ها
+        </button>
+
+        <button
+          type="button"
+          (click)="setTab('MOST_APPLIED')"
+          [class]="activeTab() === 'MOST_APPLIED'
+            ? 'px-4 py-2 rounded-xl text-xs font-bold bg-orange-600 text-white shadow-xs'
+            : 'px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent'">
+          پرکاربست‌ترین (مصوب)
+        </button>
+
+        <button
+          type="button"
+          (click)="setTab('VERIFIED')"
+          [class]="activeTab() === 'VERIFIED'
+            ? 'px-4 py-2 rounded-xl text-xs font-bold bg-orange-600 text-white shadow-xs'
+            : 'px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent'">
+          دارای نشان آبی خبرگی
+        </button>
+      </div>
+
+      <!-- Dropdown Selectors: Category & Sort -->
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- Category Dropdown -->
+        <select
+          [(ngModel)]="selectedCategory"
+          class="px-3 py-2 text-xs font-medium bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 text-slate-800 dark:text-slate-200 transition-all">
+          <option value="ALL">همه حوزه‌های شهری</option>
+          <option value="خدمات شهری">خدمات شهری و محیط زیست</option>
+          <option value="فناوری اطلاعات">فناوری اطلاعات و فاوا</option>
+          <option value="شهرسازی">شهرسازی و معماری</option>
+          <option value="حمل‌ونقل">حمل‌ونقل و ترافیک</option>
+          <option value="عمران">عمران و زیرساخت</option>
+          <option value="مالی">مالی و اقتصادی</option>
+        </select>
+
+        <!-- Knowledge Type Dropdown -->
         <select
           [(ngModel)]="selectedType"
-          (change)="onSearch()"
-          class="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-slate-800 dark:text-slate-200"
-        >
+          class="px-3 py-2 text-xs font-medium bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 text-slate-800 dark:text-slate-200 transition-all">
           @for (t of knowledgeTypes; track t.value) {
             <option [value]="t.value">{{ t.label }}</option>
           }
         </select>
+
+        <!-- Sort Dropdown -->
+        <select
+          [(ngModel)]="sortBy"
+          class="px-3 py-2 text-xs font-medium bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 text-slate-800 dark:text-slate-200 transition-all">
+          <option value="NEWEST">مرتب‌سازی: جدیدترین</option>
+          <option value="VOTES">مرتب‌سازی: بیشترین تاییدیه</option>
+          <option value="KARBEST">مرتب‌سازی: بیشترین کاربست</option>
+          <option value="VIEWS">مرتب‌سازی: پربازدیدترین</option>
+        </select>
       </div>
-
-      <!-- Search Submit Button -->
-      <button
-        type="button"
-        (click)="onSearch()"
-        class="w-full md:w-auto min-h-[48px] px-6 py-2.5 text-xs font-bold text-white bg-cyan-600 hover:bg-cyan-700 rounded-2xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
-      >
-        <span>جستجو</span>
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
-      </button>
     </div>
 
-    <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-1">
-      <span>تعداد نتایج یافت شده: <strong class="text-slate-900 dark:text-slate-100 font-mono">{{ totalResults() }}</strong> سند معتبر</span>
-      <span class="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>کلیه اسناد تایید شده و آماده بهره‌برداری هستند</span>
-      </span>
-    </div>
+    <!-- Active Tag Pill Indicator if filtered -->
+    @if (activeTag()) {
+      <div class="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+        <span class="text-slate-500 dark:text-slate-400">فیلتر بر اساس برچسب:</span>
+        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-xs font-bold bg-amber-50 text-amber-900 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900/60">
+          #{{ activeTag() }}
+          <button type="button" (click)="activeTag.set(null)" class="text-xs hover:text-red-700">✕</button>
+        </span>
+        <button
+          type="button"
+          (click)="clearAllFilters()"
+          class="text-[11px] text-orange-600 hover:underline font-semibold ms-auto">
+          پاکسازی همه فیلترها
+        </button>
+      </div>
+    }
   </div>
 
-  <!-- Results List -->
-  @if (isLoading()) {
-    <div class="py-16 text-center text-cyan-600 dark:text-cyan-400 font-medium text-sm flex items-center justify-center gap-2.5">
-      <svg class="animate-spin h-6 w-6" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-      </svg>
-      <span>در حال کاوش در مخزن دانش شهرداری...</span>
-    </div>
-  } @else if (results().length === 0) {
-    <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-3">
-      <span class="text-4xl">🔍</span>
-      <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">سندی با مشخصات وارد شده یافت نشد</h3>
-      <p class="text-xs text-slate-400 max-w-sm mx-auto">
-        می‌توانید عبارت جستجو را تغییر دهید یا فیلتر قالب دانش را روی «همه قالب‌ها» قرار دهید.
-      </p>
-    </div>
-  } @else {
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      @for (item of results(); track item.id) {
-        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between space-y-4">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between gap-2">
-              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-cyan-50 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
-                {{ getBadgeLabel(item.knowledgeType) }}
-              </span>
-              @if (item.node?.title) {
-                <span class="text-[11px] text-slate-400 font-medium truncate max-w-[130px]">
-                  {{ item.node?.title }}
-                </span>
-              }
-            </div>
-
-            <h3 class="text-sm font-bold text-slate-900 dark:text-slate-100 line-clamp-2 leading-relaxed">
-              {{ item.title }}
-            </h3>
-
-            <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
-              {{ item.summary || item.content || 'خلاصه تجربه‌نگاری در دسترس نیست.' }}
-            </p>
+  <!-- ======================================================== -->
+  <!-- 2. TWO-COLUMN LAYOUT (8 COLS FEED + 4 COLS SIDEBAR)       -->
+  <!-- ======================================================== -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    
+    <!-- ======================================================== -->
+    <!-- LEFT/MAIN COLUMN: KNOWLEDGE CARDS LIST (8 COLS)          -->
+    <!-- ======================================================== -->
+    <div class="lg:col-span-8 space-y-4">
+      
+      @if (filteredItems().length === 0) {
+        <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 space-y-4 shadow-xs">
+          <div class="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto text-slate-400">
+            <i class="pi pi-search text-2xl"></i>
           </div>
-
-          <div class="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-3">
-            <div class="flex items-center justify-between text-[11px] text-slate-400">
-              <span>پدیدآورنده: {{ item.user?.fullName || 'کارشناس شهرداری' }}</span>
-              <span class="font-mono">{{ item.createdAt | slice:0:10 }}</span>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                (click)="requestAccess(item, 'READ')"
-                class="min-h-[44px] px-3 py-2 text-xs font-semibold rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-1.5"
-                [attr.aria-label]="'مشاهده کامل سند: ' + item.title"
-              >
-                <span>مشاهده کامل</span>
-                @if (unlockedItemIds().has(item.id)) {
-                  <span class="text-emerald-500 font-bold">✓</span>
-                }
-              </button>
-
-              <button
-                type="button"
-                (click)="requestAccess(item, 'DOWNLOAD')"
-                class="min-h-[44px] px-3 py-2 text-xs font-bold rounded-xl bg-teal-600 hover:bg-teal-700 text-white shadow-2xs transition-colors flex items-center justify-center gap-1.5"
-                [attr.aria-label]="'دانلود مستندات: ' + item.title"
-              >
-                <span>دانلود مستند</span>
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-  }
-
-  <!-- Detail Drawer Modal -->
-  @if (activeItemDetail()) {
-    <div
-      (click)="closeItemDetail()"
-      class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
-    >
-      <div
-        (click)="$event.stopPropagation()"
-        class="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-6 space-y-5 my-8"
-      >
-        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
           <div class="space-y-1">
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-              دسترسی بازگشایی شد
-            </span>
-            <h2 class="text-base font-bold text-slate-900 dark:text-slate-100">{{ activeItemDetail()?.title }}</h2>
+            <h3 class="text-sm font-bold text-slate-800 dark:text-white">دانش یا تجربه‌ای مطابق فیلترهای انتخابی یافت نشد</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+              می‌توانید عبارت جستجو را پاک کنید یا فیلتر دسته‌بندی موضوعی را تغییر دهید.
+            </p>
           </div>
           <button
             type="button"
+            (click)="clearAllFilters()"
+            class="px-4 py-2 text-xs font-bold text-orange-600 bg-orange-50 dark:bg-orange-950/40 hover:bg-orange-100 border border-orange-200 dark:border-orange-900/50 rounded-xl transition-all">
+            نمایش همه تجارب ثبت‌شده
+          </button>
+        </div>
+      }
+
+      <!-- Knowledge Cards -->
+      @for (item of filteredItems(); track item.id) {
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs hover:border-orange-400 dark:hover:border-orange-500/60 hover:shadow-md transition-all duration-200 group">
+          
+          <div class="flex flex-col sm:flex-row items-start gap-4">
+            
+            <!-- 1. Stats & Voting Column -->
+            <div class="flex sm:flex-col items-center justify-between sm:justify-start gap-2.5 sm:gap-2 shrink-0 w-full sm:w-24 text-center pb-3 sm:pb-0 border-b sm:border-b-0 sm:border-e border-slate-100 dark:border-slate-800 sm:pe-4">
+              
+              <!-- Votes Box -->
+              <button
+                type="button"
+                (click)="toggleVote(item, $event)"
+                [title]="item.userVoted ? 'حذف تاییدیه' : 'تایید و حمایت از این تجربه'"
+                [class]="item.userVoted
+                  ? 'w-full p-2 rounded-2xl bg-orange-600 text-white border border-orange-600 shadow-xs transition-all'
+                  : 'w-full p-2 rounded-2xl bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-orange-300 transition-all'">
+                <div class="flex sm:flex-col items-center justify-center gap-1">
+                  <span class="text-xs">▲</span>
+                  <span class="text-sm font-black font-mono leading-none">{{ item.votes }}</span>
+                  <span class="text-[10px] font-medium text-inherit hidden sm:inline">رای / امتیاز</span>
+                </div>
+              </button>
+
+              <!-- Karbest Count Box -->
+              <div
+                class="w-full p-2 rounded-2xl text-center border transition-all"
+                [class]="item.karbestCount > 0
+                  ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60 font-bold'
+                  : 'bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'">
+                <div class="flex sm:flex-col items-center justify-center gap-0.5">
+                  <span class="text-xs sm:text-sm font-black font-mono leading-none">{{ item.karbestCount }}</span>
+                  <span class="text-[10px] leading-tight">کاربست</span>
+                </div>
+              </div>
+
+              <!-- Views Counter -->
+              <div class="text-[11px] text-slate-400 dark:text-slate-500 font-mono flex items-center justify-center gap-1">
+                <i class="pi pi-eye text-xs"></i>
+                <span>{{ item.viewCount }}</span>
+              </div>
+
+            </div>
+
+            <!-- 2. Main Content Area -->
+            <div class="flex-1 min-w-0 space-y-3">
+              
+              <!-- Badges Header -->
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
+                    {{ item.category }}
+                  </span>
+
+                  <span class="font-mono text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                    {{ item.code }}
+                  </span>
+
+                  @if (item.isHot) {
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900/60">
+                      <span>★</span>
+                      <span>تجربه برگزیده</span>
+                    </span>
+                  }
+                </div>
+
+                <!-- Status Badge -->
+                <span [class]="'px-2.5 py-0.5 rounded-full text-[10px] font-bold border ' + item.statusClass">
+                  {{ item.statusLabel }}
+                </span>
+              </div>
+
+              <!-- Knowledge Title Link -->
+              <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors leading-snug">
+                <a (click)="requestAccess(item, 'READ', $event)" class="cursor-pointer hover:underline">
+                  {{ item.title }}
+                </a>
+              </h2>
+
+              <!-- Summary Excerpt -->
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
+                {{ item.summary }}
+              </p>
+
+              <!-- Tags List -->
+              <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                @for (tag of item.tags; track tag) {
+                  <button
+                    type="button"
+                    (click)="filterByTag(tag)"
+                    class="px-2.5 py-0.5 rounded-lg text-[11px] font-medium bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 text-slate-600 dark:text-slate-400 hover:text-orange-700 dark:hover:text-orange-300 border border-slate-200 dark:border-slate-700 hover:border-orange-300 transition-colors">
+                    #{{ tag }}
+                  </button>
+                }
+
+                @if (item.attachedDocsCount) {
+                  <span class="text-[11px] text-slate-400 dark:text-slate-500 ms-auto flex items-center gap-1">
+                    <i class="pi pi-paperclip text-xs"></i>
+                    <span>{{ item.attachedDocsCount }} مستند ضمیمه</span>
+                  </span>
+                }
+              </div>
+
+              <!-- Card Bottom Meta -->
+              <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                
+                <!-- Author & Department -->
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                    {{ item.authorName.charAt(0) }}
+                  </div>
+
+                  <div class="text-xs">
+                    <div class="flex items-center gap-1.5">
+                      <span class="font-bold text-slate-800 dark:text-slate-200">{{ item.authorName }}</span>
+                      
+                      @if (item.hasBlueBadge) {
+                        <span class="inline-flex items-center text-orange-600" title="نشان رسمی خبرگی">
+                          <i class="pi pi-verified text-xs"></i>
+                        </span>
+                      }
+                    </div>
+
+                    <div class="text-[10px] text-slate-400 dark:text-slate-500 flex items-center gap-1.5 mt-0.5">
+                      <span>{{ item.department }}</span>
+                      <span>•</span>
+                      <span class="font-mono">{{ item.createdAt }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Economic Value or Actions -->
+                <div class="flex items-center gap-2 ms-auto">
+                  @if (item.economicSavings) {
+                    <span class="text-[10px] font-bold text-amber-900 bg-amber-50 dark:bg-amber-950/40 dark:text-amber-300 px-2.5 py-1 rounded-xl border border-amber-200 dark:border-amber-900/60 hidden sm:inline">
+                      {{ item.economicSavings }}
+                    </span>
+                  }
+
+                  <button
+                    type="button"
+                    (click)="requestAccess(item, 'READ', $event)"
+                    class="px-3.5 py-1.5 text-xs font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 hover:bg-orange-100 dark:hover:bg-orange-900/60 border border-orange-200 dark:border-orange-800 rounded-xl transition-all flex items-center gap-1">
+                    <span>مشاهده جزئیات</span>
+                    <i class="pi pi-arrow-left text-[10px]"></i>
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      }
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- RIGHT/SIDEBAR COLUMN: WIDGETS (4 COLS)                   -->
+    <!-- ======================================================== -->
+    <div class="lg:col-span-4 space-y-5">
+      
+      <!-- Widget 1: Quick Stats -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-4">
+        <div class="border-b border-slate-100 dark:border-slate-800 pb-3">
+          <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+            آمار کلی پایگاه دانش شهرداری اصفهان
+          </h3>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">وضعیت اسناد و سرمایه فکری ثبت‌شده</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-center">
+          <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 space-y-0.5">
+            <div class="text-lg font-black text-orange-600 font-mono">۱,۸۹۰</div>
+            <div class="text-[11px] font-semibold text-slate-700 dark:text-slate-300">تجارب مصوب</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 space-y-0.5">
+            <div class="text-lg font-black text-emerald-600 font-mono">۴۲۰+</div>
+            <div class="text-[11px] font-semibold text-slate-700 dark:text-slate-300">کاربست موفق</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 space-y-0.5">
+            <div class="text-lg font-black text-amber-600 font-mono">۳۸۰+</div>
+            <div class="text-[11px] font-semibold text-slate-700 dark:text-slate-300">خبره با نشان آبی</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 space-y-0.5">
+            <div class="text-lg font-black text-slate-900 dark:text-white font-mono">۳۳ م‌ر</div>
+            <div class="text-[11px] font-semibold text-slate-700 dark:text-slate-300">صرفه‌جویی ریالی</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widget 2: Knowledge Categories -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-3">
+        <div class="border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center justify-between">
+          <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+            دسته‌بندی‌های موضوعی دانش
+          </h3>
+          <span class="text-[10px] font-bold text-orange-600">۶ حوزه</span>
+        </div>
+
+        <div class="space-y-1.5">
+          @for (cat of categories; track cat.id) {
+            <button
+              type="button"
+              (click)="selectedCategory.set(cat.id)"
+              [class]="selectedCategory() === cat.id
+                ? 'w-full p-2.5 rounded-2xl bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 font-bold border border-orange-200 dark:border-orange-800 flex items-center justify-between text-xs transition-all'
+                : 'w-full p-2.5 rounded-2xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 flex items-center justify-between text-xs transition-all'">
+              <div class="flex items-center gap-2">
+                <i class="pi pi-folder text-orange-600 text-xs"></i>
+                <span>{{ cat.name }}</span>
+              </div>
+              <span class="font-mono text-[11px] text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                {{ cat.count }}
+              </span>
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Widget 3: Top Contributors -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-3">
+        <div class="border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center justify-between">
+          <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+            برترین پدیدآورندگان دانش
+          </h3>
+          <a routerLink="/experts" class="text-[11px] font-bold text-orange-600 hover:underline">
+            مشاهده همه
+          </a>
+        </div>
+
+        <div class="divide-y divide-slate-100 dark:divide-slate-800 space-y-1">
+          @for (exp of topContributors; track exp.id) {
+            <div class="pt-2.5 flex items-center justify-between gap-2.5">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-8 h-8 rounded-xl bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 flex items-center justify-center font-bold text-xs shrink-0">
+                  {{ exp.avatarText }}
+                </div>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-1">
+                    <span class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ exp.name }}</span>
+                    @if (exp.hasBlueBadge) {
+                      <i class="pi pi-verified text-orange-600 text-xs shrink-0"></i>
+                    }
+                  </div>
+                  <div class="text-[10px] text-slate-400 truncate">{{ exp.department }}</div>
+                </div>
+              </div>
+
+              <div class="text-end shrink-0">
+                <span class="text-xs font-bold text-orange-600 font-mono">{{ exp.points }}</span>
+                <span class="text-[10px] text-slate-400 block">امتیاز</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Widget 4: Tags Cloud -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-3">
+        <div class="border-b border-slate-100 dark:border-slate-800 pb-3">
+          <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+            ابر کلیدواژه‌های پرتکرار
+          </h3>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">کلیک روی هر برچسب جهت فیلتر فوری تجارب</p>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5">
+          @for (t of trendingTags; track t) {
+            <button
+              type="button"
+              (click)="filterByTag(t)"
+              [class]="activeTag() === t
+                ? 'px-2.5 py-1 rounded-xl text-xs font-bold bg-orange-600 text-white border border-orange-600 shadow-xs transition-all'
+                : 'px-2.5 py-1 rounded-xl text-xs font-medium bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-orange-300 transition-all'">
+              #{{ t }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Widget 5: Guidance Card -->
+      <div class="p-6 rounded-3xl bg-gradient-to-br from-orange-600 to-amber-600 text-white space-y-3 shadow-md relative overflow-hidden">
+        <div class="w-9 h-9 rounded-2xl bg-white/15 flex items-center justify-center text-white">
+          <i class="pi pi-bolt text-lg"></i>
+        </div>
+        <h4 class="text-xs sm:text-sm font-bold text-white">
+          راهنمای کاربست دانش در پروژه‌ها
+        </h4>
+        <p class="text-[11px] text-orange-100 leading-relaxed">
+          با به‌کارگیری راه‌حل‌های ثبت‌شده در منطقه یا اداره خود و ثبت گزارش کاربست، امتیاز دانشی و پاداش نقدی فصلی دریافت نمایید.
+        </p>
+        <a routerLink="/karbest"
+           class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 bg-white hover:bg-orange-50 px-4 py-2 rounded-2xl transition-colors shadow-xs">
+          <span>شروع ثبت کاربست</span>
+          <i class="pi pi-arrow-left text-[10px]"></i>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 3. DETAIL MODAL                                           -->
+  <!-- ======================================================== -->
+  @if (activeItemDetail()) {
+    <div
+      (click)="closeItemDetail()"
+      class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-150">
+      <div
+        (click)="$event.stopPropagation()"
+        class="relative w-full max-w-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-6 sm:p-8 space-y-6 my-8 animate-in zoom-in-95 duration-150">
+        
+        <!-- Header -->
+        <div class="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
+                {{ activeItemDetail()?.category }}
+              </span>
+              <span class="font-mono text-xs text-slate-500">
+                {{ activeItemDetail()?.code }}
+              </span>
+            </div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              {{ activeItemDetail()?.title }}
+            </h2>
+          </div>
+
+          <button
+            type="button"
             (click)="closeItemDetail()"
-            class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          >
+            class="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
             ✕
           </button>
         </div>
 
-        <div class="space-y-4 max-h-[60vh] overflow-y-auto text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-          <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl space-y-1">
-            <strong class="font-bold text-slate-900 dark:text-slate-100">چکیده اجرایی:</strong>
-            <p>{{ activeItemDetail()?.summary || 'ثبت نشده' }}</p>
+        <!-- Meta Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+              {{ activeItemDetail()?.authorName?.charAt(0) }}
+            </div>
+            <div>
+              <div class="font-bold text-slate-900 dark:text-white">{{ activeItemDetail()?.authorName }}</div>
+              <div class="text-[10px] text-slate-500 dark:text-slate-400">{{ activeItemDetail()?.department }}</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400 font-mono text-xs">
+            <span>تاریخ ثبت: {{ activeItemDetail()?.createdAt }}</span>
+            <span>•</span>
+            <span>{{ activeItemDetail()?.votes }} رای تاییدیه</span>
+            <span>•</span>
+            <span>{{ activeItemDetail()?.karbestCount }} کاربست</span>
+          </div>
+        </div>
+
+        <!-- Body content -->
+        <div class="space-y-4 max-h-[50vh] overflow-y-auto text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed pe-1">
+          <div class="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl space-y-1.5 border border-slate-200 dark:border-slate-700">
+            <strong class="font-bold text-orange-600 text-xs block">چکیده اجرایی و مسئله رفع‌شده:</strong>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{{ activeItemDetail()?.summary }}</p>
           </div>
 
           <div class="space-y-2">
-            <strong class="font-bold text-slate-900 dark:text-slate-100">متن کامل مستند دانش:</strong>
-            <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 whitespace-pre-line">
-              {{ activeItemDetail()?.content || 'محتوای متنی اصلی به این سند پیوست شده است.' }}
+            <strong class="font-bold text-slate-800 dark:text-slate-200 text-xs block">شرح کامل روش‌شناسی و پیاده‌سازی تجربه:</strong>
+            <div class="p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 whitespace-pre-line text-slate-600 dark:text-slate-400 leading-relaxed">
+              {{ activeItemDetail()?.content }}
             </div>
           </div>
+
+          @if (activeItemDetail()?.economicSavings) {
+            <div class="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 flex items-center gap-2 text-xs font-bold text-amber-900 dark:text-amber-200">
+              <span>ارزش اقتصادی و صرفه‌جویی تاییدشده:</span>
+              <span class="font-bold text-orange-600">{{ activeItemDetail()?.economicSavings }}</span>
+            </div>
+          }
         </div>
 
-        <div class="border-t border-slate-100 dark:border-slate-800 pt-4 flex items-center justify-end">
+        <!-- Footer Actions -->
+        <div class="border-t border-slate-100 dark:border-slate-800 pt-4 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <a
+              routerLink="/karbest"
+              [queryParams]="{ knowledgeId: activeItemDetail()?.id, title: activeItemDetail()?.title }"
+              (click)="closeItemDetail()"
+              class="px-5 py-2.5 text-xs font-bold text-white bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 rounded-2xl transition-all shadow-xs flex items-center gap-1.5">
+              <span>ثبت کاربست این تجربه</span>
+              <i class="pi pi-arrow-left text-xs"></i>
+            </a>
+          </div>
+
           <button
             type="button"
             (click)="closeItemDetail()"
-            class="px-5 py-2 text-xs font-bold rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-colors"
-          >
-            بستن
+            class="px-5 py-2 text-xs font-bold rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-300 transition-colors">
+            بستن پنجره
           </button>
         </div>
+
       </div>
     </div>
   }
@@ -211,4 +616,5 @@
       (confirmed)="onPurposeConfirmed($event)"
     ></app-access-purpose-dialog>
   }
+
 </div>

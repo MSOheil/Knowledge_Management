@@ -1,61 +1,73 @@
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="max-w-4xl mx-auto space-y-6 sm:space-y-7 pb-12 select-none">
   <!-- Page Header -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+  <div class="bg-white rounded-2xl border border-[#E2E8F0] p-5 sm:p-6 shadow-[0_1px_3px_rgba(23,43,58,0.02)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
     <div class="space-y-1">
-      <div class="flex items-center gap-2.5">
-        <span class="p-2.5 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-[#086288]/10 text-[#086288] border border-[#086288]/20">
+          میز خدمت کاربست
         </span>
-        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">ثبت کاربست تجربه و دانش در محیط عملیاتی</h1>
+        <span class="text-xs text-[#E2E8F0]">|</span>
+        <span class="text-xs text-[#64748B] font-medium">شهرداری اصفهان</span>
       </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        ثبت نحوه به‌کارگیری تجارب مدون دیگران در پروژه‌ها، فرآیندها و مدیریت شهری جهت اعطای امتیازات انگیزشی
+      <h1 class="text-xl sm:text-2xl font-black text-[#172B3A] tracking-tight">
+        ثبت کاربست و اثربخشی میدانی دانش
+      </h1>
+      <p class="text-xs sm:text-sm text-[#64748B]">
+        مستندسازی به‌کارگیری مجدد تجارب همکاران در پروژه‌ها، فرآیندها و مدیریت شهری جهت اعطای امتیازات و پاداش‌های انگیزشی
       </p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <span class="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#FFEFC4] text-[#172B3A] border border-[#FFE7A6]">
+        ۴۲۰+ کاربست مصوب
+      </span>
     </div>
   </div>
 
-  <!-- Educational Info Box -->
-  <div class="p-4 bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 rounded-3xl text-xs text-amber-800 dark:text-amber-300 leading-relaxed flex items-start gap-3">
-    <span class="text-xl leading-none">💡</span>
+  <!-- Educational Info Box (Highlight Token) -->
+  <div class="p-4.5 bg-[#FFEFC4]/70 border border-[#FFE7A6] rounded-2xl text-xs text-[#172B3A] leading-relaxed flex items-start gap-3 shadow-2xs">
+    <div class="w-8 h-8 rounded-lg bg-white/80 text-[#086288] flex items-center justify-center shrink-0 mt-0.5 border border-[#FFE7A6]">
+      <svg class="w-4 h-4 text-[#086288]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
     <div class="space-y-1">
-      <strong class="font-bold text-amber-900 dark:text-amber-200">کاربست دانش چیست؟</strong>
-      <p>
-        کاربست دانش یعنی استفاده عملی از یک تجربه یا دانش ثبت شده توسط همکاران در حل مسائل واقعی شهرداری. ثبت کاربست علاوه بر جلوگیری از آزمون و خطا، به پدیدآورنده دانش و کاربست‌دهنده امتیازات ارزشیابی و انگیزشی تعلق می‌گیرد.
+      <strong class="font-bold text-[#172B3A]">کاربست دانش در شهرداری اصفهان چیست؟</strong>
+      <p class="text-[#172B3A]/80 leading-normal">
+        کاربست دانش یعنی استفاده عملی از یک تجربه یا دانش ثبت‌شده توسط همکاران در حل مسائل واقعی شهر. ثبت کاربست علاوه بر پیشگیری از دوباره‌کاری و کاهش هزینه‌های شهری، هم برای پدیدآورنده دانش و هم برای کاربست‌دهنده امتیازات ارزشیابی، نشان‌های خبرگی و پاداش‌های انگیزشی به همراه دارد.
       </p>
     </div>
   </div>
 
   <!-- Messages -->
   @if (errorMessage()) {
-    <div class="p-4 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-2xl text-rose-700 dark:text-rose-300 text-xs font-medium flex items-center gap-2">
-      <span>⚠️</span>
+    <div class="p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs font-medium flex items-center gap-2">
+      <svg class="w-4 h-4 text-rose-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
       <span>{{ errorMessage() }}</span>
     </div>
   }
 
   @if (successMessage()) {
-    <div class="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-medium flex items-center gap-2">
-      <span>✓</span>
+    <div class="p-4 bg-[#97D7FF]/25 border border-[#97D7FF]/60 rounded-xl text-[#086288] text-xs font-bold flex items-center gap-2">
+      <svg class="w-4 h-4 text-[#086288] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
       <span>{{ successMessage() }}</span>
     </div>
   }
 
   <!-- Form Body -->
-  <div class="p-6 sm:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+  <div class="p-6 sm:p-8 bg-white rounded-2xl border border-[#E2E8F0] shadow-xs space-y-6">
     <!-- Parent Knowledge Item Selector -->
-    <div class="space-y-2">
-      <label class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+    <div class="space-y-1.5">
+      <label class="text-xs font-bold text-[#172B3A] flex items-center gap-1.5">
         <span>دانش پایه مبنای کاربست:</span>
         <span class="text-rose-500">*</span>
       </label>
       @if (isLoading()) {
-        <div class="py-3 text-xs text-slate-400">در حال فراخوانی دانش‌های تایید شده...</div>
+        <div class="py-3 text-xs text-[#64748B]">در حال فراخوانی دانش‌های تایید شده...</div>
       } @else {
         <select
           [(ngModel)]="selectedParentId"
-          class="w-full p-3.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-slate-900 dark:text-slate-100"
+          class="w-full p-3 text-xs bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#086288]/15 focus:border-[#086288] text-[#172B3A] font-medium"
         >
           @for (item of approvedItems(); track item.id) {
             <option [value]="item.id">[{{ item.knowledgeType }}] {{ item.title }}</option>
@@ -65,8 +77,8 @@
     </div>
 
     <!-- Description of Operational Application -->
-    <div class="space-y-2">
-      <label class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+    <div class="space-y-1.5">
+      <label class="text-xs font-bold text-[#172B3A] flex items-center gap-1.5">
         <span>شرح چگونگی کاربست و پیاده‌سازی عملیاتی:</span>
         <span class="text-rose-500">*</span>
       </label>
@@ -74,34 +86,34 @@
         [(ngModel)]="description"
         rows="5"
         placeholder="توضیح دهید این دانش در کدام معاونت، منطقه یا پروژه به کار گرفته شد و چه اقداماتی در محیط کار انجام پذیرفت..."
-        class="w-full p-4 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 leading-relaxed"
+        class="w-full p-3.5 text-xs bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#086288]/15 focus:border-[#086288] text-[#172B3A] placeholder-[#64748B]/60 leading-relaxed"
       ></textarea>
     </div>
 
     <!-- Results Achieved -->
-    <div class="space-y-2">
-      <label class="text-xs font-bold text-slate-700 dark:text-slate-300">
+    <div class="space-y-1.5">
+      <label class="text-xs font-bold text-[#172B3A]">
         نتایج و دستاوردهای ملموس کاربست (صرفه‌جویی زمانی، مالی، ارتقای کیفیت):
       </label>
       <textarea
         [(ngModel)]="resultsAchieved"
         rows="4"
         placeholder="شاخص‌های قبل و بعد، میزان کاهش هزینه‌ها، تسریع در زمان تحویل یا بازخورد شهروندان..."
-        class="w-full p-4 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 leading-relaxed"
+        class="w-full p-3.5 text-xs bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#086288]/15 focus:border-[#086288] text-[#172B3A] placeholder-[#64748B]/60 leading-relaxed"
       ></textarea>
     </div>
 
     <!-- Submit Button -->
-    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end">
+    <div class="pt-4 border-t border-[#E2E8F0] flex items-center justify-end">
       <button
         type="button"
         (click)="onSubmit()"
         [disabled]="isSubmitting() || !selectedParentId() || !description().trim()"
-        class="min-h-[48px] px-8 py-3 text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-2xl shadow-md hover:shadow-lg transition-all disabled:opacity-50 flex items-center gap-2"
+        class="min-h-[44px] px-8 py-2.5 text-xs font-bold text-white bg-[#086288] hover:bg-[#075577] rounded-xl shadow-xs hover:shadow transition-all disabled:opacity-50 flex items-center gap-2 cursor-pointer"
         aria-label="ثبت رسمی کاربست دانش"
       >
         @if (isSubmitting()) {
-          <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+          <svg class="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
           </svg>

@@ -10,14 +10,13 @@ export class ThemeService {
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      const savedTheme = localStorage.getItem('km_theme');
+      const savedTheme = localStorage.getItem('theme_mode');
       if (savedTheme === 'dark') {
         this.isDarkMode.set(true);
+        document.documentElement.classList.add('dark');
       } else {
-        // Strictly default to light theme for a bright, clean, minimalist aesthetic
         this.isDarkMode.set(false);
         document.documentElement.classList.remove('dark');
-        localStorage.setItem('km_theme', 'light');
       }
     }
 
@@ -26,10 +25,10 @@ export class ThemeService {
       if (isPlatformBrowser(this.platformId)) {
         if (dark) {
           document.documentElement.classList.add('dark');
-          localStorage.setItem('km_theme', 'dark');
+          localStorage.setItem('theme_mode', 'dark');
         } else {
           document.documentElement.classList.remove('dark');
-          localStorage.setItem('km_theme', 'light');
+          localStorage.setItem('theme_mode', 'light');
         }
       }
     });

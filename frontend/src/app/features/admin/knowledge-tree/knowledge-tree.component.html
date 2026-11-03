@@ -1,30 +1,29 @@
-<div class="space-y-6">
+<div class="space-y-6 select-none">
 
   <!-- Breadcrumb & Top Executive Header -->
-  <div class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs">
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-xs relative overflow-hidden">
+    <!-- Top Gradient Accent Strip -->
+    <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-500 via-amber-500 to-orange-500"></div>
+
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-1">
       <div>
-        <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2">
-          <a routerLink="/" class="hover:text-primary-blue transition-colors flex items-center gap-1">
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
+        <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-2">
+          <a routerLink="/" class="hover:text-orange-600 transition-colors flex items-center gap-1">
+            <i class="pi pi-home text-xs"></i>
             <span>صفحه نخست</span>
           </a>
-          <span class="text-slate-300">/</span>
+          <span class="text-slate-300 dark:text-slate-700">/</span>
           <span class="text-slate-400">ساختار سازمانی</span>
-          <span class="text-slate-300">/</span>
-          <span class="text-primary-navy font-bold">درخت جامع دانش</span>
+          <span class="text-slate-300 dark:text-slate-700">/</span>
+          <span class="text-orange-600 font-bold">درخت جامع دانش</span>
         </nav>
-        <h1 class="text-xl sm:text-2xl font-black text-primary-navy flex items-center gap-3">
-          <span class="w-10 h-10 rounded-xl bg-primary-navy/10 text-primary-navy flex items-center justify-center shrink-0">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-            </svg>
+        <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3">
+          <span class="w-10 h-10 rounded-2xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 border border-orange-200 dark:border-orange-900/60 flex items-center justify-center shrink-0">
+            <i class="pi pi-sitemap text-lg"></i>
           </span>
           <span>درخت جامع دانش شهرداری اصفهان (Knowledge Taxonomy)</span>
         </h1>
-        <p class="text-xs sm:text-sm text-secondary-text mt-1">
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
           ساختار سلسله‌مراتبی حوزه‌ها، معاونت‌ها، سازمان‌های تابعه و شاخه‌های تخصصی تجارب و سرمایه‌های فکری
         </p>
       </div>
@@ -33,117 +32,97 @@
       <div class="flex flex-wrap items-center gap-2">
         <button (click)="openAddRoot()"
                 type="button"
-                class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-primary-navy hover:bg-slate-800 text-white shadow-xs transition-colors cursor-pointer">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white shadow-xs transition-all cursor-pointer">
+          <i class="pi pi-plus text-xs"></i>
           <span>شاخه اصلی جدید</span>
         </button>
 
         <button (click)="expandAll()"
                 type="button"
                 title="گسترش تمامی شاخه‌ها"
-                class="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors cursor-pointer">
-          <svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-          </svg>
+                class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer">
+          <i class="pi pi-arrows-alt text-xs text-slate-500"></i>
           <span>گسترش همه</span>
         </button>
 
         <button (click)="collapseAll()"
                 type="button"
                 title="بستن تمامی شاخه‌ها"
-                class="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors cursor-pointer">
-          <svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9L4 4m0 0l5 5M4 4h5M4 4v5m16 0V4m0 0h-5m5 0l-5 5M4 20l5-5m-5 5v-5m0 5h5m11 0l-5-5m5 5v-5m0 5h-5" />
-          </svg>
+                class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer">
+          <i class="pi pi-minus-circle text-xs text-slate-500"></i>
           <span>بستن همه</span>
         </button>
 
         <button (click)="loadTree()"
                 type="button"
                 title="بازخوانی داده‌ها از سرور"
-                class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 hover:text-primary-navy hover:bg-slate-100 border border-slate-200 transition-colors cursor-pointer">
-          <svg class="w-4 h-4" [class.animate-spin]="isLoading()" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-          </svg>
+                class="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer">
+          <i class="pi pi-refresh text-sm" [class.animate-spin]="isLoading()"></i>
         </button>
       </div>
     </div>
 
     <!-- Alert / Notice Messages -->
     @if (successMessage()) {
-      <div class="mt-4 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center gap-2.5 animate-in fade-in duration-200">
-        <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-        </svg>
+      <div class="mt-4 p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm flex items-center gap-2.5 animate-in fade-in duration-200">
+        <i class="pi pi-check-circle text-emerald-600 text-base shrink-0"></i>
         <span>{{ successMessage() }}</span>
       </div>
     }
 
     @if (errorMessage()) {
-      <div class="mt-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm flex items-center gap-2.5 animate-in fade-in duration-200">
-        <svg class="w-5 h-5 text-rose-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        </svg>
+      <div class="mt-4 p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs sm:text-sm flex items-center gap-2.5 animate-in fade-in duration-200">
+        <i class="pi pi-exclamation-triangle text-rose-600 text-base shrink-0"></i>
         <span>{{ errorMessage() }}</span>
       </div>
     }
 
     <!-- 4 High-Readability Metric KPI Cards -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5 mt-5 pt-5 border-t border-slate-100">
-      <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-primary-navy/10 text-primary-navy flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5 mt-5 pt-5 border-t border-slate-100 dark:border-slate-800">
+      <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 border border-orange-200 dark:border-orange-900/60 flex items-center justify-center shrink-0">
+          <i class="pi pi-folder text-lg"></i>
         </div>
         <div>
-          <span class="text-xs text-secondary-text font-medium block">شاخه‌های فعال دانش</span>
-          <span class="text-base sm:text-lg font-black text-primary-navy">{{ treeStats().activeNodes }} شاخه</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block">شاخه‌های فعال دانش</span>
+          <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white">{{ treeStats().activeNodes }} شاخه</span>
         </div>
       </div>
 
-      <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-primary-blue/10 text-primary-blue flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-          </svg>
+      <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 border border-amber-200 dark:border-amber-900/60 flex items-center justify-center shrink-0">
+          <i class="pi pi-building text-lg"></i>
         </div>
         <div>
-          <span class="text-xs text-secondary-text font-medium block">حوزه‌های کلان و معاونت‌ها</span>
-          <span class="text-base sm:text-lg font-black text-primary-blue">{{ treeStats().topLevelDeputies }} حوزه</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block">حوزه‌های کلان و معاونت‌ها</span>
+          <span class="text-base sm:text-lg font-black text-amber-600">{{ treeStats().topLevelDeputies }} حوزه</span>
         </div>
       </div>
 
-      <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-secondary-teal/10 text-secondary-teal flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
+      <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 border border-emerald-200 dark:border-emerald-900/60 flex items-center justify-center shrink-0">
+          <i class="pi pi-file text-lg"></i>
         </div>
         <div>
-          <span class="text-xs text-secondary-text font-medium block">تجارب و مستندات متصل</span>
-          <span class="text-base sm:text-lg font-black text-secondary-teal">{{ treeStats().totalArticles }} مورد</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block">تجارب و مستندات متصل</span>
+          <span class="text-base sm:text-lg font-black text-emerald-600">{{ treeStats().totalArticles }} مورد</span>
         </div>
       </div>
 
-      <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center shrink-0">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
+      <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 border border-rose-200 dark:border-rose-900/60 flex items-center justify-center shrink-0">
+          <i class="pi pi-chart-pie text-lg"></i>
         </div>
         <div>
-          <span class="text-xs text-secondary-text font-medium block">پوشش موضوعی شهرداری</span>
-          <span class="text-base sm:text-lg font-black text-amber-600">٪{{ treeStats().completionRate }} جامعیت</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block">پوشش موضوعی شهرداری</span>
+          <span class="text-base sm:text-lg font-black text-rose-600">٪{{ treeStats().completionRate }} جامعیت</span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Search, Domain Filter Chips & Level Indicators -->
-  <div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-xs space-y-3.5">
+  <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs space-y-4">
     
     <!-- Domain Filter Chips -->
     <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
@@ -151,40 +130,36 @@
       @for (d of domains; track d.id) {
         <button (click)="setDomainFilter(d.id)"
                 type="button"
-                [class.bg-primary-navy]="selectedDomain() === d.id"
+                [class.bg-orange-600]="selectedDomain() === d.id"
                 [class.text-white]="selectedDomain() === d.id"
+                [class.shadow-xs]="selectedDomain() === d.id"
                 [class.bg-slate-100]="selectedDomain() !== d.id"
                 [class.text-slate-700]="selectedDomain() !== d.id"
-                [class.hover:bg-slate-200]="selectedDomain() !== d.id"
-                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer border border-transparent">
+                class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer border border-transparent dark:bg-slate-800 dark:text-slate-300">
           <span>{{ d.label }}</span>
         </button>
       }
     </div>
 
     <!-- Search input + Controls row -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-100">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-slate-800">
       
       <!-- Search Input -->
       <div class="relative flex-1 max-w-lg">
         <span class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-slate-400">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <i class="pi pi-search text-xs"></i>
         </span>
         <input type="text"
                [ngModel]="searchQuery()"
                (ngModelChange)="searchQuery.set($event)"
                placeholder="جستجوی سریع در نام شاخه، کد سازمانی (مانند KM-ENV) یا توضیحات..."
-               class="w-full ps-10 pe-9 py-2 rounded-xl text-xs sm:text-sm border border-slate-200 bg-slate-50/70 text-slate-800 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-primary-blue/30 focus:border-primary-blue focus:bg-white transition-all" />
+               class="w-full ps-10 pe-9 py-2.5 rounded-2xl text-xs sm:text-sm border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/70 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white dark:focus:bg-slate-900 transition-all" />
         @if (searchQuery()) {
           <button (click)="searchQuery.set('')"
                   type="button"
                   aria-label="پاک کردن جستجو"
                   class="absolute inset-y-0 end-0 flex items-center pe-3 text-slate-400 hover:text-slate-600 cursor-pointer">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            ✕
           </button>
         }
       </div>
@@ -192,13 +167,13 @@
       <!-- Level Badges Legend -->
       <div class="flex items-center gap-2 shrink-0">
         <span class="text-[11px] text-slate-400 font-medium">راهنمای سطوح:</span>
-        <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-primary-navy/10 text-primary-navy border border-primary-navy/20">
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60">
           سطح ۱: کلان (معاونت‌ها)
         </span>
-        <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-primary-blue/10 text-primary-blue border border-primary-blue/20">
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900/60">
           سطح ۲: بخشی (سازمان‌ها)
         </span>
-        <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-secondary-teal/10 text-secondary-teal border border-secondary-teal/20">
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700">
           سطح ۳: خرد (تخصص‌ها)
         </span>
       </div>
@@ -213,17 +188,15 @@
     <!-- ========================================== -->
     <!-- RIGHT COLUMN: Tree Hierarchy View (42%)    -->
     <!-- ========================================== -->
-    <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden flex flex-col">
+    <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs overflow-hidden flex flex-col">
       
       <!-- Panel Header -->
-      <div class="p-4 border-b border-slate-100 bg-slate-50/70 flex items-center justify-between">
+      <div class="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-primary-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-          </svg>
-          <span class="text-xs sm:text-sm font-bold text-primary-navy">سلسله‌مراتب ساختار درخت دانش</span>
+          <i class="pi pi-bars text-orange-600 text-xs"></i>
+          <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">سلسله‌مراتب ساختار درخت دانش</span>
         </div>
-        <span class="text-[11px] text-slate-400 font-mono bg-white px-2 py-0.5 rounded-md border border-slate-200">
+        <span class="text-[11px] text-slate-400 font-mono bg-white dark:bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
           {{ filteredNodes().length }} شاخه اصلی
         </span>
       </div>
@@ -232,10 +205,7 @@
       <div class="p-4 overflow-y-auto max-h-[750px] min-h-[480px]">
         @if (isLoading()) {
           <div class="flex flex-col items-center justify-center py-20 text-slate-400 space-y-3">
-            <svg class="animate-spin h-8 w-8 text-primary-blue" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
+            <i class="pi pi-spin pi-spinner text-2xl text-orange-600"></i>
             <span class="text-xs font-semibold text-slate-500">در حال دریافت ساختار درخت دانش از سرور...</span>
           </div>
         } @else if (filteredNodes().length === 0) {
@@ -263,14 +233,12 @@
       </div>
 
       <!-- Tree Footer Quick Add -->
-      <div class="p-3 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs text-slate-500">
+      <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-between text-xs text-slate-500">
         <span class="text-[11px]">جهت مشاهده جزییات یا ثبت تجربه، روی شاخه کلیک کنید.</span>
         <button (click)="openAddRoot()"
                 type="button"
-                class="text-xs font-bold text-primary-navy hover:text-primary-blue flex items-center gap-1 cursor-pointer">
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
+                class="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center gap-1 cursor-pointer">
+          <i class="pi pi-plus text-xs"></i>
           <span>افزودن ریشه جدید</span>
         </button>
       </div>
@@ -285,31 +253,31 @@
       @if (selectedNode(); as node) {
         
         <!-- Main Inspector Card -->
-        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6 space-y-6">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-6 space-y-6">
           
           <!-- Selected Header -->
-          <div class="space-y-3 pb-5 border-b border-slate-100">
+          <div class="space-y-3 pb-5 border-b border-slate-100 dark:border-slate-800">
             
             <!-- Breadcrumb Path -->
             <div class="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
-              <span class="text-primary-navy font-bold">درخت دانش</span>
+              <span class="text-slate-900 dark:text-white font-bold">درخت دانش</span>
               <span>›</span>
               @if (node.parent?.title) {
-                <span class="text-slate-600">{{ node.parent?.title }}</span>
+                <span class="text-slate-600 dark:text-slate-300">{{ node.parent?.title }}</span>
                 <span>›</span>
               }
-              <span class="text-primary-blue font-bold">{{ node.title }}</span>
+              <span class="text-orange-600 font-bold">{{ node.title }}</span>
             </div>
 
             <!-- Title & Status row -->
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div class="space-y-1">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <h2 class="text-xl sm:text-2xl font-black text-primary-navy">
+                  <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
                     {{ node.title }}
                   </h2>
                   @if (node.code) {
-                    <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                    <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                       {{ node.code }}
                     </span>
                   }
@@ -319,20 +287,20 @@
               <!-- Level & Active Pills -->
               <div class="flex items-center gap-2 shrink-0">
                 @if (node.level === 1) {
-                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-primary-navy text-white shadow-2xs">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-orange-600 text-white shadow-xs">
                     سطح ۱: معاونت کلان
                   </span>
                 } @else if (node.level === 2) {
-                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-primary-blue text-white shadow-2xs">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-600 text-white shadow-xs">
                     سطح ۲: سازمان / اداره کل
                   </span>
                 } @else {
-                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-secondary-teal text-white shadow-2xs">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-700 text-white shadow-xs">
                     سطح ۳: تخصص اجرایی
                   </span>
                 }
 
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                   <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span>فعال</span>
                 </span>
@@ -343,46 +311,36 @@
             <div class="flex flex-wrap items-center gap-2 pt-2">
               <button (click)="navigateToSubmit(node)"
                       type="button"
-                      class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-primary-blue hover:bg-sky-800 text-white shadow-xs transition-colors cursor-pointer">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
+                      class="inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white shadow-xs transition-colors cursor-pointer">
+                <i class="pi pi-plus text-xs"></i>
                 <span>ثبت تجربه در این شاخه</span>
               </button>
 
               <button (click)="navigateToSearch(node)"
                       type="button"
-                      class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-primary-navy bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors cursor-pointer">
-                <svg class="w-4 h-4 text-primary-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+                      class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer">
+                <i class="pi pi-search text-xs"></i>
                 <span>مشاهده در بانک دانش</span>
               </button>
 
               <button (click)="openAddChild(node)"
                       type="button"
-                      class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold text-secondary-teal bg-teal-50 hover:bg-teal-100 border border-teal-200 transition-colors cursor-pointer">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
+                      class="inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl text-xs sm:text-sm font-semibold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 hover:bg-orange-100 border border-orange-200 dark:border-orange-800 transition-colors cursor-pointer">
+                <i class="pi pi-folder-plus text-xs"></i>
                 <span>افزودن زیرشاخه</span>
               </button>
 
               <button (click)="openEditNode(node)"
                       type="button"
-                      class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors cursor-pointer">
-                <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
+                      class="inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer">
+                <i class="pi pi-pencil text-xs"></i>
                 <span>ویرایش</span>
               </button>
 
               <button (click)="confirmDelete(node)"
                       type="button"
-                      class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors cursor-pointer">
-                <svg class="w-4 h-4 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
+                      class="inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl text-xs sm:text-sm font-semibold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 border border-rose-200 dark:border-rose-800 transition-colors cursor-pointer">
+                <i class="pi pi-trash text-xs"></i>
                 <span>حذف</span>
               </button>
             </div>
@@ -392,33 +350,31 @@
           <!-- Description & Scope Box -->
           <div class="space-y-2">
             <h3 class="text-xs font-bold text-slate-500 flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-primary-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <i class="pi pi-info-circle text-orange-600 text-xs"></i>
               <span>قلمرو شمول و کارکرد دانشی شاخه</span>
             </h3>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50/70 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700">
               {{ node.description || 'این شاخه متمرکز بر ثبت، ارزیابی، استانداردسازی و اشاعه تجارب سازمانی، درس‌آموخته‌های فنی و نوآوری‌های فرآیندی مرتبط با این حوزه در سطح شهرداری مرکزی، مناطق ۱۵گانه و سازمان‌های وابسته می‌باشد.' }}
             </p>
           </div>
 
           <!-- Governance & Secretariat Meta -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700">
               <span class="text-[11px] text-slate-400 block font-medium">دبیرخانه تخصصی ارزیابی:</span>
-              <span class="text-xs sm:text-sm font-bold text-primary-navy mt-1 block">
+              <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1 block">
                 {{ node.secretariat || 'دبیرخانه خدمات شهری و محیط زیست' }}
               </span>
             </div>
 
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700">
               <span class="text-[11px] text-slate-400 block font-medium">حدنصاب قبولی در کارتابل:</span>
-              <span class="text-xs sm:text-sm font-bold text-secondary-teal mt-1 block">
+              <span class="text-xs sm:text-sm font-bold text-orange-600 mt-1 block">
                 {{ node.minPassingScore || 70 }} از ۱۰۰ امتیاز داوری
               </span>
             </div>
 
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700">
               <span class="text-[11px] text-slate-400 block font-medium">مهلت پاسخگویی استاندارد (SLA):</span>
               <span class="text-xs sm:text-sm font-bold text-amber-600 mt-1 block">
                 {{ node.slaHours || 48 }} ساعت کاری
@@ -427,58 +383,56 @@
           </div>
 
           <!-- Branch Metric Numbers -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-slate-100">
-            <div class="text-center p-3 rounded-xl bg-blue-50/50 border border-blue-100">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <div class="text-center p-3 rounded-2xl bg-orange-50/50 dark:bg-orange-950/20 border border-orange-100 dark:border-orange-900/40">
               <span class="text-xs text-slate-500 font-medium block">تجارب ثبت‌شده</span>
-              <span class="text-lg font-black text-primary-blue mt-0.5 block">{{ node.articleCount || 184 }}</span>
+              <span class="text-lg font-black text-orange-600 mt-0.5 block">{{ node.articleCount || 184 }}</span>
             </div>
-            <div class="text-center p-3 rounded-xl bg-emerald-50/50 border border-emerald-100">
+            <div class="text-center p-3 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40">
               <span class="text-xs text-slate-500 font-medium block">تایید و منتشر شده</span>
-              <span class="text-lg font-black text-emerald-700 mt-0.5 block">{{ (node.articleCount ? (node.articleCount * 0.78 | number:'1.0-0') : '142') }}</span>
+              <span class="text-lg font-black text-emerald-600 mt-0.5 block">{{ (node.articleCount ? (node.articleCount * 0.78 | number:'1.0-0') : '142') }}</span>
             </div>
-            <div class="text-center p-3 rounded-xl bg-teal-50/50 border border-teal-100">
+            <div class="text-center p-3 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/40">
               <span class="text-xs text-slate-500 font-medium block">کاربست‌های موفق</span>
-              <span class="text-lg font-black text-secondary-teal mt-0.5 block">{{ (node.articleCount ? (node.articleCount * 0.22 | number:'1.0-0') : '38') }}</span>
+              <span class="text-lg font-black text-amber-600 mt-0.5 block">{{ (node.articleCount ? (node.articleCount * 0.22 | number:'1.0-0') : '38') }}</span>
             </div>
-            <div class="text-center p-3 rounded-xl bg-amber-50/50 border border-amber-100">
+            <div class="text-center p-3 rounded-2xl bg-rose-50/50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/40">
               <span class="text-xs text-slate-500 font-medium block">ارزش اقتصادی برآورد</span>
-              <span class="text-xs font-bold text-amber-700 mt-1.5 block">{{ node.economicValue || '۲.۴ میلیارد ریال' }}</span>
+              <span class="text-xs font-bold text-rose-600 mt-1.5 block">{{ node.economicValue || '۲.۴ میلیارد ریال' }}</span>
             </div>
           </div>
 
         </div>
 
         <!-- Subject Matter Experts in this Branch -->
-        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6 space-y-4">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-6 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-lg bg-primary-navy/10 text-primary-navy flex items-center justify-center">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
+              <div class="w-8 h-8 rounded-xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 flex items-center justify-center">
+                <i class="pi pi-users text-sm"></i>
               </div>
-              <h3 class="text-sm font-black text-primary-navy">خبرگان و داوران تخصصی این شاخه</h3>
+              <h3 class="text-sm font-black text-slate-900 dark:text-white">خبرگان و داوران تخصصی این شاخه</h3>
             </div>
             <span class="text-xs text-slate-400">بانک داوران ارزیاب تاییدشده</span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             @for (exp of selectedBranchExperts(); track exp.id) {
-              <div class="p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-slate-50 flex items-start gap-3 transition-colors">
-                <div class="w-11 h-11 rounded-full overflow-hidden bg-slate-200 shrink-0 border border-white shadow-xs">
+              <div class="p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-start gap-3 transition-colors">
+                <div class="w-11 h-11 rounded-2xl overflow-hidden bg-slate-200 dark:bg-slate-700 shrink-0 border border-white dark:border-slate-600 shadow-xs">
                   <img [src]="exp.avatar" [alt]="exp.name" class="w-full h-full object-cover" />
                 </div>
                 <div class="flex-1 min-w-0">
                   <div class="flex items-center justify-between gap-1">
-                    <span class="text-xs sm:text-sm font-bold text-slate-900 truncate">{{ exp.name }}</span>
+                    <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">{{ exp.name }}</span>
                     <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200 shrink-0">
                       ★ {{ exp.rating }}
                     </span>
                   </div>
                   <span class="text-[11px] text-slate-500 block truncate mt-0.5">{{ exp.title }}</span>
-                  <div class="flex items-center justify-between mt-2 pt-1 border-t border-slate-200/60 text-[10px] text-slate-400">
+                  <div class="flex items-center justify-between mt-2 pt-1 border-t border-slate-200/60 dark:border-slate-700 text-[10px] text-slate-400">
                     <span>{{ exp.department }}</span>
-                    <span class="font-bold text-primary-blue">{{ exp.reviewsCount }} ارزیابی موفق</span>
+                    <span class="font-bold text-orange-600">{{ exp.reviewsCount }} ارزیابی موفق</span>
                   </div>
                 </div>
               </div>
@@ -487,35 +441,48 @@
         </div>
 
         <!-- Recent Top Knowledge Documents in this Branch -->
-        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6 space-y-4">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-6 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-lg bg-primary-blue/10 text-primary-blue flex items-center justify-center">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
+              <div class="w-8 h-8 rounded-xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 flex items-center justify-center">
+                <i class="pi pi-book text-sm"></i>
               </div>
-              <h3 class="text-sm font-black text-primary-navy">مستندات و تجارب ثبت‌شده در این شاخه</h3>
+              <h3 class="text-sm font-black text-slate-900 dark:text-white">مستندات و تجارب ثبت‌شده در این شاخه</h3>
             </div>
             <button (click)="navigateToSearch(node)"
                     type="button"
-                    class="text-xs font-bold text-primary-blue hover:text-sky-800 flex items-center gap-1 cursor-pointer">
+                    class="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center gap-1 cursor-pointer">
               <span>مشاهده همه ({{ node.articleCount || 184 }})</span>
-              <svg class="w-3.5 h-3.5 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
+              <i class="pi pi-arrow-left text-[10px]"></i>
             </button>
           </div>
 
+          <!-- Knowledge Category Filter Chips (Articles, Experiences, Theses, Books) -->
+          <div class="flex flex-wrap items-center gap-1.5 pt-1 pb-2 border-b border-slate-100 dark:border-slate-800">
+            @for (chip of articleTypeChips; track chip.id) {
+              <button
+                type="button"
+                (click)="selectedTypeFilter.set(chip.id)"
+                [class.bg-orange-600]="selectedTypeFilter() === chip.id"
+                [class.text-white]="selectedTypeFilter() === chip.id"
+                [class.shadow-xs]="selectedTypeFilter() === chip.id"
+                [class.bg-slate-100]="selectedTypeFilter() !== chip.id"
+                [class.text-slate-600]="selectedTypeFilter() !== chip.id"
+                class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all hover:scale-[1.02] cursor-pointer dark:bg-slate-800 dark:text-slate-400">
+                {{ chip.label }}
+              </button>
+            }
+          </div>
+
           <div class="space-y-2.5">
-            @for (art of selectedBranchArticles(); track art.id) {
-              <div class="p-3.5 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50/80 transition-colors flex items-center justify-between gap-3">
+            @for (art of filteredBranchArticles(); track art.id) {
+              <div class="p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between gap-3">
                 <div class="space-y-1.5 flex-1 min-w-0">
                   <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-primary-blue border border-blue-100">
+                    <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/60">
                       {{ art.type }}
                     </span>
-                    <span class="text-xs sm:text-sm font-bold text-slate-800 hover:text-primary-blue transition-colors cursor-pointer truncate">
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-orange-600 transition-colors cursor-pointer truncate">
                       {{ art.title }}
                     </span>
                   </div>
@@ -525,16 +492,13 @@
                     <span>تاریخ: {{ art.date }}</span>
                     <span>•</span>
                     <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
+                      <i class="pi pi-eye text-xs"></i>
                       {{ art.views }}
                     </span>
                   </div>
                 </div>
 
-                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold shrink-0"
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold shrink-0"
                       [class.bg-emerald-50]="art.status === 'APPROVED'"
                       [class.text-emerald-700]="art.status === 'APPROVED'"
                       [class.border-emerald-200]="art.status === 'APPROVED'"
@@ -554,19 +518,17 @@
 
         <!-- Direct Children of this Branch (Drill-Down) -->
         @if (node.children && node.children.length > 0) {
-          <div class="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6 space-y-4">
+          <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-6 space-y-4">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-secondary-teal/10 text-secondary-teal flex items-center justify-center">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
-                  </svg>
+                <div class="w-8 h-8 rounded-xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 flex items-center justify-center">
+                  <i class="pi pi-sitemap text-sm"></i>
                 </div>
-                <h3 class="text-sm font-black text-primary-navy">زیرشاخه‌های مستقیم ({{ node.children.length }} شاخه تخصصی)</h3>
+                <h3 class="text-sm font-black text-slate-900 dark:text-white">زیرشاخه‌های مستقیم ({{ node.children.length }} شاخه تخصصی)</h3>
               </div>
               <button (click)="openAddChild(node)"
                       type="button"
-                      class="text-xs font-bold text-secondary-teal hover:underline flex items-center gap-1 cursor-pointer">
+                      class="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center gap-1 cursor-pointer">
                 <span>+ افزودن زیرشاخه جدید</span>
               </button>
             </div>
@@ -574,16 +536,16 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               @for (sub of node.children; track sub.id) {
                 <div (click)="selectNode(sub)"
-                     class="p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-cyan-50/50 hover:border-primary-blue/30 cursor-pointer transition-all flex items-center justify-between gap-3">
+                     class="p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 hover:bg-orange-50/50 dark:hover:bg-slate-800 hover:border-orange-300 cursor-pointer transition-all flex items-center justify-between gap-3">
                   <div class="space-y-1 min-w-0">
                     <div class="flex items-center gap-2">
-                      <span class="text-xs sm:text-sm font-bold text-slate-800 truncate">{{ sub.title }}</span>
+                      <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">{{ sub.title }}</span>
                     </div>
                     @if (sub.code) {
                       <span class="text-[10px] font-mono text-slate-400 block">{{ sub.code }}</span>
                     }
                   </div>
-                  <span class="text-[11px] font-semibold text-primary-blue px-2 py-0.5 rounded-md bg-blue-50 border border-blue-100 shrink-0">
+                  <span class="text-[11px] font-semibold text-orange-700 dark:text-orange-300 px-2.5 py-0.5 rounded-lg bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800 shrink-0">
                     {{ sub.children?.length || 0 }} زیرشاخه
                   </span>
                 </div>
@@ -595,14 +557,12 @@
       } @else {
 
         <!-- Empty Welcome / Instructions Card when no node selected -->
-        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-8 text-center space-y-4">
-          <div class="w-16 h-16 rounded-2xl bg-primary-navy/10 text-primary-navy mx-auto flex items-center justify-center">
-            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-8 text-center space-y-4">
+          <div class="w-16 h-16 rounded-2xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 mx-auto flex items-center justify-center">
+            <i class="pi pi-sitemap text-2xl"></i>
           </div>
-          <h2 class="text-lg font-black text-primary-navy">یک شاخه از درخت دانش را انتخاب فرمایید</h2>
-          <p class="text-xs sm:text-sm text-secondary-text max-w-md mx-auto leading-relaxed">
+          <h2 class="text-lg font-black text-slate-900 dark:text-white">یک شاخه از درخت دانش را انتخاب فرمایید</h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
             جهت مشاهده قلمرو شمول، دبیرخانه ارزیابی، خبرگان متولی، مستندات متصل و دسترسی به ثبت تجربه، لطفاً یکی از شاخه‌های موجود در ستون سمت راست را کلیک نمایید.
           </p>
         </div>
@@ -623,11 +583,11 @@
     
     <!-- Row Item -->
     <div (click)="selectNode(node)"
-         [class.bg-sky-50]="selectedNode()?.id === node.id"
-         [class.border-primary-blue]="selectedNode()?.id === node.id"
+         [class.bg-orange-50]="selectedNode()?.id === node.id"
+         [class.border-orange-400]="selectedNode()?.id === node.id"
          [class.shadow-2xs]="selectedNode()?.id === node.id"
          [class.border-transparent]="selectedNode()?.id !== node.id"
-         class="group flex items-center justify-between py-2 px-2.5 rounded-xl border hover:bg-slate-100/80 cursor-pointer transition-all duration-150"
+         class="group flex items-center justify-between py-2 px-2.5 rounded-xl border hover:bg-slate-100/80 dark:hover:bg-slate-800/60 cursor-pointer transition-all duration-150"
          [style.padding-inline-start.rem]="depth * 1.2 + 0.5">
       
       <div class="flex items-center gap-2 min-w-0 flex-1">
@@ -637,12 +597,9 @@
           <button (click)="toggleExpand(node.id, $event)"
                   type="button"
                   aria-label="گسترش یا بستن شاخه"
-                  class="w-6 h-6 rounded-md flex items-center justify-center text-slate-400 hover:text-primary-navy hover:bg-slate-200/70 transition-transform cursor-pointer shrink-0">
-            <svg class="w-3.5 h-3.5 transition-transform duration-200"
-                 [class.rotate-90]="isExpanded(node.id)"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
+                  class="w-6 h-6 rounded-md flex items-center justify-center text-slate-400 hover:text-orange-600 hover:bg-slate-200/70 transition-transform cursor-pointer shrink-0">
+            <i class="pi pi-chevron-left text-[10px] transition-transform duration-200"
+               [class.rotate-90]="isExpanded(node.id)"></i>
           </button>
         } @else {
           <span class="w-6 h-6 flex items-center justify-center text-slate-300 text-xs shrink-0">•</span>
@@ -650,23 +607,19 @@
 
         <!-- Folder / Branch Icon (color-coded by depth) -->
         <span class="shrink-0"
-              [class.text-primary-navy]="depth === 0"
-              [class.text-primary-blue]="depth === 1"
-              [class.text-secondary-teal]="depth >= 2">
+              [class.text-orange-600]="depth === 0"
+              [class.text-amber-600]="depth === 1"
+              [class.text-slate-500]="depth >= 2">
           @if (node.children && node.children.length > 0) {
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
-            </svg>
+            <i class="pi pi-folder text-sm"></i>
           } @else {
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-            </svg>
+            <i class="pi pi-file text-sm"></i>
           }
         </span>
 
         <!-- Node Title -->
         <span class="text-xs sm:text-sm font-semibold truncate transition-colors"
-              [class.text-primary-navy]="selectedNode()?.id === node.id"
+              [class.text-orange-700]="selectedNode()?.id === node.id"
               [class.font-bold]="selectedNode()?.id === node.id"
               [class.text-slate-800]="selectedNode()?.id !== node.id">
           {{ node.title }}
@@ -674,7 +627,7 @@
 
         <!-- Node Code tag -->
         @if (node.code) {
-          <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-200/70 text-slate-600 shrink-0">
+          <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-200/70 dark:bg-slate-800 text-slate-600 dark:text-slate-400 shrink-0">
             {{ node.code }}
           </span>
         }
@@ -686,7 +639,7 @@
         
         <!-- Connected Count pill -->
         @if (node.children && node.children.length > 0) {
-          <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+          <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
             {{ node.children.length }} زیرشاخه
           </span>
         }
@@ -695,10 +648,8 @@
         <button (click)="$event.stopPropagation(); openAddChild(node)"
                 type="button"
                 title="افزودن زیرشاخه"
-                class="w-6 h-6 rounded-md opacity-0 group-hover:opacity-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-opacity cursor-pointer">
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
+                class="w-6 h-6 rounded-md opacity-0 group-hover:opacity-100 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-opacity cursor-pointer">
+          <i class="pi pi-plus text-[10px]"></i>
         </button>
 
       </div>
@@ -707,7 +658,7 @@
 
     <!-- Recursive Sub-tree -->
     @if (node.children && node.children.length > 0 && isExpanded(node.id)) {
-      <div class="border-s-2 border-slate-200/80 ms-4 mt-0.5 mb-1 space-y-0.5">
+      <div class="border-s-2 border-slate-200/80 dark:border-slate-800 ms-4 mt-0.5 mb-1 space-y-0.5">
         @for (child of node.children; track child.id) {
           <ng-container *ngTemplateOutlet="treeRowTemplate; context: { $implicit: child, depth: depth + 1 }"></ng-container>
         }
@@ -725,22 +676,20 @@
     <div class="w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden text-start animate-in fade-in zoom-in-95 duration-200">
       
       <!-- Modal Header -->
-      <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+      <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/40">
         <div>
-          <h4 class="text-base sm:text-lg font-black text-primary-navy">
+          <h4 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
             {{ isEditMode() ? 'ویرایش مشخصات شاخه دانش' : (modalParentNode() ? 'افزودن زیرشاخه جدید دانش' : 'ایجاد شاخه اصلی دانش') }}
           </h4>
           @if (modalParentNode()) {
-            <p class="text-xs text-primary-blue mt-1">شاخه والد: {{ modalParentNode()?.title }}</p>
+            <p class="text-xs text-orange-600 mt-1">شاخه والد: {{ modalParentNode()?.title }}</p>
           }
         </div>
         <button (click)="closeModal()"
                 type="button"
                 aria-label="بستن پنجره"
-                class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+                class="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
+          ✕
         </button>
       </div>
 
@@ -749,14 +698,14 @@
         
         <!-- Title Field -->
         <div class="space-y-1">
-          <label for="nodeTitleInput" class="block text-xs font-bold text-slate-700">
+          <label for="nodeTitleInput" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
             عنوان شاخه دانش <span class="text-rose-500">*</span>
           </label>
           <input id="nodeTitleInput"
                  type="text"
                  formControlName="title"
                  placeholder="مثال: مدیریت بازچرخانی پساب شهری"
-                 class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-primary-blue/30 focus:border-primary-blue focus:bg-white" />
+                 class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white dark:focus:bg-slate-900" />
           @if (nodeForm.get('title')?.touched && nodeForm.get('title')?.invalid) {
             <span class="text-xs text-rose-500 block">عنوان شاخه الزامی است (حداقل ۲ کاراکتر).</span>
           }
@@ -765,35 +714,35 @@
         <!-- Code & Order Fields -->
         <div class="grid grid-cols-2 gap-4">
           <div class="space-y-1">
-            <label for="nodeCodeInput" class="block text-xs font-bold text-slate-700">
+            <label for="nodeCodeInput" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
               کد سازمانی / شناسه
             </label>
             <input id="nodeCodeInput"
                    type="text"
                    formControlName="code"
                    placeholder="مثال: KM-ENV-WATER"
-                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm font-mono text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-primary-blue/30 focus:border-primary-blue focus:bg-white" />
+                   class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm font-mono text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white dark:focus:bg-slate-900" />
           </div>
 
           <div class="space-y-1">
-            <label for="nodeOrderInput" class="block text-xs font-bold text-slate-700">
+            <label for="nodeOrderInput" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
               ترتیب نمایش (اولویت)
             </label>
             <input id="nodeOrderInput"
                    type="number"
                    formControlName="nodeOrder"
-                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-primary-blue/30 focus:border-primary-blue focus:bg-white" />
+                   class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white dark:focus:bg-slate-900" />
           </div>
         </div>
 
         <!-- Parent Selector (when editing or changing parent) -->
         <div class="space-y-1">
-          <label for="nodeParentSelect" class="block text-xs font-bold text-slate-700">
+          <label for="nodeParentSelect" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
             شاخه والد (بالادستی)
           </label>
           <select id="nodeParentSelect"
                   formControlName="parentId"
-                  class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-primary-blue/30 focus:border-primary-blue focus:bg-white">
+                  class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white dark:focus:bg-slate-900">
             <option value="">بدون والد (شاخه ریشه اصلی)</option>
             @for (item of allNodesFlat(); track item.id) {
               <option [value]="item.id">
@@ -805,14 +754,14 @@
 
         <!-- Description Field -->
         <div class="space-y-1">
-          <label for="nodeDescInput" class="block text-xs font-bold text-slate-700">
+          <label for="nodeDescInput" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
             شرح قلمرو شمول و اهداف دانشی شاخه
           </label>
           <textarea id="nodeDescInput"
                     rows="3"
                     formControlName="description"
                     placeholder="شرح تجارب تحت پوشش، متولیان و استانداردهای این حوزه..."
-                    class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-primary-blue/30 focus:border-primary-blue focus:bg-white"></textarea>
+                    class="w-full px-3.5 py-2.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white dark:focus:bg-slate-900"></textarea>
         </div>
 
         <!-- Active Checkbox -->
@@ -820,28 +769,25 @@
           <input id="nodeIsActiveCheck"
                  type="checkbox"
                  formControlName="isActive"
-                 class="w-4 h-4 rounded text-primary-navy border-slate-300 focus:ring-primary-blue cursor-pointer" />
-          <label for="nodeIsActiveCheck" class="text-xs font-semibold text-slate-700 cursor-pointer">
+                 class="w-4 h-4 rounded text-orange-600 border-slate-300 focus:ring-orange-500 cursor-pointer" />
+          <label for="nodeIsActiveCheck" class="text-xs font-semibold text-slate-700 dark:text-slate-300 cursor-pointer">
             شاخه فعال است و در درخت دانش پرسنل و کارتابل داوری نمایش داده شود
           </label>
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
           <button (click)="closeModal()"
                   type="button"
-                  class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer">
+                  class="px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
             انصراف
           </button>
 
           <button type="submit"
                   [disabled]="isSaving()"
-                  class="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-primary-navy hover:bg-slate-800 text-white shadow-xs disabled:opacity-50 transition-colors cursor-pointer">
+                  class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white shadow-xs disabled:opacity-50 transition-colors cursor-pointer">
             @if (isSaving()) {
-              <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
+              <i class="pi pi-spin pi-spinner text-xs"></i>
             }
             <span>ذخیره مشخصات شاخه</span>
           </button>
@@ -858,34 +804,32 @@
 <!-- ======================================================== -->
 @if (showDeleteModal()) {
   <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
-    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden text-start animate-in fade-in zoom-in-95 duration-200 p-6 space-y-4">
+    <div class="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-start animate-in fade-in zoom-in-95 duration-200 p-6 space-y-4">
       
       <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 border border-rose-100">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-          </svg>
+        <div class="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 flex items-center justify-center shrink-0 border border-rose-100 dark:border-rose-900/50">
+          <i class="pi pi-trash text-lg"></i>
         </div>
         <div>
-          <h4 class="text-base font-black text-slate-900">تایید حذف شاخه دانش</h4>
+          <h4 class="text-base font-black text-slate-900 dark:text-white">تایید حذف شاخه دانش</h4>
           <p class="text-xs text-slate-500 mt-0.5">این عملیات قابل بازگشت نمی‌باشد.</p>
         </div>
       </div>
 
-      <div class="p-3.5 rounded-xl bg-rose-50/70 border border-rose-200/80 text-xs sm:text-sm text-rose-900 leading-relaxed">
+      <div class="p-3.5 rounded-2xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50 text-xs sm:text-sm text-rose-900 dark:text-rose-200 leading-relaxed">
         آیا از حذف شاخه <strong>«{{ nodePendingDelete()?.title }}»</strong> و تمامی زیرشاخه‌ها و پیوستگی‌های دانشی آن اطمینان کامل دارید؟
       </div>
 
       <div class="flex items-center justify-end gap-3 pt-2">
         <button (click)="cancelDelete()"
                 type="button"
-                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer">
+                class="px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
           انصراف
         </button>
 
         <button (click)="executeDelete()"
                 type="button"
-                class="px-5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-xs transition-colors cursor-pointer">
+                class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-xs transition-colors cursor-pointer">
           بله، حذف شود
         </button>
       </div>

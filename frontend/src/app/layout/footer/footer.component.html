@@ -1,18 +1,140 @@
-<footer class="bg-white border-t border-[#E4E9F0] py-4 px-6 text-xs text-[#667085] flex flex-col sm:flex-row items-center justify-between gap-3 mt-auto shrink-0">
-  <div class="flex items-center gap-2.5">
-    <div class="w-6 h-6 rounded-md bg-[#17365D] text-white flex items-center justify-center text-[10px] font-bold">
-      KM
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-auto shrink-0 select-none">
+  <!-- Top Orange Brand Line -->
+  <div class="h-1 w-full bg-orange-600"></div>
+
+  <!-- Main Footer Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 text-start">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- Column 1: Identity & About -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-orange-600 text-white flex items-center justify-center shrink-0 shadow-md">
+            <i class="pi pi-building text-lg"></i>
+          </div>
+          <div>
+            <span class="block text-sm font-black text-slate-900 dark:text-white">سامانه جامع مدیریت دانش</span>
+            <span class="block text-[11px] text-orange-600 dark:text-orange-400 font-bold">شهرداری اصفهان</span>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          بستری یکپارچه و امن برای گردآوری، ارزیابی تخصصی، اشاعه و کاربست تجارب زیسته و دانش راهبردی معاونت‌ها، مناطق ۱۵گانه و سازمان‌های وابسته به شهرداری اصفهان.
+        </p>
+
+        <div class="flex items-center gap-2 pt-1 text-xs text-orange-600 font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>پرتال رسمی و متصل به شبکه دولت</span>
+        </div>
+      </div>
+
+      <!-- Column 2: Public Access Links -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-black text-slate-900 dark:text-white tracking-wider uppercase border-s-2 border-orange-500 ps-2">
+          دسترسی‌های پایگاه دانش
+        </h4>
+        <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400">
+          <li>
+            <a routerLink="/" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>صفحه نخست پرتال</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/search" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>جستجوی پیشرفته تجارب</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/knowledge-tree" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>شاخه‌ها و درخت دانش (۴۸ شاخه)</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/experts" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>بانک خبرگان و نخبگان شهری</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/panels" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>پویش‌های حل مسائل شهری</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Employee & Evaluator Services -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-black text-slate-900 dark:text-white tracking-wider uppercase border-s-2 border-amber-500 ps-2">
+          میز خدمت همکاران
+        </h4>
+        <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400">
+          <li>
+            <a routerLink="/auth/login" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>ورود کارکنان و ارزیابان</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/submit-knowledge" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>ثبت تجربه و نوآوری جدید</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/karbest" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>ثبت کاربست و اثربخشی</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/evaluations" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>کارتابل داوری و ممیزی</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/transcript" class="hover:text-orange-600 transition-colors flex items-center gap-1.5">
+              <span>کارنامه دانشی و پاداش‌ها</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Contact & Municipal Org -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-black text-slate-900 dark:text-white tracking-wider uppercase border-s-2 border-rose-500 ps-2">
+          اطلاعات سازمانی و تماس
+        </h4>
+        <div class="space-y-2 text-xs text-slate-500 dark:text-slate-400">
+          <p class="leading-relaxed">
+            شهرداری اصفهان، میدان امام حسین (ع)، ساختمان مرکزی شهرداری، دبیرخانه نظام مدیریت دانش
+          </p>
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
+            <div class="flex items-center justify-between text-[11px]">
+              <span>سامانه ارتباط مردمی:</span>
+              <strong class="font-bold text-orange-600">۱۳۷</strong>
+            </div>
+            <div class="flex items-center justify-between text-[11px]">
+              <span>پشتیبانی فنی سامانه (فاوا):</span>
+              <strong class="font-mono text-slate-800 dark:text-slate-200">۰۳۱-۳۲۱۲۳۰۰۰</strong>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-1 text-[11px]">
+            <a href="https://isfahan.ir" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:underline font-bold">
+              درگاه الکترونیک شهرداری اصفهان
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <span class="font-bold text-[#17365D]">سامانه جامع مدیریت دانش</span>
-    <span class="text-slate-300">|</span>
-    <span>شهرداری اصفهان — سال {{ currentJalaliYear }}</span>
-  </div>
-  <div class="flex flex-wrap items-center gap-4 text-[11px]">
-    <a routerLink="/search" class="hover:text-[#246B8F] transition-colors">پایگاه دانش</a>
-    <a routerLink="/knowledge-tree" class="hover:text-[#246B8F] transition-colors">درخت دانش</a>
-    <a routerLink="/evaluation" class="hover:text-[#246B8F] transition-colors">کارتابل ممیزی</a>
-    <a href="https://isfahan.ir" target="_blank" rel="noopener noreferrer" class="hover:text-[#246B8F] transition-colors">پرتال شهرداری</a>
-    <span class="text-slate-300">|</span>
-    <span>مرکز ارتباطات: <strong class="text-amber-600 font-bold">۱۳۷</strong></span>
+
+    <!-- Bottom Copyright Strip -->
+    <div class="pt-6 mt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+      <div>
+        کلیه حقوق مادی و معنوی این سامانه متعلق به <strong class="text-slate-700 dark:text-slate-300">شهرداری اصفهان</strong> می‌باشد — سال ۱۴۰۵
+      </div>
+      <div class="flex items-center gap-4 text-[11px]">
+        <span>نسخه سامانه: <strong class="font-mono text-slate-700 dark:text-slate-300">4.2.0-PROD</strong></span>
+        <span class="text-slate-300">|</span>
+        <span>امنیت داده: <strong class="text-emerald-600">SSL / حاکمیتی</strong></span>
+      </div>
+    </div>
   </div>
 </footer>

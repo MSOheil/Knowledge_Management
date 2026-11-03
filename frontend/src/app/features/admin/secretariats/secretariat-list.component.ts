@@ -1,5 +1,6 @@
 import { Component, OnInit, signal, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { TableComponent, TableConfig } from '../../../shared/components/table/table.component';
@@ -16,7 +17,7 @@ export interface SecretariatModel {
 @Component({
   selector: 'app-secretariat-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, TableComponent],
+  imports: [CommonModule, FormsModule, RouterModule, TableComponent],
   templateUrl: './secretariat-list.component.html',
   styleUrl: './secretariat-list.component.scss'
 })

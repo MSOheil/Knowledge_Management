@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { TableComponent, TableConfig } from '../../../shared/components/table/table.component';
 import { EvaluationDialogComponent } from './evaluation-dialog/evaluation-dialog.component';
 import { AppealDialogComponent } from '../../knowledge/appeal-dialog/appeal-dialog.component';
+import { KnowledgeLifecycleComponent } from '../../../shared/components/knowledge-lifecycle/knowledge-lifecycle.component';
 import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-evaluator-cartable',
   standalone: true,
-  imports: [CommonModule, TableComponent, EvaluationDialogComponent, AppealDialogComponent],
+  imports: [CommonModule, TableComponent, EvaluationDialogComponent, AppealDialogComponent, KnowledgeLifecycleComponent],
   templateUrl: './evaluator-cartable.component.html',
   styleUrl: './evaluator-cartable.component.scss'
 })

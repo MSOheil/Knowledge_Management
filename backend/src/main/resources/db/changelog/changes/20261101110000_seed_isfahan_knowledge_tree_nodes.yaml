@@ -5,6 +5,7 @@ databaseChangeLog:
       changes:
         - sql:
             comment: "Seed comprehensive municipal hierarchy nodes into knowledge_nodes"
+            splitStatements: false
             sql: |
               DO $$
               DECLARE

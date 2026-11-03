@@ -1,339 +1,421 @@
-<div class="space-y-6 sm:space-y-8">
-  
-  <!-- ======================================================== -->
-  <!-- 1. EXECUTIVE WELCOME & SYSTEM STATUS SECTION             -->
-  <!-- ======================================================== -->
-  <section class="bg-white rounded-2xl border border-[#E4E9F0] p-5 sm:p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-    
-    <div class="space-y-1.5">
-      <div class="flex items-center gap-2">
-        <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#16A36A] animate-pulse"></span>
-        <span class="text-xs font-bold text-[#2E8B78]">شبکه امن حاکمیتی شهرداری اصفهان</span>
-        <span class="text-slate-300">|</span>
-        <span class="text-xs text-[#667085]">{{ todayDateString() }}</span>
-      </div>
+<div class="space-y-6 select-none">
 
-      <h1 class="text-xl sm:text-2xl font-black text-[#17365D] tracking-tight">
-        صبح بخیر، {{ auth.currentUser()?.fullName || 'همکار گرامی' }}
-      </h1>
+  <!-- ============================================================
+       1. WELCOME BANNER CARD (Identical to http://localhost:4201/)
+       ============================================================ -->
+  <div class="relative overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+    <!-- Top Gradient Strip (Rose to Orange to Amber) -->
+    <div class="bg-gradient-to-r from-rose-600 via-orange-500 to-amber-500 h-1.5 w-full"></div>
 
-      <p class="text-xs sm:text-sm text-[#667085] leading-relaxed">
-        به سامانه جامع مدیریت دانش و سرمایه فکری خوش آمدید. کلیه فرآیندهای ممیزی و ثبت تجارب در وضعیت پایدار قرار دارند.
-      </p>
-    </div>
+    <!-- Ambient Glowing Orbs -->
+    <div class="absolute -end-12 -top-12 w-72 h-72 bg-orange-500/10 dark:bg-orange-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute start-1/4 -bottom-16 w-80 h-80 bg-amber-500/10 dark:bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
-    <!-- Quick Status Pills & Primary Action -->
-    <div class="flex flex-wrap items-center gap-2.5 shrink-0 self-stretch md:self-auto justify-end">
-      <div class="px-3 py-1.5 rounded-xl bg-[#F3F6FA] border border-[#E4E9F0] text-xs text-[#344054] flex items-center gap-2">
-        <span class="text-[#667085]">نرخ تصویب ممیزی:</span>
-        <strong class="text-[#16A36A] font-bold">۷۴٪</strong>
-      </div>
+    <div class="relative z-10 p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      
+      <!-- User Info & Avatar -->
+      <div class="flex items-center sm:items-start gap-4 sm:gap-5">
+        <div class="relative shrink-0">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 text-white flex items-center justify-center font-black text-2xl shadow-md ring-4 ring-slate-100 dark:ring-slate-800">
+            {{ auth.currentUser()?.fullName ? auth.currentUser()!.fullName.charAt(0) : 'م' }}
+          </div>
+          <!-- Online Ping Indicator -->
+          <span title="آنلاین" class="absolute -bottom-1 -end-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900 shadow-xs flex items-center justify-center">
+            <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+          </span>
+        </div>
 
-      <div class="px-3 py-1.5 rounded-xl bg-[#FFF8E1] border border-[#FFE082] text-xs text-[#E6A23C] flex items-center gap-1.5 font-bold">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#E6A23C]"></span>
-        <span>۳۴ مورد نیازمند ارزیابی</span>
-      </div>
+        <div class="space-y-2 text-start">
+          <!-- Status Badges Row -->
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="bg-rose-50 border border-rose-200 dark:bg-rose-950/50 dark:border-rose-800 dark:text-rose-300 font-bold gap-1.5 inline-flex items-center px-3 py-1 rounded-full text-rose-700 text-xs">
+              <i class="pi pi-shield text-xs"></i>
+              <span>{{ auth.isAdmin() ? 'مدیر ارشد' : auth.isEvaluator() ? 'ارزیاب ممیزی' : 'خبره شهری' }}</span>
+            </span>
 
-      <a routerLink="/submit-knowledge"
-         class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#246B8F] hover:bg-[#17365D] text-white shadow-xs transition-colors">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-        </svg>
-        <span>ثبت دانش جدید</span>
-      </a>
-    </div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-full text-[11px] font-bold text-slate-600 dark:text-slate-300">
+              <i class="pi pi-calendar text-[10px] text-orange-500"></i>
+              <span>{{ todayDateString() }}</span>
+            </span>
 
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- 2. SIX (6) CORE ENTERPRISE KPI CARDS                    -->
-  <!-- ======================================================== -->
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4">
-    @for (kpi of kpis; track kpi.id) {
-      <div class="bg-white rounded-2xl border border-[#E4E9F0] p-4 sm:p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)] hover:border-[#246B8F] hover:shadow-md transition-all flex flex-col justify-between">
-        
-        <div>
-          <!-- Icon & Trend Row -->
-          <div class="flex items-center justify-between mb-3">
-            <div [style.background-color]="kpi.bgLight" [style.color]="kpi.accentColor" class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="kpi.icon" />
-              </svg>
-            </div>
-
-            <!-- Trend Pill -->
-            <span
-              [class]="kpi.trendType === 'up' 
-                ? 'px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#E8F5E9] text-[#16A36A] border border-[#C8E6C9]'
-                : kpi.trendType === 'warning'
-                ? 'px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#FFF8E1] text-[#E6A23C] border border-[#FFE082]'
-                : 'px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#EBF8FF] text-[#3182CE] border border-[#BEE3F8]'">
-              {{ kpi.trend }}
+            <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-900/60 rounded-full text-[11px] font-extrabold text-emerald-700 dark:text-emerald-300">
+              <i class="pi pi-check-circle text-[10px]"></i>
+              <span>سامانه برخط و پایدار</span>
             </span>
           </div>
 
-          <!-- Value & Title -->
-          <div class="text-2xl font-black text-[#17365D]">
-            {{ kpi.value }}
-          </div>
-
-          <div class="text-xs font-bold text-[#344054] mt-1 truncate">
-            {{ kpi.title }}
-          </div>
-        </div>
-
-        <!-- Footer comparison -->
-        <div class="pt-3 mt-3 border-t border-[#E4E9F0]/80 text-[10px] text-[#667085] truncate">
-          {{ kpi.comparison }}
-        </div>
-
-      </div>
-    }
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- 3. ANALYTICS & DATA VISUALIZATIONS                      -->
-  <!-- ======================================================== -->
-  <section class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
-    
-    <!-- Visual 1: Monthly Knowledge Production Trend (8 cols) -->
-    <div class="lg:col-span-8 bg-white rounded-2xl border border-[#E4E9F0] p-5 sm:p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] space-y-4">
-      
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E4E9F0] pb-3">
-        <div>
-          <h2 class="text-sm sm:text-base font-bold text-[#17365D]">
-            روند ماهانه تولید و تصویب دانش در شهرداری
+          <!-- Main Greeting Heading with Gradient Text -->
+          <h2 class="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+            سلام، <span class="bg-clip-text bg-gradient-to-r from-orange-600 via-amber-600 to-rose-600 text-transparent">{{ auth.currentUser()?.fullName || 'همکار گرامی' }}</span> خوش آمدید
           </h2>
-          <p class="text-xs text-[#667085]">
-            مقایسه تعداد تجارب ارسالی با موارد مصوب در ۶ ماه گذشته
+
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-2xl">
+            مرکز پایش هوشمند، مدیریت یکپارچه جریان دانش و سرمایه فکری کهن‌شهر اصفهان و نظارت راهبردی بر عملکرد کمیته‌های داوری دلفی
           </p>
         </div>
+      </div>
 
-        <!-- Legend -->
-        <div class="flex items-center gap-4 text-xs">
-          <div class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-sm bg-[#17365D]"></span>
-            <span class="text-[#667085]">تجارب ارسالی</span>
+      <!-- Action Button CTA -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a routerLink="/submit-knowledge"
+           class="px-5 py-3 bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-xs rounded-2xl shadow-lg shadow-orange-500/20 border border-orange-400/30 transition-all duration-200 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 active:scale-95 cursor-pointer">
+          <i class="pi pi-plus-circle text-sm"></i>
+          <span>ثبت دانش جدید</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       2. FILTER & DASHBOARD HUB CARD (Matched with localhost:4201)
+       ============================================================ -->
+  <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xs space-y-5">
+    
+    <!-- Header of the Card -->
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div class="flex items-center gap-3 text-start">
+        <div class="w-11 h-11 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 flex items-center justify-center font-bold text-lg">
+          <i class="pi pi-book"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-base font-black text-slate-900 dark:text-white">
+              پایگاه تجارب و دانش سازمانی
+            </h2>
+            <span class="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/60 text-indigo-700 dark:text-indigo-300 text-[10px] font-bold rounded-lg">
+              نظام مدیریت دانش
+            </span>
           </div>
-          <div class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-sm bg-[#246B8F]"></span>
-            <span class="text-[#667085]">مصوب ممیزی</span>
-          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            داشبورد تحلیلی و مانیتورینگ عملکرد به تفکیک حوزه‌ها، شاخه‌های دانش و پرسنل شهرداری
+          </p>
         </div>
       </div>
 
-      <!-- Clean SVG / CSS Bar Chart Representation -->
-      <div class="pt-4 pb-2">
-        <div class="h-48 flex items-end justify-between gap-3 sm:gap-6 px-2 sm:px-4 border-b border-[#E4E9F0]">
-          @for (bar of monthlyTrend; track bar.month) {
-            <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
-              
-              <!-- Value tooltip on hover -->
-              <span class="text-[10px] font-bold text-[#17365D] opacity-0 group-hover:opacity-100 transition-opacity">
-                {{ bar.submitted }} / {{ bar.approved }}
-              </span>
+      <!-- Quick Action Links -->
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-slate-500 font-semibold hidden sm:inline">
+          بروزرسانی مدیریت دانش: {{ todayDateString() }}
+        </span>
+        <a routerLink="/admin/users" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-orange-50 text-slate-700 hover:text-orange-600 text-xs font-bold transition-all flex items-center gap-1.5">
+          <i class="pi pi-users text-xs"></i>
+          <span>مدیریت کاربران</span>
+        </a>
+        <a routerLink="/knowledge-tree" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-orange-50 text-slate-700 hover:text-orange-600 text-xs font-bold transition-all flex items-center gap-1.5">
+          <i class="pi pi-sitemap text-xs"></i>
+          <span>درخت دانش</span>
+        </a>
+      </div>
+    </div>
 
-              <!-- Dual Bars -->
-              <div class="w-full flex items-end justify-center gap-1 sm:gap-1.5 h-full">
-                <!-- Submitted Bar -->
-                <div
-                  class="w-1/2 max-w-[20px] bg-[#17365D] rounded-t-md hover:brightness-110 transition-all"
-                  [style.height.%]="bar.heightPercent">
-                </div>
-                <!-- Approved Bar -->
-                <div
-                  class="w-1/2 max-w-[20px] bg-[#246B8F] rounded-t-md hover:brightness-110 transition-all"
-                  [style.height.%]="bar.heightPercent * 0.78">
-                </div>
-              </div>
+    <!-- Filter Selects Grid (Matched with localhost:4201) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+      <!-- Select 1: Knowledge Type -->
+      <div class="space-y-1 text-start">
+        <label class="block text-[11px] font-bold text-slate-500">
+          <i class="pi pi-tag text-[10px] text-orange-500 me-1"></i> نوع دانش:
+        </label>
+        <select class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-200 font-semibold focus:ring-2 focus:ring-orange-500 outline-none">
+          <option>همه انواع دانش و تجارب</option>
+          <option>تجارب زیسته و اجرایی</option>
+          <option>نوآوری‌ها و طرح‌های تحولی</option>
+          <option>درس‌آموخته‌های پروژه‌های شهری</option>
+          <option>مستندات سیاستی و پژوهشی</option>
+        </select>
+      </div>
 
-              <!-- Month Label -->
-              <span class="text-[11px] font-semibold text-[#667085] mt-2 whitespace-nowrap">
-                {{ bar.month }}
+      <!-- Select 2: Domain -->
+      <div class="space-y-1 text-start">
+        <label class="block text-[11px] font-bold text-slate-500">
+          <i class="pi pi-sitemap text-[10px] text-indigo-500 me-1"></i> حوزه تخصصی:
+        </label>
+        <select class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-200 font-semibold focus:ring-2 focus:ring-orange-500 outline-none">
+          <option>همه حوزه‌ها (۴۸ شاخه جامع)</option>
+          <option>عمران، حمل‌ونقل و ترافیک</option>
+          <option>شهرسازی، معماری و هوشمندسازی</option>
+          <option>خدمات شهری، محیط‌زیست و پسماند</option>
+          <option>مالی، اقتصادی و سرمایه‌گذاری</option>
+          <option>فرهنگی، اجتماعی و ورزشی</option>
+        </select>
+      </div>
+
+      <!-- Select 3: Year -->
+      <div class="space-y-1 text-start">
+        <label class="block text-[11px] font-bold text-slate-500">
+          <i class="pi pi-calendar text-[10px] text-amber-500 me-1"></i> سال ثبت:
+        </label>
+        <select class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-200 font-semibold focus:ring-2 focus:ring-orange-500 outline-none">
+          <option>همه سال‌ها (۱۳۹۸ تا ۱۴۰۵)</option>
+          <option>سال ۱۴۰۵</option>
+          <option>سال ۱۴۰۴</option>
+          <option>سال ۱۴۰۳</option>
+        </select>
+      </div>
+
+      <!-- Select 4: Status -->
+      <div class="space-y-1 text-start">
+        <label class="block text-[11px] font-bold text-slate-500">
+          <i class="pi pi-check-circle text-[10px] text-emerald-500 me-1"></i> وضعیت ممیزی:
+        </label>
+        <select class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-200 font-semibold focus:ring-2 focus:ring-orange-500 outline-none">
+          <option>همه وضعیت‌ها</option>
+          <option>پذیرش‌شده (دارای نشان آبی)</option>
+          <option>در حال داوری و ممیزی دلفی</option>
+          <option>ثبت اولیه در انتظار بررسی</option>
+          <option>ارجاع به کاربست و اثربخشی</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Active Filter Chips & Reset -->
+    <div class="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs border-t border-slate-100 dark:border-slate-800">
+      <div class="flex items-center gap-2">
+        <span class="text-slate-400">فیلترهای فعال:</span>
+        <span class="px-2.5 py-0.5 rounded-lg bg-orange-50 text-orange-700 border border-orange-200 text-[11px] font-bold">نوع دانش: همه</span>
+        <span class="px-2.5 py-0.5 rounded-lg bg-slate-100 text-slate-700 text-[11px] font-bold">پوشش: ۱۵ منطقه شهری</span>
+      </div>
+      <a routerLink="/search" class="text-orange-600 hover:text-orange-700 font-bold text-xs flex items-center gap-1">
+        <i class="pi pi-refresh text-[10px]"></i>
+        <span>بازنشانی فیلترها</span>
+      </a>
+    </div>
+
+  </div>
+
+
+  <!-- ============================================================
+       3. METRIC STAT CARDS (Gradient Cards Matched with localhost:4201)
+       ============================================================ -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+    
+    <!-- Metric 1 (Rose Gradient) -->
+    <div class="group relative overflow-hidden rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-rose-500 via-rose-600 to-rose-700 text-white shadow-lg shadow-rose-500/20 hover:shadow-xl hover:shadow-rose-500/30 hover:scale-[1.01] transition-all duration-300 cursor-pointer border border-white/20 select-none text-start">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-xs font-bold text-rose-100">درصد مشارکت دانشی</span>
+        <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+          <i class="pi pi-chart-line text-base"></i>
+        </div>
+      </div>
+      <div class="text-3xl font-black font-mono">۴۲.۸٪</div>
+      <p class="text-xs text-rose-100 mt-2">
+        نسبت کارکنان ثبت‌کننده تجربه به کل پرسنل شهرداری
+      </p>
+      <div class="mt-4 pt-3 border-t border-white/20 flex items-center justify-between text-[11px]">
+        <span>رشد دوره‌ای:</span>
+        <span class="font-bold text-emerald-200">+۸.۴٪ ↗</span>
+      </div>
+    </div>
+
+    <!-- Metric 2 (Slate/Indigo Gradient) -->
+    <div class="group relative overflow-hidden rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-slate-800 via-slate-900 to-indigo-950 text-white shadow-lg shadow-slate-900/30 hover:shadow-xl hover:shadow-indigo-950/40 hover:scale-[1.01] transition-all duration-300 cursor-pointer border border-slate-700/60 select-none text-start">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-xs font-bold text-slate-300">سرانه دانش و تجارب</span>
+        <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
+          <i class="pi pi-book text-base text-amber-400"></i>
+        </div>
+      </div>
+      <div class="text-3xl font-black font-mono">۱.۴۵</div>
+      <p class="text-xs text-slate-300 mt-2">
+        تعداد تجارب استاندارد به تفکیک مناطق و سازمان‌ها
+      </p>
+      <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px]">
+        <span>شاخص کشوری:</span>
+        <span class="font-bold text-amber-300">رتبه ۱ کلانشهرها</span>
+      </div>
+    </div>
+
+    <!-- Metric 3 (Orange/Amber Gradient) -->
+    <div class="group relative overflow-hidden rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-amber-500 via-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/20 hover:shadow-xl hover:scale-[1.01] transition-all duration-300 cursor-pointer border border-white/20 select-none text-start">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-xs font-bold text-orange-100">خبرگان با نشان آبی</span>
+        <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+          <i class="pi pi-verified text-base text-sky-200"></i>
+        </div>
+      </div>
+      <div class="text-3xl font-black font-mono">۳۸۰+</div>
+      <p class="text-xs text-orange-100 mt-2">
+        ارزیابان رسمی و اعضای کمیته‌های تخصصی ممیزی
+      </p>
+      <div class="mt-4 pt-3 border-t border-white/20 flex items-center justify-between text-[11px]">
+        <span>کمیته‌های فعال:</span>
+        <span class="font-bold">۲۴ کمیته</span>
+      </div>
+    </div>
+
+    <!-- Metric 4 (Emerald/Teal Gradient) -->
+    <div class="group relative overflow-hidden rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-white shadow-lg shadow-emerald-600/20 hover:shadow-xl hover:scale-[1.01] transition-all duration-300 cursor-pointer border border-white/20 select-none text-start">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-xs font-bold text-emerald-100">صرفه‌جویی کاربست</span>
+        <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+          <i class="pi pi-wallet text-base"></i>
+        </div>
+      </div>
+      <div class="text-3xl font-black font-mono">۳۳ میلیارد</div>
+      <p class="text-xs text-emerald-100 mt-2">
+        ریال اثر مالی کاربست تجارب مصوب در سال جاری
+      </p>
+      <div class="mt-4 pt-3 border-t border-white/20 flex items-center justify-between text-[11px]">
+        <span>پاداش پرداخت‌شده:</span>
+        <span class="font-bold text-emerald-200">۱.۸ میلیارد ریال</span>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ============================================================
+       4. STRATEGIC GOALS (4 PILLARS)
+       ============================================================ -->
+  <div class="p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xs space-y-6">
+    <div class="text-center max-w-2xl mx-auto space-y-2">
+      <span class="section-heading-accent">اهداف راهبردی</span>
+      <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+        چرا مدیریت دانش در شهرداری اصفهان حیاتی است؟
+      </h2>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        تحول اداری، ارتقای بهره‌وری و صیانت از تجارب مدیریتی بر چهار رکن استوار است
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      @for (goal of strategicGoals; track goal.id) {
+        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 hover:border-orange-500 transition-all flex flex-col justify-between group text-start">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-950/60 text-orange-600 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <i class="pi pi-compass text-base"></i>
+            </div>
+            <h3 class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-orange-600 transition-colors mb-1.5">
+              {{ goal.title }}
+            </h3>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              {{ goal.description }}
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center gap-1.5 text-[10px] font-bold text-orange-600">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span>{{ goal.benefit }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       5. 4-STAGE KNOWLEDGE LIFECYCLE
+       ============================================================ -->
+  <div class="p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xs space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div class="text-start space-y-1">
+        <span class="section-heading-accent">فرآیند استاندارد سازمانی</span>
+        <h2 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
+          چرخه چهارگانه حیات دانش
+        </h2>
+        <p class="text-xs text-slate-500">
+          مسیری شفاف از تجربه فردی تا ارزیابی علمی، کاربست عملیاتی و پاداش شایسته
+        </p>
+      </div>
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-orange-50 text-orange-700 border border-orange-200">
+        استاندارد مصوب شورای ممیزی
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      @for (st of lifecycleSteps; track st.step) {
+        <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/60 hover:border-orange-500 transition-all text-start relative group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center font-black text-xs font-mono shadow-xs">
+              ۰{{ st.step }}
+            </div>
+            <span class="text-[10px] font-bold text-orange-600 bg-orange-50 dark:bg-orange-950/60 px-2 py-0.5 rounded-md border border-orange-200/60">
+              {{ st.subtitle }}
+            </span>
+          </div>
+          <h3 class="text-xs font-bold text-slate-900 dark:text-white mb-1.5">{{ st.title }}</h3>
+          <p class="text-[11px] text-slate-500 leading-relaxed">{{ st.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       6. GEOGRAPHIC COVERAGE (15 DISTRICTS)
+       ============================================================ -->
+  <div class="p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xs space-y-4">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 text-start">
+      <div>
+        <span class="section-heading-accent">پوشش جغرافیایی</span>
+        <h2 class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-1">
+          شبکه مدیریت دانش در مناطق ۱۵‌گانه شهرداری اصفهان
+        </h2>
+      </div>
+      <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">
+        ۱۰۰٪ پوشش سازمانی
+      </span>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
+      @for (d of municipalDistricts; track d.number) {
+        <div class="bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/80 p-3 hover:border-orange-500 hover:bg-orange-50/30 transition-all group cursor-default text-start">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-orange-600 transition-colors">
+              {{ d.name }}
+            </span>
+            <span class="w-5 h-5 rounded-md bg-slate-200 text-slate-600 group-hover:bg-orange-600 group-hover:text-white font-mono font-bold text-[9px] flex items-center justify-center transition-colors">
+              {{ d.number }}
+            </span>
+          </div>
+          <p class="text-[10px] text-slate-400 truncate">{{ d.focus }}</p>
+        </div>
+      }
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       7. FAQ ACCORDION
+       ============================================================ -->
+  <div class="p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xs space-y-4">
+    <div class="text-center max-w-xl mx-auto space-y-1 mb-4">
+      <span class="section-heading-accent">پرسش‌های متداول</span>
+      <h2 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
+        پاسخ ابهامات همکاران شهرداری اصفهان
+      </h2>
+    </div>
+
+    <div class="space-y-2">
+      @for (faq of faqs; track faq.id) {
+        <div class="rounded-2xl border transition-all overflow-hidden"
+             [class.border-orange-400]="openFaqId() === faq.id"
+             [class.border-slate-200]="openFaqId() !== faq.id">
+
+          <button
+            type="button"
+            (click)="toggleFaq(faq.id)"
+            class="w-full p-4 flex items-center justify-between gap-3 text-start hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xs shrink-0">
+                ؟
               </span>
+              <span class="text-xs font-bold text-slate-800 dark:text-slate-200">
+                {{ faq.question }}
+              </span>
+            </div>
+            <i class="pi pi-chevron-down text-xs text-slate-400 transition-transform duration-200"
+               [class.rotate-180]="openFaqId() === faq.id"></i>
+          </button>
+
+          @if (openFaqId() === faq.id) {
+            <div class="px-4 pb-4 text-xs text-slate-600 dark:text-slate-400 leading-loose border-t border-slate-100 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-800/40 pt-3 text-start">
+              {{ faq.answer }}
             </div>
           }
         </div>
-      </div>
-
-      <!-- Bottom Metric Summary Strip -->
-      <div class="grid grid-cols-3 gap-3 pt-2 text-center text-xs">
-        <div class="p-2.5 rounded-xl bg-[#F3F6FA] border border-[#E4E9F0]">
-          <div class="text-[#667085] text-[11px]">مجموع مشارکت‌ها</div>
-          <div class="text-sm font-bold text-[#17365D] mt-0.5">۶۸۱ تجربه</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-[#F3F6FA] border border-[#E4E9F0]">
-          <div class="text-[#667085] text-[11px]">میانگین زمان ارزیابی</div>
-          <div class="text-sm font-bold text-[#246B8F] mt-0.5">۳٫۴ روز کاری</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-[#F3F6FA] border border-[#E4E9F0]">
-          <div class="text-[#667085] text-[11px]">رشد فصلی تولید دانش</div>
-          <div class="text-sm font-bold text-[#16A36A] mt-0.5">+۲۱٪ فصلی</div>
-        </div>
-      </div>
-
+      }
     </div>
-
-    <!-- Visual 2: Department Contribution Comparison (4 cols) -->
-    <div class="lg:col-span-4 bg-white rounded-2xl border border-[#E4E9F0] p-5 sm:p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] space-y-4 flex flex-col justify-between">
-      
-      <div class="border-b border-[#E4E9F0] pb-3">
-        <h2 class="text-sm sm:text-base font-bold text-[#17365D]">
-          سهم معاونت‌ها و سازمان‌ها
-        </h2>
-        <p class="text-xs text-[#667085]">
-          توزیع مشارکت حوزه‌های اصلی شهرداری
-        </p>
-      </div>
-
-      <!-- Department Distribution Bars -->
-      <div class="space-y-4">
-        @for (dep of departmentMetrics; track dep.name) {
-          <div class="space-y-1.5">
-            <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-[#344054] truncate max-w-[200px]">{{ dep.name }}</span>
-              <span class="font-bold text-[#17365D]">{{ dep.percentage }}٪ ({{ dep.count }})</span>
-            </div>
-            <div class="w-full h-2 rounded-full bg-[#EDF2F7] overflow-hidden">
-              <div
-                class="h-full rounded-full transition-all duration-500"
-                [style.background-color]="dep.color"
-                [style.width.%]="dep.percentage">
-              </div>
-            </div>
-          </div>
-        }
-      </div>
-
-      <!-- Tree Coverage Link -->
-      <div class="p-3.5 rounded-xl bg-[#F3F6FA] border border-[#E4E9F0] flex items-center justify-between text-xs">
-        <div>
-          <span class="font-bold text-[#17365D]">درخت دانش شهرداری</span>
-          <p class="text-[10px] text-[#667085] mt-0.5">۴۸ شاخه در مناطق ۱۵گانه</p>
-        </div>
-        <a routerLink="/knowledge-tree" class="font-bold text-[#246B8F] hover:underline flex items-center gap-1">
-          <span>مشاهده</span>
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-        </a>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- 4. RECENT ACTIVITIES & POPULAR KNOWLEDGE                -->
-  <!-- ======================================================== -->
-  <section class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
-    
-    <!-- Recent Activities Feed (7 cols) -->
-    <div class="lg:col-span-7 bg-white rounded-2xl border border-[#E4E9F0] p-5 sm:p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] space-y-4">
-      
-      <div class="flex items-center justify-between border-b border-[#E4E9F0] pb-3">
-        <div>
-          <h2 class="text-sm sm:text-base font-bold text-[#17365D]">
-            فعالیت‌ها و رویدادهای اخیر
-          </h2>
-          <p class="text-xs text-[#667085]">
-            آخرین مستندات، تاییدات و اقدامات ثبت‌شده
-          </p>
-        </div>
-        <a routerLink="/evaluation" class="text-xs font-bold text-[#246B8F] hover:underline">
-          کارتابل تاییدات
-        </a>
-      </div>
-
-      <!-- Feed List -->
-      <div class="divide-y divide-[#E4E9F0] space-y-3">
-        @for (act of recentActivities; track act.id) {
-          <div class="pt-3 flex items-start gap-3 group">
-            
-            <!-- Type Icon -->
-            <div class="w-8 h-8 rounded-lg bg-[#F3F6FA] text-[#246B8F] flex items-center justify-center shrink-0 mt-0.5 border border-[#E4E9F0]">
-              @if (act.type === 'create') {
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-              } @else if (act.type === 'approve') {
-                <svg class="w-4 h-4 text-[#16A36A]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-              } @else if (act.type === 'karbest') {
-                <svg class="w-4 h-4 text-[#3182CE]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              } @else {
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-              }
-            </div>
-
-            <!-- Content -->
-            <div class="flex-1 min-w-0 space-y-1">
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-bold text-[#344054] group-hover:text-[#246B8F] transition-colors truncate">
-                  {{ act.title }}
-                </span>
-                <span [class]="'px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ' + act.statusClass">
-                  {{ act.statusBadge }}
-                </span>
-              </div>
-
-              <div class="flex items-center gap-3 text-[11px] text-[#667085]">
-                <span>{{ act.author }} ({{ act.department }})</span>
-                <span>•</span>
-                <span>{{ act.timestamp }}</span>
-              </div>
-            </div>
-
-          </div>
-        }
-      </div>
-
-    </div>
-
-    <!-- Popular & High-Impact Knowledge (5 cols) -->
-    <div class="lg:col-span-5 bg-white rounded-2xl border border-[#E4E9F0] p-5 sm:p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] space-y-4">
-      
-      <div class="flex items-center justify-between border-b border-[#E4E9F0] pb-3">
-        <div>
-          <h2 class="text-sm sm:text-base font-bold text-[#17365D]">
-            تجارب برگزیده و پرکاربرد
-          </h2>
-          <p class="text-xs text-[#667085]">
-            بیشترین استناد و ارزش‌افزوده ثبت‌شده
-          </p>
-        </div>
-        <a routerLink="/search" class="text-xs font-bold text-[#246B8F] hover:underline">
-          مشاهده همه
-        </a>
-      </div>
-
-      <!-- Popular Cards -->
-      <div class="space-y-3">
-        @for (art of popularArticles; track art.id) {
-          <div class="p-3.5 rounded-xl bg-[#F3F6FA] border border-[#E4E9F0] hover:border-[#246B8F] transition-colors space-y-2">
-            
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-mono font-bold bg-white text-[#667085] px-2 py-0.5 rounded border border-[#E4E9F0]">
-                {{ art.code }}
-              </span>
-              <span class="text-[10px] font-bold bg-[#FFF8E1] text-[#E6A23C] border border-[#FFE082] px-2 py-0.5 rounded">
-                {{ art.tag }}
-              </span>
-            </div>
-
-            <h3 class="text-xs font-bold text-[#17365D] line-clamp-2 leading-relaxed">
-              {{ art.title }}
-            </h3>
-
-            <div class="flex items-center justify-between text-[11px] text-[#667085] pt-1">
-              <span>امتیاز: <strong class="text-[#17365D]">{{ art.rating }}</strong> / ۵</span>
-              <span>صرفه‌جویی: <strong class="text-[#16A36A]">{{ art.savings }}</strong></span>
-              <a routerLink="/search" [queryParams]="{ q: art.code }" class="text-[#246B8F] font-bold hover:underline">
-                مطالعه
-              </a>
-            </div>
-
-          </div>
-        }
-      </div>
-
-    </div>
-
-  </section>
+  </div>
 
 </div>

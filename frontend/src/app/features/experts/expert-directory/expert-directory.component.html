@@ -1,43 +1,62 @@
 <div class="space-y-6">
-  <!-- Page Header -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <div class="space-y-1">
-      <div class="flex items-center gap-2.5">
-        <span class="p-2.5 rounded-2xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-        </span>
-        <h1 class="text-xl font-bold text-slate-900 dark:text-slate-100">فهرست و بانک خبرگان سازمانی شهرداری اصفهان</h1>
+  <!-- Breadcrumb & Page Header -->
+  <div class="bg-white rounded-2xl border border-[#E2E8F0] p-6 shadow-xs">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div class="space-y-1.5">
+        <nav class="flex items-center gap-2 text-xs text-[#64748B] mb-1">
+          <a routerLink="/" class="hover:text-[#086288] transition-colors flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span>صفحه نخست</span>
+          </a>
+          <span class="text-[#E2E8F0]">/</span>
+          <span class="text-[#086288] font-bold">بانک خبرگان سازمانی</span>
+        </nav>
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-xl bg-[#086288]/10 text-[#086288] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </span>
+          <h1 class="text-xl font-bold text-[#172B3A]">بانک خبرگان و داوران سازمانی شهرداری اصفهان</h1>
+        </div>
+        <p class="text-xs text-[#64748B]">
+          شبکه نخبگان و صاحب‌نظران حوزه‌های تخصصی مدیریت شهری جهت ارزیابی دانش، مشاوره تخصصی و راهبری پنل‌های نخبگانی
+        </p>
       </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        شناسایی نخبگان و صاحب‌نظران حوزه‌های گوناگون مدیریت شهری جهت مشورت، ارزیابی طرح‌ها و پاسخگویی به چالش‌ها
-      </p>
+
+      <div class="flex items-center gap-2">
+        <div class="px-3 py-1.5 rounded-xl bg-[#086288]/5 border border-[#086288]/20 text-xs font-bold text-[#086288] flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#086288] animate-pulse"></span>
+          <span>{{ filteredExperts().length }} خبره فعال</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Filters -->
-  <div class="p-4 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center gap-3">
+  <!-- Search & Filter Controls -->
+  <div class="p-4 bg-white rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col sm:flex-row items-center gap-3">
     <div class="w-full sm:flex-1 relative">
       <input
         type="text"
         [(ngModel)]="searchTerm"
         (input)="applyFilter()"
-        placeholder="جستجوی خبره با نام، تخصص یا کلیدواژه..."
-        class="w-full ps-10 pe-4 py-2.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 text-slate-900 dark:text-slate-100"
+        placeholder="جستجوی خبره با نام، تخصص یا حوزه فعالیت..."
+        class="w-full ps-10 pe-4 py-2.5 text-xs bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#086288]/20 focus:border-[#086288] text-[#172B3A] transition-all"
       />
-      <div class="absolute inset-y-0 start-0 ps-3 flex items-center pointer-events-none text-slate-400">
+      <div class="absolute inset-y-0 start-0 ps-3 flex items-center pointer-events-none text-[#64748B]">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </div>
     </div>
 
-    <div class="w-full sm:w-64">
+    <div class="w-full sm:w-72">
       <select
         [(ngModel)]="selectedDepartment"
         (change)="applyFilter()"
-        class="w-full p-2.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 text-slate-800 dark:text-slate-200"
+        class="w-full p-2.5 text-xs bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#086288]/20 focus:border-[#086288] text-[#172B3A] cursor-pointer"
       >
         @for (dep of departments; track dep) {
           <option [value]="dep">{{ dep }}</option>
@@ -48,62 +67,69 @@
 
   <!-- Experts Grid -->
   @if (isLoading()) {
-    <div class="py-16 text-center text-teal-600 dark:text-teal-400 font-medium text-sm flex items-center justify-center gap-2">
+    <div class="py-16 text-center text-[#086288] font-medium text-sm flex items-center justify-center gap-2">
       <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
       </svg>
-      <span>در حال بارگذاری مشخصات خبرگان...</span>
+      <span>در حال بارگذاری اطلاعات خبرگان سازمانی...</span>
     </div>
   } @else {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       @for (exp of filteredExperts(); track exp.id) {
-        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between space-y-4">
+        <div class="bg-white rounded-2xl border border-[#E2E8F0] p-5 shadow-xs hover:border-[#086288]/40 hover:shadow-md transition-all flex flex-col justify-between space-y-4">
           <div class="space-y-4">
             <div class="flex items-start justify-between gap-3">
               <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white font-bold text-base shadow-sm">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#086288] to-[#4D8DBA] flex items-center justify-center text-white font-bold text-base shadow-xs shrink-0">
                   {{ (exp.user?.fullName || 'خ')[0] }}
                 </div>
                 <div>
-                  <h3 class="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+                  <h3 class="text-sm font-bold text-[#172B3A] flex items-center gap-1.5">
                     <span>{{ exp.user?.fullName }}</span>
                     @if (exp.isVerified) {
-                      <span class="text-teal-500" title="خبره تایید شده شهرداری">✓</span>
+                      <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#97D7FF]/30 text-[#086288]" title="خبره تایید شده شهرداری اصفهان">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                      </span>
                     }
                   </h3>
-                  <span class="text-[11px] text-slate-400 block line-clamp-1">
+                  <span class="text-[11px] text-[#64748B] block line-clamp-1 mt-0.5">
                     {{ exp.department }}
                   </span>
                 </div>
               </div>
 
               @if (exp.isVerified) {
-                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-teal-50 text-teal-700 dark:bg-teal-950 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
-                  خبره رسمی
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#97D7FF]/20 text-[#086288] border border-[#97D7FF]">
+                  نشان خبرگی
                 </span>
               }
             </div>
 
-            <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-800">
-              <span class="text-[11px] font-bold text-slate-700 dark:text-slate-300 block mb-1">
-                زمینه‌های تخصص و حوزه‌های دانش:
+            <div class="p-3.5 bg-[#F8FAFC] rounded-xl border border-[#E2E8F0]">
+              <span class="text-[11px] font-bold text-[#172B3A] block mb-1 flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#4D8DBA]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+                <span>حوزه تخصص و تجارب کلیدی:</span>
               </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+              <p class="text-xs text-[#64748B] leading-relaxed line-clamp-3">
                 {{ exp.expertiseSummary }}
               </p>
             </div>
           </div>
 
-          <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end">
+          <div class="pt-3 border-t border-[#E2E8F0] flex items-center justify-end">
             <button
               type="button"
               (click)="askExpert(exp)"
-              class="w-full min-h-[44px] px-4 py-2 text-xs font-bold text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 hover:bg-teal-100 dark:hover:bg-teal-900/60 rounded-xl transition-colors flex items-center justify-center gap-2"
+              class="w-full min-h-[40px] px-4 py-2 text-xs font-bold text-[#086288] bg-[#086288]/5 hover:bg-[#086288]/10 border border-[#086288]/20 hover:border-[#086288]/40 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer"
               [attr.aria-label]="'طرح پرسش در تالار از ' + exp.user?.fullName"
             >
-              <span>مشورت و طرح پرسش از این خبره</span>
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <span>مشورت و طرح پرسش از خبره</span>
+              <svg class="w-4 h-4 text-[#4D8DBA]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </button>

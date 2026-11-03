@@ -1,12 +1,13 @@
 import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { TableComponent, TableConfig } from '../../../shared/components/table/table.component';
 import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-committee-ranking',
   standalone: true,
-  imports: [CommonModule, TableComponent],
+  imports: [CommonModule, RouterModule, TableComponent],
   templateUrl: './committee-ranking.component.html',
   styleUrl: './committee-ranking.component.scss'
 })

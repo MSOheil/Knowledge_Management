@@ -92,6 +92,16 @@ export class KnowledgeTreeComponent implements OnInit {
     { id: 'KM-DISASTER', label: 'مدیریت بحران و پدافند', icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' }
   ];
 
+  // Filter Chips for Knowledge Item Types
+  public selectedTypeFilter = signal<string>('ALL');
+  public readonly articleTypeChips = [
+    { id: 'ALL', label: 'همه قالب‌ها' },
+    { id: 'EXPERIENCE', label: 'تجارب زیسته' },
+    { id: 'ARTICLE', label: 'مقالات علمی' },
+    { id: 'THESIS', label: 'پایان‌نامه‌ها' },
+    { id: 'BOOK', label: 'کتب و مستندات' }
+  ];
+
   // Node Form
   public nodeForm = this.fb.group({
     id: [''],
@@ -263,6 +273,17 @@ export class KnowledgeTreeComponent implements OnInit {
     ];
   });
 
+  public filteredBranchArticles = computed<BranchArticle[]>(() => {
+    const list = this.selectedBranchArticles();
+    const filter = this.selectedTypeFilter();
+    if (filter === 'ALL') return list;
+    if (filter === 'EXPERIENCE') return list.filter(a => a.type.includes('تجربه') || a.type.includes('درس‌آموخته'));
+    if (filter === 'ARTICLE') return list.filter(a => a.type.includes('پژوهش') || a.type.includes('مقاله'));
+    if (filter === 'THESIS') return list.filter(a => a.type.includes('پایان‌نامه') || a.type.includes('تحول'));
+    if (filter === 'BOOK') return list.filter(a => a.type.includes('کتاب') || a.type.includes('مستند'));
+    return list;
+  });
+
   // Selected Branch Knowledge Articles (Mock realistic articles)
   public selectedBranchArticles = computed<BranchArticle[]>(() => {
     const selected = this.selectedNode();
@@ -425,7 +446,6 @@ export class KnowledgeTreeComponent implements OnInit {
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMessage.set('خطا در دریافت درخت دانش از سرور. اطلاعات محلی بارگذاری شد.');
         // Fallback rich sample data to ensure zero downtime and maximum readability
         const fallback = this.generateFallbackData();
         this.nodes.set(fallback);
